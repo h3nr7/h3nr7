@@ -1,0 +1,19 @@
+{
+  "name": "h3nr7",
+  "version": "0.0.1",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/h3nr7/h3nr7.git"
+  },
+  "author": "h3nr7",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/h3nr7/h3nr7/issues"
+  },
+  "homepage": "https://github.com/h3nr7/h3nr7#readme"
+}
