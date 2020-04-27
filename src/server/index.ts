@@ -31,7 +31,7 @@ if(process.env.FIRSTRUN) {
 
 // create logger
 const logger = bunyan.createLogger({
-    name: process.env.APP_LOGGER_NAME,
+    name: process.env.APP_LOGGER_NAME || 'h3nr7_default_logger',
     streams: [
         {
             level: 'info',
