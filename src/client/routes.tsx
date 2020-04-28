@@ -1,8 +1,10 @@
 import * as React from "react";
+import { hot } from "react-hot-loader";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ParallaxProvider } from 'react-scroll-parallax';
 import { App } from "./app";
-import { hot } from "react-hot-loader";
+
+import { Home } from './components/home/home';
 
 
 const AppRouterComponent: React.StatelessComponent<{}> = () => {
@@ -11,7 +13,7 @@ const AppRouterComponent: React.StatelessComponent<{}> = () => {
             <BrowserRouter>
                 <App>
                     <Switch>
-
+                        <Route exact path="/" component={Home} />
                     </Switch>
                 </App>
             </BrowserRouter>
