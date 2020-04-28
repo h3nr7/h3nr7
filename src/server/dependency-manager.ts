@@ -13,8 +13,6 @@ class DependencyManager {
                                firstRun: boolean) => {
         // TODO: Manage dependencies in here
         // such as databases and other services.
-        dbConnect(logger);
-        redisConnect(app, logger);
     }
 }
 
