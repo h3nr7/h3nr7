@@ -1,4 +1,4 @@
-version: "2"
+version: "3"
 services:
   web:
     build: .
@@ -10,23 +10,37 @@ services:
     environment:
       - NODE_ENV=development
       - PORT=3000
-    # links:
-    #   - redis
+    links:
+      - mongo_db
+    #   - redis_db
     networks:
       - front-tier
-      # - back-tier
+      - back-tier
     command: npm run dev
+  mongo_db:
+    image: mongo:latest
+    container_name: mongo_db
+    environment: 
+      MONGO_INITDB_ROOT_USERNAME: root
+      MONGO_INITDB_ROOT_PASSWORD: rootpassword
+    volumes:
+      - mongodata:/data/db
+    ports:
+      - 27017:27017
+    networks:
+      - back-tier
 
-  # redis:
+  # redis_db:
   #   image: redis:alpine
-  #   container_name: redis
+  #   container_name: redis_db
   #   volumes:
   #     - ./data/redis:/data/redis
   #   ports:
   #     - 6379:6379
   #   networks:
   #     - back-tier
-
+volumes:
+  mongodata:
 networks:
   front-tier:
-  # back-tier:
+  back-tier:

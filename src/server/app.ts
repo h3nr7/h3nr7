@@ -49,6 +49,7 @@ export function createApp(logfilePath: string):express.Application {
 	// set up handlebars
 	app.engine('.hbs', handlebars({
 		layoutsDir: path.join(__dirname, '..', '..', 'views', 'layouts'),
+		partialsDir: path.join(__dirname, '..', '..', 'views', 'partials'),
 		defaultLayout: 'default',
 		extname: '.hbs'
 	}));

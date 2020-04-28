@@ -17,8 +17,20 @@ if (isProdMode) {
 viewController.use((req: express.Request, res: express.Response) => {
     const vendorsJSUrl:string = isProdMode ? webpackManifest["vendors.js"] : '/dist/vendors.bundle.js';
     const bundleJSUrl:string = isProdMode ? webpackManifest["main.js"] : '/dist/bundle.js';
+    const title:string = 'Some title here';
+    const fbId:string = '1234567';
+    const og = {
+        title,
+        desc: 'some desc',
+        image: 'some image',
+        type: 'some type'
+    };
+
     res.render('home', { 
         layout: 'default',
+        title,
+        fbId,
+        og,
         vendorsJSUrl,
         bundleJSUrl
     });
