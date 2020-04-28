@@ -11,8 +11,6 @@ if (isProdMode) {
     webpackManifest = loadjsonfile.sync(path.resolve(__dirname, "..", "..", "dist", "manifest.json"));
 }
 
-
-
 // default views
 viewController.use((req: express.Request, res: express.Response) => {
     const vendorsJSUrl:string = isProdMode ? webpackManifest["vendors.js"] : '/dist/vendors.bundle.js';

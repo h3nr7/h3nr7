@@ -7,6 +7,7 @@ NODE_ENV=development
 SESSION_SECRET=SOME_SESSION_SECRET
 APP_LOGGER_NAME=SOME_LOGGER_NAME_FOR_BUNYAN
 MONGODB_URI=SOME_MONGO_URI
+REDIS_URI=SOME_REDIS_URI
 ```
 
 ### Docker
@@ -29,8 +30,6 @@ docker ps
 ```
 docker volume ls
 ```
-
-
 
 ### Mongo (locally)
 #### To spin up mongo without docker-compose

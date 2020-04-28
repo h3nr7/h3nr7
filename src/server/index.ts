@@ -4,12 +4,13 @@ if(process.env.NODE_ENV !== 'production') {
     dotenv.config();
 }
 
+import * as express from 'express';
 import * as bunyan from 'bunyan';
 import * as config from 'config';
 import * as fs from 'fs';
 import * as http from 'http';
 import * as path from 'path';
-import * as app from './app';
+import { createApp } from './app';
 import { Dependencies } from './dependency-manager';
 
 // global settings for these using config
@@ -40,8 +41,10 @@ const logger = bunyan.createLogger({
     ]
 });
 
+
 // create server
-const server:http.Server = http.createServer(app.createApp(logfilePath));
+const app:express.Application = createApp(logfilePath);
+const server:http.Server = http.createServer(app);
 
 
 // on error handler
@@ -79,7 +82,7 @@ function onListening():void {
 }
 
 // Initialise server dependencies
-Dependencies().Initialise(server, logger, logfilePath, firstrun).then(() => {
+Dependencies().Initialise(server, app, logger, logfilePath, firstrun).then(() => {
     server.listen(PORT);
     server.on('error', onError);
     server.on('listening', onListening);

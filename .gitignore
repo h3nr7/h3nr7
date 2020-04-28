@@ -1,6 +1,6 @@
 node_modules
 build
-mongodata
+tmp_data
 .cache-loader
 
 # Logs

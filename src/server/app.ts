@@ -21,7 +21,7 @@ const isProdMode: boolean = process.env.NODE_ENV === "production" || false;
 export function createApp(logfilePath: string):express.Application {
 
     // init app
-    const app: express.Application = express();
+    const app:express.Application = express();
 	// logger streams
 	const accessLogFilename: string = config.get("Logfiles.AccessFilename");
 	const accessLogStream: fs.WriteStream = fs.createWriteStream(path.join(logfilePath, accessLogFilename), { flags: "a" });
