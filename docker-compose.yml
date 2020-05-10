@@ -1,6 +1,6 @@
 version: "3"
 services:
-  web:
+  h3nr7_web_v1:
     build: .
     ports:
       - 3000:3000

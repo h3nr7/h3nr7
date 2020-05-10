@@ -1,6 +1,7 @@
 node_modules
 build
 .cache-loader
+tmp_data
 
 # Logs
 logs

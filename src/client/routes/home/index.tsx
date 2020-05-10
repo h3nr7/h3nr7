@@ -5,7 +5,7 @@ import { IHome } from './home.interface';
 
 const HomeComp:React.FunctionComponent<IHome> = () => {
 
-    return <div>Home</div>;
+    return <div>Home now</div>;
 }
 
 export const Home = hot(module)(HomeComp);

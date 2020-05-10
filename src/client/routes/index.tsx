@@ -2,9 +2,9 @@ import * as React from "react";
 import { hot } from "react-hot-loader";
 import { BrowserRouter, Route, Switch } from "react-router-dom";
 import { ParallaxProvider } from 'react-scroll-parallax';
-import { App } from "./app";
+import { App } from "../app";
 
-import { Home } from './components/home/home';
+import { Home } from './home';
 
 
 const AppRouterComponent: React.StatelessComponent<{}> = () => {

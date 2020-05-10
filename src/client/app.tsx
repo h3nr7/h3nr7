@@ -1,8 +1,8 @@
 import * as React from "react";
 import { hot } from "react-hot-loader";
 
-import { Head } from './components/head/head';
-import { Foot } from './components/foot/foot';
+import { Head } from './components/head';
+import { Foot } from './components/foot';
 
 
 const AppComponent: React.StatelessComponent<{}> = (props) => {

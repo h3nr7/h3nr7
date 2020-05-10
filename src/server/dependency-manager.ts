@@ -2,9 +2,6 @@ import * as express from 'express';
 import * as bunyan from "bunyan";
 import * as http from "http";
 
-import { dbConnect } from './common/db-connect';
-import { redisConnect } from './common/redis-connect';
-
 class DependencyManager {
     public Initialise = async (server: http.Server,
                                app: express.Application,
