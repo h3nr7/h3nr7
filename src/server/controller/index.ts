@@ -6,6 +6,7 @@ import { viewController } from '../controller/view.controller';
 import { usersController } from '../controller/users.controller';
 import { errorHandler } from '../middleware/error.middleware';
 import { notFoundHandler } from '../middleware/not-found.middleware';
+import { contentController } from './content.controller';
 
 export function registerRoutes(app:express.Application):void {
 
@@ -13,6 +14,7 @@ export function registerRoutes(app:express.Application):void {
 
 
     //add api controller routes here
+    app.use('/api/content', contentController);
     app.use('/api/users', usersController);
     app.use('/api', errorHandler);
     app.use('/api', notFoundHandler);
