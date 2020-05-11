@@ -19,7 +19,7 @@ jobs:
           - ./node_modules
       - run:
           name: test
-          command: 'npm test'
+          command: 'npm test:ci'
   build-deploy-prod:
     docker:
       - image: circleci/node:13.13.0
