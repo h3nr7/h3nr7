@@ -51,7 +51,7 @@
     "@types/webpack-hot-middleware": "^2.25.1",
     "@types/youtube": "0.0.38",
     "jest": "^25.5.4",
-    "ts-jest": "^25.4.0"
+    "ts-jest": "^25.5.1"
   },
   "dependencies": {
     "@material-ui/core": "^4.9.11",
