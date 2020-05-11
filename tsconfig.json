@@ -7,7 +7,7 @@
 		"preserveConstEnums": true,
 		"sourceMap": true,
 		"outDir": "./build",	
-		"types": ["react", "@types/jest", "node"],	
+		"types": ["react", "jest", "node"],	
 		"typeRoots": ["node_modules/@types", "./src/shared/typings"],
 		"resolveJsonModule": true
 	},
