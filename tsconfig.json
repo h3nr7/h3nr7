@@ -8,7 +8,7 @@
 		"sourceMap": true,
 		"outDir": "./build",	
 		"types": ["react", "@types/jest", "node"],	
-		"typeRoots": ["node_mdules/@types", "./src/shared/typings"],
+		"typeRoots": ["node_modules/@types", "./src/shared/typings"],
 		"resolveJsonModule": true
 	},
 	"include": [
