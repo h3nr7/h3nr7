@@ -9,7 +9,7 @@
         "moduleResolution": "node",
         "types": [
             "react",
-            "jest",
+            "@types/jest",
             "node"
         ],
         "typeRoots": [
