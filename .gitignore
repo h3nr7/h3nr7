@@ -2,6 +2,7 @@ node_modules
 build
 .cache-loader
 tmp_data
+.vscode
 
 # Logs
 logs

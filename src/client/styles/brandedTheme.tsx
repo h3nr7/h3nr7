@@ -3,9 +3,35 @@ import { grey, green } from '@material-ui/core/colors';
 
 export default function brandedTheme(options: ThemeOptions) {
     return createMuiTheme({
+        typography: {
+            fontFamily: [
+                'proxima-nova',
+                // 'Roboto',
+                'serif'
+            ].join(','),
+            h1: {
+                fontFamily: [
+                    'rift-soft',
+                    'san-serif' 
+                ].join(','),
+                fontWeight: 300,
+                fontStyle: 'italic',
+                lineHeight: 0.6,
+                letterSpacing: '-0.2rem'          
+            },
+            h2: {
+                fontSize: '2.75rem',
+                fontFamily: [
+                    'rift-soft',
+                    'san-serif' 
+                ].join(','),
+                fontWeight: 500,
+                fontStyle: 'italic'  
+            }
+        },
         palette: {
             common: { 
-                black: "#0e1326", 
+                black: "#0E1326", 
                 white: "#e9eaef" 
             },
             primary: {
@@ -27,7 +53,7 @@ export default function brandedTheme(options: ThemeOptions) {
                 contrastText: "fef0f0"
             },
             text: {
-                primary: "rgba(0, 0, 0, 0.87)",
+                primary: "rgba(255, 255, 255, 0.87)",
                 secondary: "rgba(0, 0, 0, 0.54)",
                 disabled: "rgba(0, 0, 0, 0.38)",
                 hint: "rgba(0, 0, 0, 0.38)"
@@ -50,8 +76,8 @@ export default function brandedTheme(options: ThemeOptions) {
             },
             tonalOffset: 0.2,
             background: { 
-                paper: "#fff", 
-                default: "#fafafa" 
+                paper: "#181A19", 
+                default: "#181A19" 
             }
         },
         shape: {
