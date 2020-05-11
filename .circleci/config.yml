@@ -32,6 +32,10 @@ workflows:
   version: 2
   build-test-deploy-prod:
     jobs:
+      - build-and-test:
+            filters:
+              branches:
+                only: master
       - build-deploy-prod:
             requires:
               - build-and-test
