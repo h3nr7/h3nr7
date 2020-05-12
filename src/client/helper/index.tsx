@@ -7,6 +7,7 @@ export function useOneArticle(id:string):any {
         id: null,
         title: null,
         description: null,
+        content: null,
         createdAt: null,
         updatedAt: null,
         pageType: [],
