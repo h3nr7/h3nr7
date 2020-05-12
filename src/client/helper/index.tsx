@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { IArticles } from '../../shared/interfaces/articles';
+import { IArticles } from '../../shared/interfaces/articles.interface';
 import { getArticles } from '../services/api';
 
 export function useArticles(limit:number, skip:number):any {

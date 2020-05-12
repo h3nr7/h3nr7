@@ -1,8 +1,7 @@
-import * as axios from 'axios';
 import * as contentful from 'contentful';
-import * as qs from 'querystring';
-import { response } from 'express';
 import { EventEmitter } from 'events';
+
+import { IContentfulEntries, IContentfulArticle } from '../../shared/interfaces/contentful.interface';
 
 const CONTENTFUL_SPACE = process.env.CONTENTFUL_SPACE;
 const CONTENTFUL_ENV = process.env.CONTENTFUL_ENV;
@@ -21,7 +20,7 @@ class ContentfulService extends EventEmitter implements IContentfulService {
     });
 
     /** get topics */
-    getTopic(limit:number, skip:number) {
+    getTopic(limit:number, skip:number):Promise<IContentfulEntries> {
         return this.client.getEntries({
             content_type: 'topic',
             limit, skip
@@ -29,7 +28,7 @@ class ContentfulService extends EventEmitter implements IContentfulService {
     }
 
     /** get articles */
-    getArticles(limit:number, skip: number) {
+    getArticles(limit:number, skip: number):Promise<IContentfulEntries> {
         return this.client.getEntries({
             content_type: 'article',
             limit, skip
