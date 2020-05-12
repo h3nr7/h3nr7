@@ -4,7 +4,7 @@ import { hot } from 'react-hot-loader';
 import { useArticles } from '../../helper';
 import { IHome } from './home.interface';
 import { LoadingDiv } from './home.styles';
-import { Article } from '../../components/article';
+import { ArticleList } from '../../components/articlelist';
 
 const HomeComp:React.FunctionComponent<IHome> = () => {
     const [ page, setPage ] = React.useState(0);
@@ -17,9 +17,7 @@ const HomeComp:React.FunctionComponent<IHome> = () => {
     }, [articles]);
 
     return isLoaded ? (
-        <div>
-            <Article {...articles} />
-        </div>
+        <ArticleList {...articles} />
     ) : <LoadingDiv />;
 }
 

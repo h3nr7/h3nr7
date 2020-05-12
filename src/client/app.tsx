@@ -1,6 +1,7 @@
 import * as React from "react";
 import { hot } from "react-hot-loader";
 
+import { AppContainer, AppContent } from './styles/app.styles';
 import { Head } from './components/head';
 import { Foot } from './components/foot';
 
@@ -8,11 +9,13 @@ import { Foot } from './components/foot';
 const AppComponent: React.StatelessComponent<{}> = (props) => {
 
     return (
-        <div>
+        <AppContainer>
             <Head />
+            <AppContent>
             {props.children}
+            </AppContent>
             <Foot />
-        </div>
+        </AppContainer>
     );
 
 };

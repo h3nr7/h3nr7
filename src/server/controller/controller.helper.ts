@@ -13,25 +13,26 @@ export const transformArticlesResponse = ({
     total, skip, limit, items, includes: { Asset }
  }:IContentfulEntries):IArticles => ({
     total, skip, limit,
-    items: items.map(({ 
+    items: items && items.map(({ 
         sys: { id, createdAt, updatedAt }, fields:{ 
             title, description, isInfoPage, heroImage, topic
         } 
     }) => ({
         id, createdAt, updatedAt,
-        title, description, isInfoPage, 
-        heroImage: {
+        title, 
+        description, isInfoPage, 
+        heroImage: heroImage && {
             title: heroImage.fields.title,
             url: heroImage.fields.file.url,
             fileName: heroImage.fields.file.fileName,
             details: heroImage.fields.file.details,
             contentType: heroImage.fields.file.contentType
         },
-        topics: topic.map(({ fields }) => ({
+        topics: topic && topic.map(({ fields }) => ({
             title: fields.title
         }))
     })),
-    assets: Asset.map(({ fields: { title, file } }):IImage | IPdf => ({
+    assets: Asset && Asset.map(({ fields: { title, file } }):IImage | IPdf => ({
         title,
         url: file.url,
         fileName: file.fileName,

@@ -27,6 +27,33 @@ export default function brandedTheme(options: ThemeOptions) {
                 ].join(','),
                 fontWeight: 500,
                 fontStyle: 'italic'  
+            },
+            h3: {
+                fontFamily: [
+                    'rift-soft',
+                    'san-serif' 
+                ].join(','),
+                fontWeight: 300,
+                fontStyle: 'italic'  
+            },
+            h5: {
+                fontFamily: [
+                    'rift-soft',
+                    // 'Roboto',
+                    'serif'
+                ].join(','),
+                fontWeight: 100
+            },
+            h6: {
+                fontFamily: [
+                    'ff-dagny-web-pro',
+                    // 'Roboto',
+                    'serif'
+                ].join(','),
+                fontSize: '0.85rem',
+                lineHeight: '1.2rem',
+                marginTop: '-0.2rem',
+                fontWeight: 200
             }
         },
         palette: {
