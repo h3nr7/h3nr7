@@ -5,7 +5,7 @@ export default function brandedTheme(options: ThemeOptions) {
     return createMuiTheme({
         typography: {
             fontFamily: [
-                'proxima-nova',
+                'ff-dagny-web-pro',
                 // 'Roboto',
                 'serif'
             ].join(','),

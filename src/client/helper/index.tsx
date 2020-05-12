@@ -32,7 +32,7 @@ export function useOneArticle(id:string):any {
     return article;
 }
 
-export function useArticles(limit:number, skip:number):any {
+export function useArticles(limit:number, skip:number, isHome?:boolean):any {
     const initialState:IArticles = {
         total: 0,
         skip: 0,
@@ -44,7 +44,7 @@ export function useArticles(limit:number, skip:number):any {
     const [ articles, setArticles ] = useState(initialState);
 
     useEffect(() => {
-        getArticles(String(limit), String(skip))
+        getArticles(String(limit), String(skip), isHome)
             .then(data => {
                 setArticles(data);
                 setLoaded(true);

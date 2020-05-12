@@ -25,6 +25,8 @@ declare module "react-router-transition" {
 }
 // react-meta-tags
 declare module 'react-meta-tags';
+// rich-text-to-react
+declare module 'rich-text-to-react';
 // declare for all image extension
 declare module '*.png';
 declare module '*.jpg';

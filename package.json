@@ -97,6 +97,7 @@
     "react-scroll": "^1.7.16",
     "react-scroll-parallax": "^2.3.2",
     "react-youtube": "^7.11.2",
+    "rich-text-to-react": "^1.1.0",
     "rimraf": "^3.0.2",
     "serve-favicon": "^2.5.0",
     "source-map-loader": "^0.2.4",

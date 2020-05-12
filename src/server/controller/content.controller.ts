@@ -16,8 +16,13 @@ contentController.get('/articles/:id', async(req: express.Request, res: express.
 
 contentController.get('/articles', async (req: express.Request, res: express.Response) => {
     try {
-        const { limit=10, skip=0, order='-sys.updatedAt' } = req.query;
-        const resData = await contentfulService.getArticles(Number(limit), Number(skip), String(order)); 
+        const { limit=10, skip=0, order='-sys.updatedAt', home } = req.query;
+        const resData = await contentfulService.getArticles(
+            Number(limit), 
+            Number(skip), 
+            String(order), 
+            home ? Boolean(home==='true') : undefined
+        ); 
         res.status(200).send(transformArticlesResponse(resData));
     } catch(e) {
         res.status(404).send(e.message);

@@ -9,7 +9,7 @@ import { ArticleList } from '../../components/articlelist';
 const HomeComp:React.FunctionComponent<IHome> = () => {
     const [ page, setPage ] = React.useState(0);
     const [ isLoaded, setIsLoaded ] = React.useState(false);
-    const articles = useArticles(10, page);
+    const articles = useArticles(10, page, true);
 
     React.useEffect(() => {
         console.log('Received articles: ', articles);

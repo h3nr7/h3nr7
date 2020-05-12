@@ -9,10 +9,10 @@ export const transformOneArticleResponse = ({
     sys: { id, createdAt, updatedAt },
     fields: { 
         title, description, pageType, 
-        heroImage, topic
+        heroImage, topic, showInHome, content
     }
 }:IContentfulEntry):IArticle => ({
-    id, title, description, createdAt, updatedAt, pageType, 
+    id, title, description, createdAt, updatedAt, pageType, showInHome, content,
     heroImage: heroImage && {
         title: heroImage.fields.title,
         url: heroImage.fields.file.url,
@@ -30,17 +30,17 @@ export const transformOneArticleResponse = ({
  * @param param
  */
 export const transformArticlesResponse = ({ 
-    total, skip, limit, items, includes: { Asset }
+    total, skip, limit, items, includes
  }:IContentfulEntries):IArticles => ({
     total, skip, limit,
     items: items && items.map(({ 
         sys: { id, createdAt, updatedAt }, fields:{ 
-            title, description, pageType, heroImage, topic
+            title, description, pageType, heroImage, showInHome, topic, content
         } 
     }) => ({
         id, createdAt, updatedAt,
         title, 
-        description, pageType, 
+        description, pageType, showInHome, content,
         heroImage: heroImage && {
             title: heroImage.fields.title,
             url: heroImage.fields.file.url,
@@ -52,7 +52,7 @@ export const transformArticlesResponse = ({
             title: fields.title
         }))
     })),
-    assets: Asset && Asset.map(({ fields: { title, file } }):IImage | IPdf => ({
+    assets: includes && includes.Asset && includes.Asset.map(({ fields: { title, file } }):IImage | IPdf => ({
         title,
         url: file.url,
         fileName: file.fileName,

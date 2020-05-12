@@ -10,9 +10,9 @@ export const getOneArticle = (id:string):Promise<IArticle> => {
 }
 
 /** get list of articles */
-export const getArticles = (limit:string, skip: string):Promise<IArticles> => {
+export const getArticles = (limit:string, skip: string, home?: boolean):Promise<IArticles> => {
     return axios.default.get(`/api/content/articles`, 
-        {params: { limit, skip }
+        {params: { limit, skip, home }
     }).then(res => res.data);
 }
 

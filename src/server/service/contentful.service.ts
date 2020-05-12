@@ -32,10 +32,11 @@ class ContentfulService extends EventEmitter implements IContentfulService {
     }
 
     /** get articles */
-    getArticles(limit:number, skip: number, order?: string):Promise<IContentfulEntries> {
+    getArticles(limit:number, skip: number, order?: string, isHome?: boolean):Promise<IContentfulEntries> {
         return this.client.getEntries({
             order,
             content_type: 'article',
+            "fields.showInHome": isHome,
             limit, skip
         });
     }

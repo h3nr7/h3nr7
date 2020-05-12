@@ -1,6 +1,7 @@
 import { IImage } from './images.interface';
 import { ITopic } from './topics.interface';
 import { IPdf } from './pdfs.interface';
+import { EntryFields  } from 'contentful';
 
 /**
  * Local article interface
@@ -9,6 +10,8 @@ export interface IArticle {
     id: string;
     title: string;
     description: string;
+    content: EntryFields.RichText;
+    showInHome?: boolean;
     createdAt: string;
     updatedAt: string;
     pageType: Array<string>;
