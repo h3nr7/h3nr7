@@ -5,6 +5,10 @@ import { IPdf } from '../../shared/interfaces/pdfs.interface';
 import { IContentfulEntries, IContentfulArticle, IContentfulTopic, IContentfulImage, IContentfulPdf } from '../../shared/interfaces/contentful.interface';
 import { Entry } from 'contentful';
 
+/**
+ * Convert all articles properly with typings
+ * @param param
+ */
 export const transformArticlesResponse = ({ 
     total, skip, limit, items, includes: { Asset }
  }:IContentfulEntries):IArticles => ({
