@@ -17,6 +17,8 @@ viewController.use((req: express.Request, res: express.Response) => {
     const bundleJSUrl:string = isProdMode ? webpackManifest["main.js"] : '/dist/bundle.js';
     const title:string = 'Some title here';
     const fbId:string = '1234567';
+    const typekitId:string = 'omu7wza';
+
     const og = {
         title,
         desc: 'some desc',
@@ -28,6 +30,7 @@ viewController.use((req: express.Request, res: express.Response) => {
         layout: 'default',
         title,
         fbId,
+        typekitId,
         og,
         vendorsJSUrl,
         bundleJSUrl
