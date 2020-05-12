@@ -11,7 +11,7 @@ const HeadComp:React.StatelessComponent<IHead> = () => {
     return (
         <HeadContainer>
             <Typography variant='h5'>
-                <Logo to='/'>h3nr7</Link>
+                <Logo to='/'>h3nr7</Logo>
             </Typography>
             {/* <Typography variant='h1'>Contact</Typography> */}
         </HeadContainer>
