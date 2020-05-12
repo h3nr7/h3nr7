@@ -4,6 +4,9 @@ import { Link } from 'react-router-dom';
 export const Logo = styled(Link)`
     text-decoration:none;
     color: inherit;
+    /* :hover {
+        text-decoration: underline
+    } */
 `;
 
 export const HeadContainer = styled.div`

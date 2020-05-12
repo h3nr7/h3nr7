@@ -2,7 +2,6 @@ import { IImage } from './images.interface';
 import { ITopic } from './topics.interface';
 import { IPdf } from './pdfs.interface';
 
-
 /**
  * Local article interface
  */
@@ -12,7 +11,7 @@ export interface IArticle {
     description: string;
     createdAt: string;
     updatedAt: string;
-    isInfoPage: boolean;
+    pageType: Array<string>;
     heroImage: IImage | null;
     topics: Array<ITopic>
 }

@@ -15,7 +15,7 @@ export interface IContentfulTopic {
 export interface IContentfulArticle {
     title: EntryFields.Text
     description:  EntryFields.Text
-    isInfoPage:  EntryFields.Boolean
+    pageType:  Array<EntryFields.Text>
     heroImage: IContentfulImage
     topic: Array<Entry<IContentfulTopic>>
     location: EntryFields.Location

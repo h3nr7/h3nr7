@@ -15,12 +15,12 @@ export const transformArticlesResponse = ({
     total, skip, limit,
     items: items && items.map(({ 
         sys: { id, createdAt, updatedAt }, fields:{ 
-            title, description, isInfoPage, heroImage, topic
+            title, description, pageType, heroImage, topic
         } 
     }) => ({
         id, createdAt, updatedAt,
         title, 
-        description, isInfoPage, 
+        description, pageType, 
         heroImage: heroImage && {
             title: heroImage.fields.title,
             url: heroImage.fields.file.url,
