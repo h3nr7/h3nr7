@@ -21,6 +21,8 @@ export interface IContentfulArticle {
     location: EntryFields.Location
 }
 
+export interface IContentfulEntry extends Entry<IContentfulArticle> {}
+
 /** interface for entries */
 export interface IContentfulEntries extends EntryCollection<IContentfulArticle> {
     includes?: {

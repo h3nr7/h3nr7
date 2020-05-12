@@ -1,6 +1,36 @@
 import { useEffect, useState } from 'react';
-import { IArticles } from '../../shared/interfaces/articles.interface';
-import { getArticles } from '../services/api';
+import { IArticles, IArticle } from '../../shared/interfaces/articles.interface';
+import { getArticles, getOneArticle } from '../services/api';
+
+export function useOneArticle(id:string):any {
+    const initialState:IArticle = {
+        id: null,
+        title: null,
+        description: null,
+        createdAt: null,
+        updatedAt: null,
+        pageType: [],
+        heroImage: null,
+        topics: []
+    }
+
+    const [ loaded, setLoaded ] = useState(false);
+    const [ article, setArticle ] = useState(initialState);
+
+    useEffect(() => {
+        getOneArticle(id)
+            .then(data => {
+                setArticle(data);
+                setLoaded(true);
+            })
+            .catch(err => {
+                console.error('Error loading one article');
+                setLoaded(false);
+            })
+    }, [loaded]);
+
+    return article;
+}
 
 export function useArticles(limit:number, skip:number):any {
     const initialState:IArticles = {

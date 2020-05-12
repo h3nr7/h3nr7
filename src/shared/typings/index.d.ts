@@ -23,7 +23,8 @@ declare module "react-router-transition" {
 	export const AnimatedRoute: React.ComponentClass<AnimatedRouteProps>;
 	export const RouteTransition: React.ComponentClass<AnimatedSwitchProps>;
 }
-
+// react-meta-tags
+declare module 'react-meta-tags';
 // declare for all image extension
 declare module '*.png';
 declare module '*.jpg';

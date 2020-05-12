@@ -1,7 +1,7 @@
 import * as contentful from 'contentful';
 import { EventEmitter } from 'events';
 
-import { IContentfulEntries, IContentfulArticle } from '../../shared/interfaces/contentful.interface';
+import { IContentfulEntries, IContentfulEntry } from '../../shared/interfaces/contentful.interface';
 
 const CONTENTFUL_SPACE = process.env.CONTENTFUL_SPACE;
 const CONTENTFUL_ENV = process.env.CONTENTFUL_ENV;
@@ -27,9 +27,14 @@ class ContentfulService extends EventEmitter implements IContentfulService {
         }); 
     }
 
+    getOneArticle(id:string):Promise<IContentfulEntry> {
+        return this.client.getEntry(id);
+    }
+
     /** get articles */
-    getArticles(limit:number, skip: number):Promise<IContentfulEntries> {
+    getArticles(limit:number, skip: number, order?: string):Promise<IContentfulEntries> {
         return this.client.getEntries({
+            order,
             content_type: 'article',
             limit, skip
         });

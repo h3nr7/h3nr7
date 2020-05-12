@@ -13,7 +13,7 @@ export interface IArticle {
     updatedAt: string;
     pageType: Array<string>;
     heroImage: IImage | null;
-    topics: Array<ITopic>
+    topics: Array<ITopic> | null;
 }
 
 /**
