@@ -42,7 +42,8 @@ export default function brandedTheme(options: ThemeOptions) {
                     // 'Roboto',
                     'serif'
                 ].join(','),
-                fontWeight: 300
+                fontWeight: 300,
+                fontStyle: 'italic'  
             },
             h6: {
                 fontFamily: [
