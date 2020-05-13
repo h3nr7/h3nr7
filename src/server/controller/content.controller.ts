@@ -17,10 +17,13 @@ contentController.get('/articles/:id', async(req: express.Request, res: express.
 contentController.get('/articles', async (req: express.Request, res: express.Response) => {
     try {
         const { limit=10, skip=0, order='-sys.updatedAt', home } = req.query;
+        // default Ordering
+        const outOrder = ['-fields.rankOrder', order].join(',');
+
         const resData = await contentfulService.getArticles(
             Number(limit), 
             Number(skip), 
-            String(order), 
+            String(outOrder), 
             home ? Boolean(home==='true') : undefined
         ); 
         res.status(200).send(transformArticlesResponse(resData));

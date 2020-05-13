@@ -9,10 +9,12 @@ export const transformOneArticleResponse = ({
     sys: { id, createdAt, updatedAt },
     fields: { 
         title, description, pageType, 
-        heroImage, topic, showInHome, content
+        heroImage, topic, showInHome, 
+        content, rankOrder, isArchived
     }
 }:IContentfulEntry):IArticle => ({
-    id, title, description, createdAt, updatedAt, pageType, showInHome, content,
+    id, title, description, createdAt, updatedAt, 
+    pageType, showInHome, content, rankOrder, isArchived,
     heroImage: heroImage && {
         title: heroImage.fields.title,
         url: heroImage.fields.file.url,
@@ -35,12 +37,14 @@ export const transformArticlesResponse = ({
     total, skip, limit,
     items: items && items.map(({ 
         sys: { id, createdAt, updatedAt }, fields:{ 
-            title, description, pageType, heroImage, showInHome, topic, content
+            title, description, pageType, 
+            heroImage, showInHome, topic, 
+            content, rankOrder, isArchived
         } 
     }) => ({
         id, createdAt, updatedAt,
-        title, 
-        description, pageType, showInHome, content,
+        title, description, pageType, 
+        showInHome, content, rankOrder, isArchived,
         heroImage: heroImage && {
             title: heroImage.fields.title,
             url: heroImage.fields.file.url,

@@ -12,9 +12,11 @@ export interface IArticle {
     description: string;
     content: EntryFields.RichText;
     showInHome?: boolean;
+    isArchived?: boolean;
     createdAt: string;
     updatedAt: string;
     pageType: Array<string>;
+    rankOrder: number,
     heroImage: IImage | null;
     topics: Array<ITopic> | null;
 }

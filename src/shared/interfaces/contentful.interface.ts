@@ -21,6 +21,8 @@ export interface IContentfulArticle {
     heroImage: IContentfulImage
     topic: Array<Entry<IContentfulTopic>>
     location: EntryFields.Location
+    rankOrder?: EntryFields.Number
+    isArchived?: EntryFields.Boolean
 }
 
 export interface IContentfulEntry extends Entry<IContentfulArticle> {}
