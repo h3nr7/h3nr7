@@ -79,12 +79,12 @@ module.exports = {
                 test: /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
                 loader: "url-loader?limit=10000&mimetype=application/octet-stream",
                 // include: [ paths.semanticUiCssFolder ]
-            },
-            {
-                test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-                loader: "url-loader?limit=10000&mimetype=image/svg+xml",
-                // include: [ paths.semanticUiCssFolder ]
             }
+            // {
+            //     test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+            //     loader: "url-loader?limit=10000&mimetype=image/svg+xml",
+            //     // include: [ paths.semanticUiCssFolder ]
+            // }
         ]
     }
 };

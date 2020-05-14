@@ -31,7 +31,7 @@ export const Article = () => {
                 <HeroGrid item sm={12} md={8}>
                     {article.heroImage ? <HeroImg src={article.heroImage.url} /> : null}
                 </HeroGrid>
-                <TitleGrid item sm={12} md={4}>
+                <TitleGrid item sm={12} md={3}>
                     <Typography variant='h3'>{article.title}</Typography>
                 </TitleGrid> 
             </HeaderGrid>

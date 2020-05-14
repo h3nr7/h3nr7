@@ -14,7 +14,6 @@ const AppComponent: React.StatelessComponent<{}> = (props) => {
             <AppContent>
             {props.children}
             </AppContent>
-            <Foot />
         </AppContainer>
     );
 
