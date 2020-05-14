@@ -1,20 +1,28 @@
-import { IArticles, IArticle } from '../../shared/interfaces/articles.interface'
+import { IArticles, IArticle, IArticleTypes, IArticleType } from '../../shared/interfaces/articles.interface'
 import { IImage } from '../../shared/interfaces/images.interface';
-import { ITopic } from '../../shared/interfaces/topics.interface';
+import { ITopics } from '../../shared/interfaces/topics.interface';
 import { IPdf } from '../../shared/interfaces/pdfs.interface';
-import { IContentfulEntries, IContentfulEntry } from '../../shared/interfaces/contentful.interface';
-import { Entry } from 'contentful';
+import { IContentfulEntries, IContentfulEntry, IContentfulArticleType, IContentfulTopic } from '../../shared/interfaces/contentful.interface';
+import { EntryCollection } from 'contentful';
 
-export const transformOneArticleResponse = ({
-    sys: { id, createdAt, updatedAt },
-    fields: { 
-        title, description, pageType, 
-        heroImage, topic, showInHome, 
-        content, rankOrder, isArchived
-    }
-}:IContentfulEntry):IArticle => ({
+
+/** very complex mapper... */
+export const transformOneArticleResponse = (
+    {
+        sys: { id, createdAt, updatedAt },
+        fields: { 
+            title, description, articleType, 
+            heroImage, topic, showInHome, 
+            content, rankOrder, isArchived,
+            linkUrl
+        }
+    }:IContentfulEntry,
+    articleTypeDict:EntryCollection<IContentfulArticleType>, 
+    topicDict:EntryCollection<IContentfulTopic>
+):IArticle => ({
     id, title, description, createdAt, updatedAt, 
-    pageType, showInHome, content, rankOrder, isArchived,
+    showInHome, content, 
+    rankOrder, isArchived, linkUrl,
     heroImage: heroImage && {
         title: heroImage.fields.title,
         url: heroImage.fields.file.url,
@@ -22,8 +30,13 @@ export const transformOneArticleResponse = ({
         details: heroImage.fields.file.details,
         contentType: heroImage.fields.file.contentType
     },
-    topics: topic && topic.map(({ fields }) => ({
-        title: fields.title
+    articleType: {
+        id: articleType.sys.id,
+        title: articleTypeDict.items.find(obj => obj.sys.id === articleType.sys.id).fields.title
+    },
+    topics: topic && topic.map(({ sys }) => ({
+        id: sys.id,
+        title: topicDict.items.find(obj => obj.sys.id === sys.id).fields.title
     }))
 });
 
@@ -37,14 +50,15 @@ export const transformArticlesResponse = ({
     total, skip, limit,
     items: items && items.map(({ 
         sys: { id, createdAt, updatedAt }, fields:{ 
-            title, description, pageType, 
+            title, description, articleType, 
             heroImage, showInHome, topic, 
-            content, rankOrder, isArchived
+            content, rankOrder, isArchived, linkUrl
         } 
     }) => ({
         id, createdAt, updatedAt,
-        title, description, pageType, 
-        showInHome, content, rankOrder, isArchived,
+        title, description,
+        showInHome, content, rankOrder, 
+        isArchived, linkUrl,
         heroImage: heroImage && {
             title: heroImage.fields.title,
             url: heroImage.fields.file.url,
@@ -52,8 +66,11 @@ export const transformArticlesResponse = ({
             details: heroImage.fields.file.details,
             contentType: heroImage.fields.file.contentType
         },
-        topics: topic && topic.map(({ fields }) => ({
-            title: fields.title
+        articleType: {
+            id: articleType.sys.id
+        },
+        topics: topic && topic.map(({ sys }) => ({
+            id: sys.id
         }))
     })),
     assets: includes && includes.Asset && includes.Asset.map(({ fields: { title, file } }):IImage | IPdf => ({
@@ -62,5 +79,33 @@ export const transformArticlesResponse = ({
         fileName: file.fileName,
         details: file.details,
         contentType: file.contentType
+    }))
+})
+
+/** transform list of topics */
+export const transformArticleTypeResponse = ({ 
+    total, skip, limit, items 
+}:IContentfulEntries):IArticleTypes => ({
+    total, skip, limit,
+    items: items && items && items.map(({
+        sys: { id, createdAt, updatedAt }, fields:{ 
+            title
+        }
+    }) => ({
+        id, title, createdAt, updatedAt
+    }))
+})
+
+/** transform list of topics */
+export const transformTopicsResponse = ({ 
+    total, skip, limit, items 
+}:IContentfulEntries):ITopics => ({
+    total, skip, limit,
+    items: items && items && items.map(({
+        sys: { id, createdAt, updatedAt }, fields:{ 
+            title
+        }
+    }) => ({
+        id, title, createdAt, updatedAt
     }))
 })

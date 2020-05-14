@@ -10,7 +10,6 @@ const AppComponent: React.StatelessComponent<{}> = (props) => {
 
     return (
         <AppContainer>
-            <Head />
             <AppContent>
             {props.children}
             </AppContent>

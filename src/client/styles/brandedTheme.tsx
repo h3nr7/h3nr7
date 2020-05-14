@@ -36,6 +36,17 @@ export default function brandedTheme(options: ThemeOptions) {
                 fontWeight: 300,
                 fontStyle: 'italic'  
             },
+            h4: {
+                fontFamily: [
+                    'rift-soft',
+                    // 'Roboto',
+                    'serif'
+                ].join(','),
+                fontSize: '1.2rem',
+                // lineHeight: '1.2rem',
+                // marginTop: '-0.2rem',
+                fontWeight: 200
+            },
             h5: {
                 fontFamily: [
                     'rift-soft',

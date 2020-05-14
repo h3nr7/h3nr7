@@ -8,7 +8,3 @@ export const StyledAnimatedSwitch = styled(AnimatedSwitch)`
         position: absolute;
     }
 `;
-
-export const StyledAnimatedRoute = styled(AnimatedRoute)`
-
-`;

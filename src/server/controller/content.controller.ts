@@ -1,19 +1,29 @@
 import * as express from 'express';
 import { contentfulService } from '../service/contentful.service';
-import { transformArticlesResponse, transformOneArticleResponse } from './controller.helper';
+import { 
+    transformArticlesResponse, 
+    transformOneArticleResponse,
+    transformTopicsResponse
+} from './controller.helper';
 
 export const contentController = express.Router();
 
 contentController.get('/articles/:id', async(req: express.Request, res: express.Response) => {
     try {
         const { id } = req.params;
+        // getting the articles and topics 
+        const resArticleType = await contentfulService.getArticleTypes(1000, 0);
+        const resTopic = await contentfulService.getTopics(1000, 0);
+        // get one article
         const resData = await contentfulService.getOneArticle(String(id));
-        res.status(200).send(transformOneArticleResponse(resData));
+        // transform and flattening response
+        res.status(200).send(transformOneArticleResponse(resData, resArticleType, resTopic));
     } catch(e) {
         res.status(404).send(e.message);
     }
 })
 
+/** getting a list of articles */
 contentController.get('/articles', async (req: express.Request, res: express.Response) => {
     try {
         const { limit=10, skip=0, order='-sys.updatedAt', home } = req.query;
@@ -31,3 +41,23 @@ contentController.get('/articles', async (req: express.Request, res: express.Res
         res.status(404).send(e.message);
     }
 });
+
+// getting just the article types
+contentController.get('/articletypes', async (req:express.Request, res: express.Response) => {
+    try {
+        const resData = await contentfulService.getArticleTypes(1000, 0);
+        res.status(200).send(transformTopicsResponse(resData));
+    } catch(e) {
+        res.status(404).send(e.message);
+    }
+})
+
+// getting all the topics
+contentController.get('/topics', async (req:express.Request, res: express.Response) => {
+    try {
+        const resData = await contentfulService.getTopics(1000, 0);
+        res.status(200).send(transformTopicsResponse(resData));
+    } catch(e) {
+        res.status(404).send(e.message);
+    }
+})

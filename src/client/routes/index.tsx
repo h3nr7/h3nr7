@@ -2,10 +2,10 @@ import * as React from "react";
 import { hot } from "react-hot-loader";
 import { BrowserRouter, Route } from "react-router-dom";
 import { ParallaxProvider } from 'react-scroll-parallax';
-import { StyledAnimatedSwitch } from './routes.styles';
+import { StyledAnimatedSwitch, RootContainer } from './routes.styles';
 
+import { Navi } from '../components/navi';
 import { App } from "../app";
-
 import { Home } from './home';
 import { Article } from './article'
 import { NotFound } from './notfound';
@@ -14,6 +14,7 @@ const AppRouterComponent: React.StatelessComponent<{}> = () => {
     return (
         <ParallaxProvider>
             <BrowserRouter>
+                <Navi />
                 <App>
                     <StyledAnimatedSwitch
                         atEnter={{ opacity: 0, offset: -100 }}

@@ -3,4 +3,6 @@ import { IArticles, IArticle } from '../../../shared/interfaces/articles.interfa
 export type IItemProps = IArticle & {
     key: any
 };
-export type IProps = IArticles;
+export type IProps = IArticles & {
+    filter: string
+};

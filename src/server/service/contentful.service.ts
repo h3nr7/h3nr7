@@ -19,8 +19,17 @@ class ContentfulService extends EventEmitter implements IContentfulService {
         accessToken: CONTENTFUL_ACCESS_TOKEN
     });
 
+    /** get article types */
+    getArticleTypes(limit:number, skip:number):Promise<IContentfulEntries> {
+        return this.client.getEntries({
+            order:'fields.rankOrder',
+            content_type: 'articleType',
+            limit, skip
+        }); 
+    }
+
     /** get topics */
-    getTopic(limit:number, skip:number):Promise<IContentfulEntries> {
+    getTopics(limit:number, skip:number):Promise<IContentfulEntries> {
         return this.client.getEntries({
             content_type: 'topic',
             limit, skip

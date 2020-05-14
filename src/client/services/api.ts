@@ -1,5 +1,6 @@
 import * as axios from 'axios';
-import { IArticles, IArticle } from '../../shared/interfaces/articles.interface';
+import { IArticles, IArticle, IArticleTypes } from '../../shared/interfaces/articles.interface';
+import { ITopics } from '../../shared/interfaces/topics.interface';
 import { IImage } from '../../shared/interfaces/images.interface';
 import { IPdf } from '../../shared/interfaces/pdfs.interface';
 
@@ -14,6 +15,18 @@ export const getArticles = (limit:string, skip: string, home?: boolean):Promise<
     return axios.default.get(`/api/content/articles`, 
         {params: { limit, skip, home }
     }).then(res => res.data);
+}
+
+/** get all article types */
+export const getArticleTypes = ():Promise<IArticleTypes> => {
+    return axios.default.get(`/api/content/articletypes`)
+        .then(res=>res.data);
+}
+
+/** get all topics */
+export const getTopics = ():Promise<ITopics> => {
+    return axios.default.get(`/api/content/topics`)
+        .then(res=>res.data);
 }
 
 /** get assets */

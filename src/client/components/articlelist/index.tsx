@@ -2,6 +2,7 @@ import * as React from 'react';
 import { IProps, IItemProps } from './articlelist.interface';
 import { Ul, Li, Link, Desc } from './articlelist.styles';
 import { Typography } from '@material-ui/core';
+import { IArticle } from '../../../shared/interfaces/articles.interface';
 
 const ArticleListItem:React.StatelessComponent<IItemProps> = ({title, description, id, ...rest}) => {
     return (
@@ -12,13 +13,14 @@ const ArticleListItem:React.StatelessComponent<IItemProps> = ({title, descriptio
     )
 }
 
-export const ArticleList:React.StatelessComponent<IProps> = ({ items, ...rest }) => {
+export const ArticleList:React.StatelessComponent<IProps> = ({filter, items, ...rest }) => {
 
     return (
         <Ul>
-            {items.map((item:any) => (
-                <ArticleListItem key={item.id} {...item} />
-            ))}
+            {items.map((item:IArticle) => {
+                console.log(item.articleType, filter===item.articleType.id);
+                return <ArticleListItem key={item.id} {...item} />
+            })}
         </Ul>
     )
 }

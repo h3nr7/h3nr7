@@ -11,7 +11,6 @@ export const Ul = styled.ul`
 
 export const Li = styled.li`
     width: 100%;
-    overflow-x:hidden;
     margin: 0;
     list-style: none;
     padding: 0rem 1rem 1.5rem 1rem;

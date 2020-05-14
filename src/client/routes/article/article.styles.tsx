@@ -32,7 +32,12 @@ export const HeroGrid = styled(Grid)`
     align-items: center;
     justify-content: center;
     background: #000000;
-    clip-path: polygon(0% 0%, 100% 0%, calc(100% - 4.5rem) 100%, 0% 100%);
+    clip-path: polygon(0% 0%, 100% 0%, calc(100% - 2.75rem) 100%, 0% 100%);
+
+    @media (max-width: 600px) {
+        height: 10rem;
+    }
+
 `;
 
 export const TitleGrid = styled(Grid)`
@@ -40,6 +45,17 @@ export const TitleGrid = styled(Grid)`
     padding: 0;
     @media (max-width: 960px) {
         padding: 1.6rem 1.6rem 0rem;
+    }
+`;
+
+export const FooterGrid = styled.div`
+    min-height: 2rem;
+`;
+
+export const LinkTypo = styled(Typography)`
+    > a {
+        text-decoration: none;
+        color: inherit;
     }
 `;
 

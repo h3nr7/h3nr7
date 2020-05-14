@@ -11,26 +11,32 @@ export interface IContentfulTopic {
     title: EntryFields.Text
 }
 
+export interface IContentfulArticleType {
+    title: EntryFields.Text,
+    rankOrder?: EntryFields.Number
+}
+
 /** interface for article */
 export interface IContentfulArticle {
     title: EntryFields.Text
     description:  EntryFields.Text
     content: EntryFields.RichText
-    pageType:  Array<EntryFields.Text>
+    articleType: Entry<unknown>
     showInHome?: EntryFields.Boolean
     heroImage: IContentfulImage
-    topic: Array<Entry<IContentfulTopic>>
+    topic: Array<Entry<unknown>>
     location: EntryFields.Location
     rankOrder?: EntryFields.Number
     isArchived?: EntryFields.Boolean
+    linkUrl: EntryFields.Text
 }
 
-export interface IContentfulEntry extends Entry<IContentfulArticle> {}
+export interface IContentfulEntry extends Entry<IContentfulArticle & IContentfulTopic> {}
 
 /** interface for entries */
-export interface IContentfulEntries extends EntryCollection<IContentfulArticle> {
+export interface IContentfulEntries extends EntryCollection<IContentfulArticle & IContentfulTopic> {
     includes?: {
-        Entry: Array<Entry<IContentfulArticle | IContentfulTopic>>
+        Entry: Array<IContentfulEntry>
         Asset: Array<IContentfulImage | IContentfulPdf>
     }
 }

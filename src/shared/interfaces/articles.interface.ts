@@ -3,6 +3,21 @@ import { ITopic } from './topics.interface';
 import { IPdf } from './pdfs.interface';
 import { EntryFields  } from 'contentful';
 
+
+export interface IArticleType {
+    id: string;
+    title?: string;
+    createdAt?: string;
+    updatedAt?: string;
+}
+
+export interface IArticleTypes {
+    total: number;
+    skip: number;
+    limit: number;
+    items: Array<IArticleType>;
+}
+
 /**
  * Local article interface
  */
@@ -13,9 +28,10 @@ export interface IArticle {
     content: EntryFields.RichText;
     showInHome?: boolean;
     isArchived?: boolean;
+    linkUrl?: string;
     createdAt: string;
     updatedAt: string;
-    pageType: Array<string>;
+    articleType: IArticleType;
     rankOrder?: number,
     heroImage: IImage | null;
     topics: Array<ITopic> | null;

@@ -4,6 +4,7 @@ export interface ISocialTagsProps {
     description: string
     url?: string
     image?: string
+    imageSecure: string
     content?: string
     twitterHandle?: string
 }
