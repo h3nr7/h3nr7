@@ -28,6 +28,10 @@ declare module 'react-meta-tags';
 // rich-text-to-react
 declare module 'rich-text-to-react';
 // declare for all image extension
+declare module '*.svg' {
+	const content: string;
+  	export default content;
+}
 declare module '*.png';
 declare module '*.jpg';
 declare module '*.gif';

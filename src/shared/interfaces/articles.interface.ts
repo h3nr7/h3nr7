@@ -16,7 +16,7 @@ export interface IArticle {
     createdAt: string;
     updatedAt: string;
     pageType: Array<string>;
-    rankOrder: number,
+    rankOrder?: number,
     heroImage: IImage | null;
     topics: Array<ITopic> | null;
 }

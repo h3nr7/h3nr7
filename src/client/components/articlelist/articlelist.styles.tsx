@@ -16,9 +16,27 @@ export const Li = styled.li`
     padding: 0rem 1rem 1.5rem 1rem;
     background: rgba(0,0,0,0);
     cursor: pointer;
-    transition: background 0.25s ease-in-out;
+    transition: background 0.35s ease-in-out;
+
+    > a > h3 {
+        transition: transform 0.25s ease-in-out;
+        transform: translateX(0);
+    }
+
+    > a > h6 {
+        transition: transform 0.25s ease-in-out;
+        transition-delay: 0.075s;
+        transform: translateX(0);
+    }
     :hover {
         background: rgba(0,0,0,0.35);
+        > a > h3 {
+            transform: translateX(2.5rem);
+        }
+
+        > a > h6 {
+            transform: translateX(2rem);
+        }
     }
 `;
 

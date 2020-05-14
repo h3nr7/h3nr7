@@ -16,9 +16,15 @@ const AppRouterComponent: React.StatelessComponent<{}> = () => {
             <BrowserRouter>
                 <App>
                     <StyledAnimatedSwitch
-                        atEnter={{ opacity: 0 }}
-                        atLeave={{ opacity: 0 }}
-                        atActive={{ opacity: 1 }}>
+                        atEnter={{ opacity: 0, offset: -100 }}
+                        atLeave={{ opacity: 0, offset: -100 }}
+                        atActive={{ opacity: 1, offset: 0 }}
+                        mapStyles={(styles)=>{
+                            return {
+                                opacity: styles.opacity,
+                                transform: `translateX(${styles.offset}%)`
+                            }
+                        }}>
                         <Route exact path="/" component={Home} />
                         <Route exact path="/article/:id" component={Article} />
                         <Route component={NotFound} />

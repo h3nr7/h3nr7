@@ -31,6 +31,7 @@ export const HeroGrid = styled(Grid)`
     display: flex;
     align-items: center;
     justify-content: center;
+    background: #000000;
     clip-path: polygon(0% 0%, 100% 0%, calc(100% - 4.5rem) 100%, 0% 100%);
 `;
 

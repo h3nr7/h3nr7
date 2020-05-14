@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import { AnimatedSwitch } from 'react-router-transition';
+import { AnimatedSwitch, AnimatedRoute } from 'react-router-transition';
 
 
 export const StyledAnimatedSwitch = styled(AnimatedSwitch)`
@@ -7,4 +7,8 @@ export const StyledAnimatedSwitch = styled(AnimatedSwitch)`
     > div {
         position: absolute;
     }
+`;
+
+export const StyledAnimatedRoute = styled(AnimatedRoute)`
+
 `;
