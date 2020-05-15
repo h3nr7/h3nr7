@@ -20,7 +20,7 @@ export const NavLinkWrapper = styled.div<{ count: number, state?: any }>`
 
     }
     :before {
-        content: ' * ';
+        content: ' . ';
     }
     margin-right: 0.2rem;
     transition-delay: ${({count}) => 0.1 * count}s;

@@ -12,11 +12,12 @@ export const Navi:React.FC<{}> = () => {
     const articleTypes = useArticleTypes();
     const naviArr = [
         ...articleTypes.items.map(({id, ...obj}:any):Array<INaviProps> => ({
+            id,
             to: `/?filter=${id}`,
             ...obj
         })),
-        { title: 'archive', id: 'navilink_archive', to: '/archive'},
-        { title: 'about', id: 'navilink_about', to: '/about'}
+        { title: 'archive', id:'navilink_archive', to: '/archive'},
+        { title: 'about', id:'navilink_about', to: '/about'}
     ];
     const mouseOverHandler = React.useCallback(() => {
         setNaviActive(true);

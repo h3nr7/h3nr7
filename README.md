@@ -2,6 +2,12 @@
 
 [![CircleCI](https://circleci.com/gh/h3nr7/h3nr7.svg?style=svg)](<LINK>)
 
+### Documentations
+* [Styling & CSS](./documentations/STYLES.md)
+* [WebGL](WEBGL.md)
+* [Contentful](CONTENTFUL.md)
+
+
 This is an express typescript site using contentful and mongodb as CMS and data storage.
 
 ### ENV Var (within .env locally)

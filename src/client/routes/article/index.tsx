@@ -2,13 +2,18 @@ import * as React from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
+
+import { RichText } from '../../components/richtext';
 import { SocialTags } from '../../components/socialtags';
 import { useOneArticle } from '../../helper';
-import RichTextToReact from 'rich-text-to-react';
+
 import { 
     ArticleContainer, HeroImg, HeroGrid, TitleGrid, LinkTypo,
     HeaderGrid, ContentGrid, Desc, FooterGrid } from './article.styles';
+
+
 export const Article = () => {
+
     const [ isLoaded, setIsLoaded ] = React.useState(false);
     const { id } = useParams();
     const article = useOneArticle(id);
@@ -46,7 +51,7 @@ export const Article = () => {
             <ContentGrid>
                 <Grid item sm={12} md={6}>
                     <Desc variant="h5">{article.description}</Desc>
-                    {article.content ? <RichTextToReact document={article.content} /> : null}
+                    {article.content ? <RichText document={article.content} /> : null}
                     <Typography variant="body2">
                         {`${String(article.articleType.title).toUpperCase()} - Updated on ${
                             (new Date(article.updatedAt)).toLocaleDateString("en-GB", {  
