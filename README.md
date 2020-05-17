@@ -3,12 +3,15 @@
 [![CircleCI](https://circleci.com/gh/h3nr7/h3nr7.svg?style=svg)](<LINK>)
 
 ### Documentations
+* [Preloading Assets]('./documentations/ASSETSLOAD.md)
 * [Styling & CSS](./documentations/STYLES.md)
 * [WebGL](WEBGL.md)
 * [Contentful](CONTENTFUL.md)
+* [Advanced concept in JavaScript](./documentations/JAVASCRIPTDEEP.md)
+* [Server side rendering](./documentations/SSR.md)
 
 
-This is an express typescript site using contentful and mongodb as CMS and data storage.
+This is an express typescript site using contentful CMS.  Above documentations contains all the learning and highlights of this project.
 
 ### ENV Var (within .env locally)
 ```env
