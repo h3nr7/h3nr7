@@ -5,8 +5,8 @@
 ### Documentations
 * [Preloading Assets](./documentations/ASSETSLOAD.md)
 * [Styling & CSS](./documentations/STYLES.md)
-* [WebGL](WEBGL.md)
-* [Contentful](CONTENTFUL.md)
+* [WebGL](./documentations/WEBGL.md)
+* [Contentful](./documentations/CONTENTFUL.md)
 * [Advanced concept in JavaScript](./documentations/JAVASCRIPTDEEP.md)
 * [Server side rendering](./documentations/SSR.md)
 
