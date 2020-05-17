@@ -95,6 +95,11 @@ docker stop mongo_db
 docker rm mongo_db
 ```
 
+#### Clear docker for space (beware, literally everything!!!)
+```
+docker system prune --volumes
+```
+
 #### Now you can authenticate with connection string
 ```mongo
 mongodb://USERNAME:PASSWORD@mongo_db:27017/DATABASENAME

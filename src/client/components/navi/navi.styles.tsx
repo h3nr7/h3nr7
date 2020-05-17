@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { TransitionGroup } from 'react-transition-group';
 import { NavLink as Link } from 'react-router-dom';
 import SVG from 'react-inlinesvg';
 

@@ -45,7 +45,7 @@ export default function brandedTheme(options: ThemeOptions) {
                 fontSize: '1.2rem',
                 // lineHeight: '1.2rem',
                 // marginTop: '-0.2rem',
-                fontWeight: 200
+                fontWeight: 300
             },
             h5: {
                 fontFamily: [

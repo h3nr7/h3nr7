@@ -5,7 +5,7 @@ import { Grid } from '@material-ui/core';
 
 import { RichText } from '../../components/richtext';
 import { SocialTags } from '../../components/socialtags';
-import { useOneArticle } from '../../helper';
+import { useOneArticle } from '../../helper/apiHooks';
 
 import { 
     ArticleContainer, HeroImg, HeroGrid, TitleGrid, LinkTypo,
@@ -17,6 +17,7 @@ export const Article = () => {
     const [ isLoaded, setIsLoaded ] = React.useState(false);
     const { id } = useParams();
     const article = useOneArticle(id);
+
 
     React.useEffect(() => {
         console.log('Received articles: ', article);

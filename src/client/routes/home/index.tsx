@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { hot } from 'react-hot-loader';
 import { useLocation } from 'react-router-dom';
-import { useArticles } from '../../helper';
+import { useArticles } from '../../helper/apiHooks';
 import { IHome } from './home.interface';
 import { LoadingDiv } from './home.styles';
 import { SocialTags } from '../../components/socialtags';

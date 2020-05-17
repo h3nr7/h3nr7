@@ -23,10 +23,18 @@ const EmAssets_Block = (node:any, children:React.ReactChildren) => (
 );
 
 const Header1_Block = (node:any, children:React.ReactChildren) => (
+    <Typography variant='h1' style={{ marginBottom: '1rem' }}>{children}</Typography>
+);
+
+const Header2_Block = (node:any, children:React.ReactChildren) => (
     <Typography variant='h2' style={{ marginBottom: '1rem' }}>{children}</Typography>
 );
 
 const Header3_Block = (node:any, children:React.ReactChildren) => (
+    <Typography variant='h3' style={{ marginBottom: '1rem' }}>{children}</Typography>
+);
+
+const Header4_Block = (node:any, children:React.ReactChildren) => (
     <Typography variant='h4' style={{ marginBottom: '1rem' }}>{children}</Typography>
 );
 
@@ -37,7 +45,9 @@ const options = {
     renderNode: {
         [BLOCKS.EMBEDDED_ASSET]: EmAssets_Block,
         [BLOCKS.HEADING_1]: Header1_Block,
+        [BLOCKS.HEADING_2]: Header2_Block,
         [BLOCKS.HEADING_3]: Header3_Block,
+        [BLOCKS.HEADING_4]: Header4_Block,
     } 
 };
 

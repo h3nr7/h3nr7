@@ -7,5 +7,4 @@ export interface IImage {
     contentType: string;
     createdAt?: string;
     updatedAt?: string;
-
 }

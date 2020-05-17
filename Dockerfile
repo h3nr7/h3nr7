@@ -1,4 +1,4 @@
-FROM node:latest
+FROM node:13.14.0
 COPY . /app
 
 ADD ./package.json /tmp/package.json
