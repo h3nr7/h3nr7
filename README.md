@@ -3,7 +3,7 @@
 [![CircleCI](https://circleci.com/gh/h3nr7/h3nr7.svg?style=svg)](<LINK>)
 
 ### Documentations
-* [Preloading Assets]('./documentations/ASSETSLOAD.md)
+* [Preloading Assets](./documentations/ASSETSLOAD.md)
 * [Styling & CSS](./documentations/STYLES.md)
 * [WebGL](WEBGL.md)
 * [Contentful](CONTENTFUL.md)
