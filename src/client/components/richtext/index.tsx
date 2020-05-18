@@ -38,6 +38,10 @@ const Header4_Block = (node:any, children:React.ReactChildren) => (
     <Typography variant='h4' style={{ marginBottom: '1rem' }}>{children}</Typography>
 );
 
+const Paragraph_block = (node:any, children:React.ReactChildren) => (
+    <Typography variant='body1' style={{ marginBottom: '1rem' }}>{children}</Typography>
+);
+
 const options = {
     renderMark: {
         [MARKS.CODE]: Code_Mark
@@ -48,7 +52,8 @@ const options = {
         [BLOCKS.HEADING_2]: Header2_Block,
         [BLOCKS.HEADING_3]: Header3_Block,
         [BLOCKS.HEADING_4]: Header4_Block,
-    } 
+        [BLOCKS.PARAGRAPH]: Paragraph_block
+    }
 };
 
 export const RichText = ({ document }:{document:any}) => (
