@@ -12,29 +12,29 @@ export default function brandedTheme(options: ThemeOptions) {
             h1: {
                 fontFamily: [
                     'rift-soft',
-                    'san-serif' 
+                    'san-serif'
                 ].join(','),
                 fontWeight: 300,
                 fontStyle: 'italic',
                 lineHeight: 0.6,
-                letterSpacing: '-0.2rem'          
+                letterSpacing: '-0.2rem'
             },
             h2: {
                 fontSize: '2.75rem',
                 fontFamily: [
                     'rift-soft',
-                    'san-serif' 
+                    'san-serif'
                 ].join(','),
                 fontWeight: 500,
-                fontStyle: 'italic'  
+                fontStyle: 'italic'
             },
             h3: {
                 fontFamily: [
                     'rift-soft',
-                    'san-serif' 
+                    'san-serif'
                 ].join(','),
                 fontWeight: 300,
-                fontStyle: 'italic'  
+                fontStyle: 'italic'
             },
             h4: {
                 fontFamily: [
@@ -45,7 +45,8 @@ export default function brandedTheme(options: ThemeOptions) {
                 fontSize: '1.2rem',
                 // lineHeight: '1.2rem',
                 // marginTop: '-0.2rem',
-                fontWeight: 300
+                fontWeight: 300,
+                fontStyle: 'italic' 
             },
             h5: {
                 fontFamily: [
@@ -54,7 +55,7 @@ export default function brandedTheme(options: ThemeOptions) {
                     'serif'
                 ].join(','),
                 fontWeight: 300,
-                fontStyle: 'italic'  
+                fontStyle: 'italic'
             },
             h6: {
                 fontFamily: [
@@ -69,9 +70,9 @@ export default function brandedTheme(options: ThemeOptions) {
             }
         },
         palette: {
-            common: { 
-                black: "#0E1326", 
-                white: "#e9eaef" 
+            common: {
+                black: "#0E1326",
+                white: "#e9eaef"
             },
             primary: {
                 light: "#9ba3c2",
@@ -114,9 +115,9 @@ export default function brandedTheme(options: ThemeOptions) {
                 A200: "#aaaaaa"
             },
             tonalOffset: 0.2,
-            background: { 
-                paper: "#181A19", 
-                default: "#181A19" 
+            background: {
+                paper: "#181A19",
+                default: "#181A19"
             }
         },
         shape: {
