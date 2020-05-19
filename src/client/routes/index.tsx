@@ -13,6 +13,8 @@ import { Archive } from './archive';
 import { NotFound } from './notfound';
 
 const AppRouterComponent: React.StatelessComponent<{}> = () => {
+
+
     return (
         <ParallaxProvider>
             <BrowserRouter>

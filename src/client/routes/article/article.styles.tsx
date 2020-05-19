@@ -19,9 +19,9 @@ export const ContentGrid = styled(Grid)`
 export const Desc = styled(Typography)`
     color: rgba(255, 255, 255, 0.65);
     padding: 0;
-    padding: 1.6rem 0 0;
+    padding: 1.6rem 0 1rem;
     @media (max-width: 960px) {
-        padding: 0;
+        padding: 0 0 0.5rem;
     }
 `;
 
@@ -53,6 +53,8 @@ export const FooterGrid = styled.div`
 `;
 
 export const LinkTypo = styled(Typography)`
+    margin-bottom: 1rem;
+
     > a {
         text-decoration: none;
         color: inherit;

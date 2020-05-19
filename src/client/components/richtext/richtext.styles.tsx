@@ -6,7 +6,7 @@ export const EmImg = styled.img`
 `;
 
 export const EmAssets = styled.div`
-
+    margin-bottom: 1rem;
 `;
 
 export const CodeMark = styled.span`

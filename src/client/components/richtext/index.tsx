@@ -11,8 +11,7 @@ import { IRichTextProps } from './richtext.interface';
 
 
 const Code_Mark = (text:string) => {
-    const textArr = text.replace('\tab', 'hello');
-    const textOut = textArr.split('\n').flatMap((text, i) => [i > 0 && <br key={i} />, text]);
+    const textOut = text.split('\n').flatMap((text, i) => [i > 0 && <br key={i} />, text]);
     return <CodeMark>{textOut}</CodeMark>
 };
 
@@ -27,19 +26,19 @@ const Header1_Block = (node:any, children:React.ReactChildren) => (
 );
 
 const Header2_Block = (node:any, children:React.ReactChildren) => (
-    <Typography variant='h2' style={{ marginBottom: '1rem' }}>{children}</Typography>
+    <Typography variant='h2' style={{ marginBottom: '0.5rem' }}>{children}</Typography>
 );
 
 const Header3_Block = (node:any, children:React.ReactChildren) => (
-    <Typography variant='h3' style={{ marginBottom: '1rem' }}>{children}</Typography>
+    <Typography variant='h3' style={{ marginBottom: '0.5rem' }}>{children}</Typography>
 );
 
 const Header4_Block = (node:any, children:React.ReactChildren) => (
-    <Typography variant='h4' style={{ marginBottom: '1rem' }}>{children}</Typography>
+    <Typography variant='h4' style={{ marginBottom: '0.5rem' }}>{children}</Typography>
 );
 
 const Paragraph_block = (node:any, children:React.ReactChildren) => (
-    <Typography variant='body1' style={{ marginBottom: '1rem' }}>{children}</Typography>
+    <Typography variant='body2' style={{ marginBottom: '1rem' }}>{children}</Typography>
 );
 
 const options = {
