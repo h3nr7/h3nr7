@@ -22,7 +22,7 @@ export const transformOneArticleResponse = (
 ):IArticle => ({
     id, title, description, createdAt, updatedAt, 
     showInHome, content, 
-    markdownContent: {
+    markdownContent: markdownContent && {
         title: markdownContent.fields.title,
         url: markdownContent.fields.file.url,
         fileName: markdownContent.fields.file.fileName, 
@@ -65,7 +65,7 @@ export const transformArticlesResponse = ({
         id, createdAt, updatedAt,
         title, description,
         showInHome, content, 
-        markdownContent: {
+        markdownContent: markdownContent && {
             title: markdownContent.fields.title,
             url: markdownContent.fields.file.url,
             fileName: markdownContent.fields.file.fileName,

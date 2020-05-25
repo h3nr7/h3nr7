@@ -15,7 +15,7 @@ if (isProdMode) {
 viewController.use((req: express.Request, res: express.Response) => {
     const vendorsJSUrl:string = isProdMode ? webpackManifest["vendors.js"] : '/dist/vendors.bundle.js';
     const bundleJSUrl:string = isProdMode ? webpackManifest["main.js"] : '/dist/bundle.js';
-    const title:string = 'Some title here';
+    const title:string = 'h3nr7 :: A creative coder\'s journal';
     const fbId:string = '1234567';
     const typekitId:string = 'omu7wza';
 
