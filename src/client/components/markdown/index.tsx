@@ -3,7 +3,7 @@ import { IMarkdownProps } from './markdown.interface'
 import * as ReactMarkdown from 'react-markdown';
 import { useMarkdown } from '../../helper/apiHooks';
 import { CodeBlock } from '../codeblock';
-import { H1, H2, H3, H4, H5, H6, Paragraph } from './markdown.styles';
+import { H2, H3, H4, H6, Paragraph } from './markdown.styles';
 
 export const Markdown:React.FC<IMarkdownProps> = ({markdownContent}) => {
 
@@ -16,7 +16,9 @@ export const Markdown:React.FC<IMarkdownProps> = ({markdownContent}) => {
                 heading: (props):React.ReactElement | any => {
                     switch (props.level) {
                         case 1:
-                            return <H1>{props.children}</H1>;
+                            // return <H1>{props.children}</H1>;
+                            // this is used in github as big title so it is ignored 
+                            return null;
                         case 2:
                             return <H2>{props.children}</H2>;
                         case 3:
@@ -24,7 +26,9 @@ export const Markdown:React.FC<IMarkdownProps> = ({markdownContent}) => {
                         case 4:
                             return <H4>{props.children}</H4>;
                         case 5:
-                            return <H5>{props.children}</H5>;
+                            // return <H5>{props.children}</H5>;
+                            // this is used in github as back to main link so it is ignored 
+                            return null;
                         case 6:
                             return <H6>{props.children}</H6>;
                         default:

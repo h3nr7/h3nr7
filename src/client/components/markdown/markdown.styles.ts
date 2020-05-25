@@ -1,12 +1,14 @@
 import styled from 'styled-components';
 import { Typography } from '@material-ui/core';
-export const H1 = styled(Typography)`
-    font-size: 3rem;
-    font-family: rift-soft,san-serif;
-    font-style: italic;
-    font-weight: 300;
-    margin: 0;
-`;
+
+// this would be hidden coming from markdown documents on github
+// export const H1 = styled(Typography)`
+//     font-size: 3rem;
+//     font-family: rift-soft,san-serif;
+//     font-style: italic;
+//     font-weight: 300;
+//     margin: 0;
+// `;
 
 export const H2 = styled.h2`
     font-size: 2.75rem;
