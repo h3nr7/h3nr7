@@ -63,6 +63,7 @@ module.exports = {
             },
             {
                 test: /\.json$/,
+                exclude: path.resolve(process.cwd(), 'node_modules'),
                 loader: "json-loader",
             },
             {
