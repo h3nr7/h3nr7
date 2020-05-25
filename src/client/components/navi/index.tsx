@@ -18,7 +18,6 @@ export const Navi:React.FC<{}> = () => {
     React.useEffect(() => {
         setHasMouse(mediaType.hasMouse);
         setHasTouch(mediaType.hasTouch);
-        console.log(mediaType);
     }, [mediaType]);
 
 

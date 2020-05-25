@@ -13,7 +13,7 @@ export const transformOneArticleResponse = (
         fields: { 
             title, description, articleType, 
             heroImage, topic, showInHome, 
-            content, rankOrder, isArchived,
+            content, markdownContent, rankOrder, isArchived,
             linkUrl
         }
     }:IContentfulEntry,
@@ -22,6 +22,13 @@ export const transformOneArticleResponse = (
 ):IArticle => ({
     id, title, description, createdAt, updatedAt, 
     showInHome, content, 
+    markdownContent: {
+        title: markdownContent.fields.title,
+        url: markdownContent.fields.file.url,
+        fileName: markdownContent.fields.file.fileName, 
+        details: markdownContent.fields.file.details,
+        contentType: markdownContent.fields.file.contentType
+    },
     rankOrder, isArchived, linkUrl,
     heroImage: heroImage && {
         title: heroImage.fields.title,
@@ -52,13 +59,21 @@ export const transformArticlesResponse = ({
         sys: { id, createdAt, updatedAt }, fields:{ 
             title, description, articleType, 
             heroImage, showInHome, topic, 
-            content, rankOrder, isArchived, linkUrl
+            content, markdownContent, rankOrder, isArchived, linkUrl
         } 
     }) => ({
         id, createdAt, updatedAt,
         title, description,
-        showInHome, content, rankOrder, 
-        isArchived, linkUrl,
+        showInHome, content, 
+        markdownContent: {
+            title: markdownContent.fields.title,
+            url: markdownContent.fields.file.url,
+            fileName: markdownContent.fields.file.fileName,
+            details: markdownContent.fields.file.details,
+            contentType: markdownContent.fields.file.contentType
+
+        },
+        rankOrder, isArchived, linkUrl,
         heroImage: heroImage && {
             title: heroImage.fields.title,
             url: heroImage.fields.file.url,

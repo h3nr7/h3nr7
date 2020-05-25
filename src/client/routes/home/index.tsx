@@ -15,7 +15,6 @@ const HomeComp:React.FunctionComponent<IHome> = () => {
     const articles = useArticles(10, page, true);
 
     React.useEffect(() => {
-        console.log('Received articles: ', articles, search, filter);
         const useQuery = new URLSearchParams(search);
         setFilter(useQuery.get('filter'));
         setIsLoaded(true);

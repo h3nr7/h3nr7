@@ -5,6 +5,8 @@ export interface IContentfulPdf extends Asset {}
 
 /** interface for images */
 export interface IContentfulImage extends Asset {}
+/** interface for markdown */
+export interface IContentfulMarkdown extends Asset {}
 
 /** interface for topic */
 export interface IContentfulTopic {
@@ -21,6 +23,7 @@ export interface IContentfulArticle {
     title: EntryFields.Text
     description:  EntryFields.Text
     content: EntryFields.RichText
+    markdownContent: IContentfulMarkdown,
     articleType: Entry<unknown>
     showInHome?: EntryFields.Boolean
     heroImage: IContentfulImage

@@ -6,3 +6,6 @@
 
 ### Functional vs Stateless Component Deep
 [Link to description](https://code.tutsplus.com/tutorials/stateful-vs-stateless-functional-components-in-react--cms-29541)
+
+### Advanced types
+[advanced type well explained](https://www.simonholywell.com/post/advanced-typescript-types/)

@@ -33,7 +33,7 @@ module.exports = {
         alias: {
             'react-dom': '@hot-loader/react-dom'
         },
-        extensions: [".ts", ".js", ".jsx", ".tsx"]
+        extensions: [".ts", ".js", ".json", ".jsx", ".tsx"]
     },
     plugins: [
         new webpack.HotModuleReplacementPlugin(),
@@ -89,6 +89,7 @@ module.exports = {
             },
             {
                 test: /\.json$/,
+                exclude: path.resolve(process.cwd(), 'node_modules'),
                 loader: "json-loader",
             },
             {

@@ -2,7 +2,7 @@ import * as React from 'react';
 import { useParams, useLocation } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
-
+import { Markdown } from '../../components/markdown';
 import { RichText } from '../../components/richtext';
 import { SocialTags } from '../../components/socialtags';
 import { useOneArticle } from '../../helper/apiHooks';
@@ -20,7 +20,6 @@ export const Article = () => {
 
 
     React.useEffect(() => {
-        console.log('Received articles: ', article);
         setIsLoaded(true);
     }, [article]);
 
@@ -53,6 +52,7 @@ export const Article = () => {
                 <Grid item sm={12} md={6}>
                     <Desc variant="h5">{article.description}</Desc>
                     {article.content ? <RichText document={article.content} /> : null}
+                    <Markdown markdownContent={article.markdownContent} />
                     <Typography variant="body2">
                         {`${String(article.articleType.title).toUpperCase()} - Updated on ${
                             (new Date(article.updatedAt)).toLocaleDateString("en-GB", {  

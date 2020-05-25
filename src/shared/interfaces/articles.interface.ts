@@ -1,6 +1,7 @@
 import { IImage } from './images.interface';
 import { ITopic } from './topics.interface';
 import { IPdf } from './pdfs.interface';
+import { IMarkdown } from './markdowns.interface';
 import { EntryFields  } from 'contentful';
 
 
@@ -18,6 +19,13 @@ export interface IArticleTypes {
     items: Array<IArticleType>;
 }
 
+export interface IAsset {
+    id: string;
+    title: string;
+    description: string;
+
+}
+
 /**
  * Local article interface
  */
@@ -26,6 +34,7 @@ export interface IArticle {
     title: string;
     description: string;
     content: EntryFields.RichText;
+    markdownContent?: IMarkdown | null,
     showInHome?: boolean;
     isArchived?: boolean;
     linkUrl?: string;
@@ -45,5 +54,5 @@ export interface IArticles {
     skip: number;
     limit: number;
     items: Array<IArticle>;
-    assets: Array<IImage | IPdf | null>;
+    assets: Array<IImage | IPdf | IMarkdown | null>;
 }

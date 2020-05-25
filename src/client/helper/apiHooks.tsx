@@ -2,6 +2,8 @@ import { useEffect, useState } from 'react';
 import { IArticles, IArticle, IArticleType, IArticleTypes } from '../../shared/interfaces/articles.interface';
 import { getArticles, getOneArticle, getArticleTypes } from '../services/api';
 import { ITopics } from '../../shared/interfaces/topics.interface';
+import { IMarkdown } from '../../shared/interfaces/markdowns.interface';
+import Axios from 'axios';
 
 export function useOneArticle(id:string):any {
     const initialState:IArticle = {
@@ -9,6 +11,7 @@ export function useOneArticle(id:string):any {
         title: null,
         description: null,
         content: null,
+        markdownContent: null,
         createdAt: null,
         updatedAt: null,
         articleType: {
@@ -37,7 +40,12 @@ export function useOneArticle(id:string):any {
     return article;
 }
 
-/** use rticles */
+/**
+ * 
+ * @param limit use articles to get list of articles
+ * @param skip 
+ * @param isHome 
+ */
 export function useArticles(limit:number, skip:number, isHome?:boolean):any {
     const initialState:IArticles = {
         total: 0,
@@ -65,6 +73,9 @@ export function useArticles(limit:number, skip:number, isHome?:boolean):any {
     return articles;
 }
 
+/**
+ * use article types to gt article types
+ */
 export function useArticleTypes():any {
     const initialState:IArticleTypes = {
         total: 0,
@@ -90,6 +101,9 @@ export function useArticleTypes():any {
     return articleTypes;
 }
 
+/**
+ * use topics to get all the topics
+ */
 export function useTopics():any {
     const initialState:ITopics = {
         total: 0,
@@ -113,4 +127,29 @@ export function useTopics():any {
     }, [loaded]);
 
     return topics;
+}
+
+/**
+ * load markdown as str from contentful
+ * @param content
+ */
+export function useMarkdown(content:IMarkdown):any {
+
+    const [ loaded, setLoaded ] = useState(false);
+    const [markdownStr, setMarkdownStr] = useState(null);
+    
+    useEffect(() => {
+        async function loadStr() {
+            try {
+                const str = await Axios.get(content.url);
+                setMarkdownStr(str.data);
+            } catch(e) {
+                console.error('error loading markdown file');
+            }
+        }
+
+        loadStr();
+    }, [content, loaded]);
+
+    return markdownStr;
 }

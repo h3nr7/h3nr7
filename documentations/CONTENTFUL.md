@@ -4,3 +4,8 @@
 ### Declaration of Contentful.JS
 [Link to file](https://github.com/contentful/contentful.js/blob/master/index.d.ts)
 
+```
+function() {
+    console.log('this is a test)
+}
+```
