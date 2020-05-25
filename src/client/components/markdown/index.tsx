@@ -3,7 +3,7 @@ import { IMarkdownProps } from './markdown.interface'
 import * as ReactMarkdown from 'react-markdown';
 import { useMarkdown } from '../../helper/apiHooks';
 import { CodeBlock } from '../codeblock';
-import { H2, H3, H4, H6, Paragraph } from './markdown.styles';
+import { H2, H3, H4, H6, Paragraph, Image } from './markdown.styles';
 
 export const Markdown:React.FC<IMarkdownProps> = ({markdownContent}) => {
 
@@ -35,7 +35,8 @@ export const Markdown:React.FC<IMarkdownProps> = ({markdownContent}) => {
                                 return <p>{props.children}</p>;
                         }
                     },
-                    paragraph: Paragraph
+                    paragraph: Paragraph,
+                    image: Image
                 }}
                 source={mdStr}/>
     )
