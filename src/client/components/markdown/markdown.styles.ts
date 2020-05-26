@@ -49,9 +49,11 @@ export const H5 = styled.h5`
 `;
 
 export const H6 = styled.h6`
-    font-family: rift-soft,san-serif;
-    font-style: italic;
+    font-family: ff-dagny-web-pro,serif;
+    font-size: 0.875rem;
+    line-height: 1.43;
     margin: 0;
+    margin-bottom: 0.5rem;
 `;
 
 export const Paragraph = styled.p`
@@ -60,11 +62,19 @@ export const Paragraph = styled.p`
     font-weight: 400;
     line-height: 1.43;
     margin: 0;
-    margin-bottom: 1rem;
+    margin-bottom: 2rem;
 `;
 
 export const Image = styled.img`
     width: 100%;
     height: auto;
+`;
+
+export const Link = styled.a`
+    text-decoration: none;
+    color: rgb(249, 38, 114);
+    :hover {
+        text-decoration: underline;
+    }
 `;
 
