@@ -72,7 +72,7 @@ export const Image = styled.img`
 
 export const Link = styled.a`
     text-decoration: none;
-    color: rgb(249, 38, 114);
+    color: #ededed;
     :hover {
         text-decoration: underline;
     }
