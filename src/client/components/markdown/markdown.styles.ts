@@ -80,8 +80,8 @@ export const Link = styled.a`
 `;
 
 export const Ul = styled.ul`
-    padding: 0.5rem 0;
     margin: 0;
+    padding: 0 0 1rem;
 `;
 
 export const Li = styled.li`
