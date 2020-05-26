@@ -37,7 +37,7 @@ export const Markdown:React.FC<IMarkdownProps> = ({markdownContent}) => {
                     },
                     paragraph: Paragraph,
                     image: Image,
-                    link: Link
+                link: ({href, children}):React.ReactElement | any => (<Link href={href} target="_blank">{children}</Link>)
                 }}
                 source={mdStr}/>
     )
