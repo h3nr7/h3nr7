@@ -3,7 +3,7 @@ import { IMarkdownProps } from './markdown.interface'
 import * as ReactMarkdown from 'react-markdown';
 import { useMarkdown } from '../../helper/apiHooks';
 import { CodeBlock } from '../codeblock';
-import { H2, H3, H4, H6, Paragraph, Image, Link } from './markdown.styles';
+import { H2, H3, H4, H6, Paragraph, Image, Link, Ul, Li } from './markdown.styles';
 
 export const Markdown:React.FC<IMarkdownProps> = ({markdownContent}) => {
 
@@ -37,7 +37,9 @@ export const Markdown:React.FC<IMarkdownProps> = ({markdownContent}) => {
                     },
                     paragraph: Paragraph,
                     image: Image,
-                link: ({href, children}):React.ReactElement | any => (<Link href={href} target="_blank">{children}</Link>)
+                    list: Ul,
+                    listItem: Li,
+                    link: ({href, children}):React.ReactElement | any => (<Link href={href} target="_blank">{children}</Link>)
                 }}
                 source={mdStr}/>
     )

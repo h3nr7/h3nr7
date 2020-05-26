@@ -51,6 +51,7 @@ export const H5 = styled.h5`
 export const H6 = styled.h6`
     font-family: ff-dagny-web-pro,serif;
     font-size: 0.875rem;
+    font-weight:300;
     line-height: 1.43;
     margin: 0;
     margin-bottom: 0.5rem;
@@ -76,5 +77,14 @@ export const Link = styled.a`
     :hover {
         text-decoration: underline;
     }
+`;
+
+export const Ul = styled.ul`
+    margin: 0;
+`;
+
+export const Li = styled.li`
+    font-size: 0.8rem;
+    list-style: circle;
 `;
 
