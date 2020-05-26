@@ -25,6 +25,7 @@ export const H3 = styled.h3`
     font-weight: 300;
     line-height: 1.235;
     margin: 0;
+    margin-top: 0.5rem;
     margin-bottom: 0.5rem;
 `;
 
