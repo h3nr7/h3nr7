@@ -80,7 +80,7 @@ export const Link = styled.a`
 `;
 
 export const Ul = styled.ul`
-    margin: 0;
+    margin: 0.5rem 0 1rem;
 `;
 
 export const Li = styled.li`
