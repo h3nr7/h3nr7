@@ -12,7 +12,8 @@ export const CodeBlock:React.FC<ICodeblockProps> = ({value}) => {
 
     const codeRef = React.createRef<HTMLDivElement>();
     const customStyle = {
-        background: '#141414'
+        background: '#141414',
+        margin: '0 0 2rem 0'
     };
 
     return (
