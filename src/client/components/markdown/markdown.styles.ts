@@ -80,11 +80,14 @@ export const Link = styled.a`
 `;
 
 export const Ul = styled.ul`
-    margin: 0.5rem 0 1rem;
+    padding: 0.5rem 0;
+    margin: 0;
 `;
 
 export const Li = styled.li`
     font-size: 0.8rem;
-    list-style: circle;
+    list-style: inside square;
+    margin: 0;
+    padding: 0;
 `;
 
