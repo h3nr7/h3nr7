@@ -24,9 +24,8 @@ export const H3 = styled.h3`
     font-style: italic;
     font-weight: 300;
     line-height: 1.235;
+    padding: 1rem 0 0.5rem;
     margin: 0;
-    margin-top: 0.5rem;
-    margin-bottom: 0.5rem;
 `;
 
 export const H4 = styled.h4`
