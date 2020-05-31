@@ -1,10 +1,18 @@
+import * as express from 'express';
 import { IArticles, IArticle, IArticleTypes, IArticleType } from '../../shared/interfaces/articles.interface'
 import { IImage } from '../../shared/interfaces/images.interface';
 import { ITopics } from '../../shared/interfaces/topics.interface';
 import { IPdf } from '../../shared/interfaces/pdfs.interface';
-import { IContentfulEntries, IContentfulEntry, IContentfulArticleType, IContentfulTopic } from '../../shared/interfaces/contentful.interface';
+import { 
+    IContentfulEntries, IContentfulEntry, 
+    IContentfulArticleType, IContentfulTopic 
+} from '../../shared/interfaces/contentful.interface';
+import { IArticleHtmlMetatags } from '../../shared/interfaces/https.interface'
 import { EntryCollection } from 'contentful';
 
+const defaultImage:string = process.env.DEFAULT_IMAGE;
+const defaultTitle:string = process.env.DEFAULT_TITLE;
+const defaultDesctiption:string = process.env.DEFAULT_DESC;
 
 /** very complex mapper... */
 export const transformOneArticleResponse = (
@@ -96,6 +104,17 @@ export const transformArticlesResponse = ({
         contentType: file.contentType
     }))
 })
+
+export const transformHtmlMetaResponse = ({
+    id, title, description, heroImage, twitterHandle, url, protocol, host, port
+}:IArticle & { twitterHandle:string, url:string, protocol: string, host:string, port:number }):IArticleHtmlMetatags => ({
+    id, title, 
+    description,
+    image: `http:${heroImage ? heroImage.url : defaultImage}`,
+    imageSecure: `https:${heroImage ? heroImage.url : defaultImage}`,
+    url:`${protocol}://${host}${port && port !== 80 ? `:${port}` : ''}${url}`,
+    twitterHandle
+});
 
 /** transform list of topics */
 export const transformArticleTypeResponse = ({ 

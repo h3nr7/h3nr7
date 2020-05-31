@@ -12,6 +12,7 @@ import {
     HeaderGrid, ContentGrid, Desc, FooterGrid, BackBut } from './article.styles';
 import { Transition } from 'react-transition-group';
 
+const TWITTER_ID = process.env.TWITTER_ID || '';
 
 export const Article = () => {
 
@@ -33,7 +34,7 @@ export const Article = () => {
             url={window.location.href}
             title={article.title} 
             description={article.description}
-            twitterHandle='@_h3nr7'
+            twitterHandle={TWITTER_ID}
             image={`http:${article.heroImage && article.heroImage.url}`}
             imageSecure={`https:${article.heroImage && article.heroImage.url}`} />
             <HeaderGrid container>

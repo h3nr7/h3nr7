@@ -7,6 +7,11 @@ import { LoadingDiv } from './home.styles';
 import { SocialTags } from '../../components/socialtags';
 import { ArticleList } from '../../components/articlelist';
 
+const TWITTER_ID:string = process.env.TWITTER_ID || '';
+const DEFAULT_IMAGE:string = process.env.DEFAULT_IMAGE || '';
+const DEFAULT_TITLE:string = process.env.DEFAULT_TITLE || '';
+const DEFAULT_DESC:string = process.env.DEFAULT_DESC || '';
+
 const HomeComp:React.FunctionComponent<IHome> = () => {
     const [ page, setPage ] = React.useState(0);
     const [ filter, setFilter ] = React.useState(null);
@@ -25,11 +30,11 @@ const HomeComp:React.FunctionComponent<IHome> = () => {
             <SocialTags 
                 id={'h3nr7_home'} 
                 url={window.location.href}
-                title={'h3nr7 :: Creative Technologist'} 
-                description={'Interactive logs of yet another geek'}
-                twitterHandle='@_h3nr7'
-                image={`http://images.ctfassets.net/wjpxigc6xst0/1uENuODJOUg5nQFP8B6FCA/25f5d0632acc0804a134cdca8cef43f1/36806897_2081436712113666_7513637464322342912_n.jpg`}
-                imageSecure={`https://images.ctfassets.net/wjpxigc6xst0/1uENuODJOUg5nQFP8B6FCA/25f5d0632acc0804a134cdca8cef43f1/36806897_2081436712113666_7513637464322342912_n.jpg`} />
+                title={DEFAULT_TITLE} 
+                description={DEFAULT_DESC}
+                twitterHandle={TWITTER_ID}
+                image={`http://${window.location.host}/${DEFAULT_IMAGE}`}
+                imageSecure={`https://${window.location.host}/${DEFAULT_IMAGE}`} />
             <ArticleList {...articles} filter={filter} />
         </div>
     ) : <LoadingDiv />;
