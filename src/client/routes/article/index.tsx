@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { useParams, useLocation } from 'react-router-dom';
+import { useParams, useHistory } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 import { Grid } from '@material-ui/core';
 import { Markdown } from '../../components/markdown';
@@ -9,19 +9,22 @@ import { useOneArticle } from '../../helper/apiHooks';
 
 import { 
     ArticleContainer, HeroImg, HeroGrid, TitleGrid, LinkTypo,
-    HeaderGrid, ContentGrid, Desc, FooterGrid } from './article.styles';
+    HeaderGrid, ContentGrid, Desc, FooterGrid, BackBut } from './article.styles';
+import { Transition } from 'react-transition-group';
 
 
 export const Article = () => {
 
     const [ isLoaded, setIsLoaded ] = React.useState(false);
+    const history = useHistory();
     const { id } = useParams();
     const article = useOneArticle(id);
 
 
     React.useEffect(() => {
         setIsLoaded(true);
-    }, [article]);
+        return () => setIsLoaded(false);
+    }, [article, id]);
 
     return (
         <ArticleContainer>
@@ -36,6 +39,13 @@ export const Article = () => {
             <HeaderGrid container>
                 <HeroGrid item xs={11} sm={11} md={8}>
                     {article.heroImage ? <HeroImg src={article.heroImage.url} /> : null}
+                    <Transition in={isLoaded} timeout={500}>
+                    {(state) => (
+                        <BackBut onClick={() => history.goBack()} state={state}>
+                            <Typography variant='h5'>back &#8636;</Typography>
+                        </BackBut>
+                    )}
+                    </Transition>
                 </HeroGrid>
                 <TitleGrid item sm={12} md={3}>
                     <Typography variant='h3'>{article.title}</Typography>

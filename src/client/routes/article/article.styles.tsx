@@ -65,3 +65,25 @@ export const HeroImg = styled.img`
     width: 100%;
     height: auto;
 `;
+
+export const BackBut = styled.div<{state?:any}>`
+    cursor: pointer;
+    top: 18rem;
+    left: 0px;
+    position: absolute;
+    padding: 0 1.6rem;
+    width: 120px;
+    height: 2rem;
+    color: white;
+    background: #181A19;
+    clip-path: polygon(0 0, 100% 0%, calc(100% - 0.28rem) 100%, 0 100%);
+    transition: transform 0.25s ease-in-out;
+    transition-delay: 1s;
+    transform: translateX(
+        ${({state}) => (state === "entering" || state === "entered" ? 0 : -120)}px
+    );
+
+    @media (max-width: 600px) {
+        top: 8rem;
+    }
+`;
