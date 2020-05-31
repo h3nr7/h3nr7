@@ -77,18 +77,21 @@ export const Strip = styled.div<{ state?:any }>`
     transition: transform 0.25s ease-in-out;
 
     &:first-child {
+        transition-delay: 0s;
         transform: translateX(
             ${({state}) => (state === "entering" || state === "entered" ? 0 : 2)}px
         );
     }
 
     &:nth-child(2) {
+        transition-delay: 0.25s;
         transform: translateX(
             ${({state}) => (state === "entering" || state === "entered" ? -2 : -4)}px
         );
     }
 
     &:nth-child(3) {
+        transition-delay: 0.5s;
         transform: translateX(
             ${({state}) => (state === "entering" || state === "entered" ? -4 : 4)}px
         );
