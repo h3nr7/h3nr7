@@ -10,9 +10,8 @@ import {
 import { IArticleHtmlMetatags } from '../../shared/interfaces/https.interface'
 import { EntryCollection } from 'contentful';
 
+const isDevMode = process.env.NODE_ENV === "development" || false;
 const defaultImage:string = process.env.DEFAULT_IMAGE;
-const defaultTitle:string = process.env.DEFAULT_TITLE;
-const defaultDesctiption:string = process.env.DEFAULT_DESC;
 
 /** very complex mapper... */
 export const transformOneArticleResponse = (
@@ -112,7 +111,7 @@ export const transformHtmlMetaResponse = ({
     description,
     image: `http:${heroImage ? heroImage.url : defaultImage}`,
     imageSecure: `https:${heroImage ? heroImage.url : defaultImage}`,
-    url:`${protocol}://${host}${port && port !== 80 ? `:${port}` : ''}${url}`,
+    url:`${protocol}://${host}${isDevMode && port && port !== 80 ? `:${port}` : ''}${url}`,
     twitterHandle
 });
 
