@@ -52,7 +52,7 @@ export const Article = () => {
                 <Grid item sm={12} md={6}>
                     <Desc variant="h5">{article.description}</Desc>
                     {article.content ? <RichText document={article.content} /> : null}
-                    <Markdown markdownContent={article.markdownContent} />
+                    {article.markdownContent ? <Markdown markdownContent={article.markdownContent} /> : null}
                     <Typography variant="body2">
                         {`${String(article.articleType.title).toUpperCase()} - Updated on ${
                             (new Date(article.updatedAt)).toLocaleDateString("en-GB", {  

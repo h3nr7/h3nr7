@@ -11,6 +11,7 @@ import { Article } from './article';
 import { About }from './about';
 import { Archive } from './archive';
 import { NotFound } from './notfound';
+import { Burger } from "../components/burger";
 
 const AppRouterComponent: React.StatelessComponent<{}> = () => {
 
@@ -19,6 +20,7 @@ const AppRouterComponent: React.StatelessComponent<{}> = () => {
         <ParallaxProvider>
             <BrowserRouter>
                 <Navi />
+                <Burger />
                 <App>
                     <StyledAnimatedSwitch
                         atEnter={{ opacity: 0, offset: -100 }}

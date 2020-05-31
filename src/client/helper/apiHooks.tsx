@@ -98,7 +98,15 @@ export function useArticleTypes():any {
             });
     }, [loaded]);
 
-    return articleTypes;
+    return {
+        ...articleTypes,
+        items:[
+            ...articleTypes.items,
+            // disable
+            // { title: 'archive', key:'archive', to: '/archive'},
+            // { title: 'about', key:'about', to: '/about'}
+        ]
+    };
 }
 
 /**
