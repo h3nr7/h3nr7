@@ -83,9 +83,9 @@ viewController.use((req: express.Request, res: express.Response) => {
         title,
         desc: DEFAULT_DESC,
         type: 'website',
-        image: `http://${req.host}${req.socket.localPort && req.socket.localPort !== 80 ? `:${req.socket.localPort}` : ''}/${DEFAULT_IMAGE}`,
-        imageSecure: `https://${req.host}${req.socket.localPort && req.socket.localPort !== 80 ? `:${req.socket.localPort}` : ''}/${DEFAULT_IMAGE}`,
-        url:`${req.protocol}://${req.host}${req.socket.localPort && req.socket.localPort !== 80 ? `:${req.socket.localPort}` : ''}${req.originalUrl}`
+        image: `http://${req.host}${isDevMode && req.socket.localPort ? `:${req.socket.localPort}` : ''}/${DEFAULT_IMAGE}`,
+        imageSecure: `https://${req.host}${isDevMode && req.socket.localPort ? `:${req.socket.localPort}` : ''}/${DEFAULT_IMAGE}`,
+        url:`${req.protocol}://${req.host}${isDevMode && req.socket.localPort ? `:${req.socket.localPort}` : ''}${req.originalUrl}`
     };
 
     res.render('home', { 
