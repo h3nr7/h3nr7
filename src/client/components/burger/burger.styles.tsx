@@ -15,7 +15,7 @@ export const Content = styled.div<{ state?: any }>`
     display: block;
     position: absolute;
     top: 0;
-    left: 45px;
+    left: 0;
     width: calc(85vw - 45px);
     height: 100vh;
     background: white;
@@ -23,7 +23,7 @@ export const Content = styled.div<{ state?: any }>`
     transition: all 0.25s ease-in-out;
     z-index: ${({state}) => (state === 'entering' || state === 'entered' || 'exiting' ? 9999 : -1)};
     transform: translateX(
-        calc(${({state}) => (state === "entering" || state === "entered" ? '15vw' : '85vw + 45px')})
+        calc(${({state}) => (state === "entering" || state === "entered" ? '15vw + 45px' : '100vw')})
     );
 `;
 
@@ -52,7 +52,7 @@ export const MenuContainer = styled.div<{ state?: any }>`
     z-index: ${({state}) => (state === 'entering' || state === 'entered' ? 9999 : -1)};
     transition: transform 0.25s ease-in-out;
     transform: translateX(
-        ${({state}) => (state === "entering" || state === "entered" ? 15 : 90)}vw
+        calc(${({state}) => (state === "entering" || state === "entered" ? '15vw' : '100vw - 45px')})
     );`;
 
 export const StripContainer = styled.div`
