@@ -27,9 +27,9 @@ viewController.use((req: express.Request, res: express.Response) => {
 
     const og = {
         title,
-        desc: 'some desc',
-        image: 'some image',
-        type: 'some type'
+        desc: '',
+        image: '',
+        type: ''
     };
 
     res.render('home', { 
