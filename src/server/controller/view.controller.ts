@@ -24,6 +24,7 @@ if (isProdMode) {
     webpackManifest = loadjsonfile.sync(path.resolve(__dirname, "..", "..", "dist", "manifest.json"));
 }
 
+/** individual article view, fetched article details, may need to cache it in the future for performance sake */
 viewController.get('/article/:id', async (req:express.Request, res:express.Response) => {
 
     const vendorsJSUrl:string = isProdMode ? webpackManifest["vendors.js"] : '/dist/vendors.bundle.js';
@@ -45,6 +46,7 @@ viewController.get('/article/:id', async (req:express.Request, res:express.Respo
         const metatags:IArticleHtmlMetatags = transformHtmlMetaResponse({
             ...article, 
             twitterHandle, 
+            type: 'website',
             protocol: req.protocol,
             host: req.hostname,
             port: req.socket.localPort,
@@ -80,6 +82,7 @@ viewController.use((req: express.Request, res: express.Response) => {
     const metatags = {
         title,
         desc: DEFAULT_DESC,
+        type: 'website',
         image: `http://${req.host}${req.socket.localPort && req.socket.localPort !== 80 ? `:${req.socket.localPort}` : ''}/${DEFAULT_IMAGE}`,
         imageSecure: `https://${req.host}${req.socket.localPort && req.socket.localPort !== 80 ? `:${req.socket.localPort}` : ''}/${DEFAULT_IMAGE}`,
         url:`${req.protocol}://${req.host}${req.socket.localPort && req.socket.localPort !== 80 ? `:${req.socket.localPort}` : ''}${req.originalUrl}`

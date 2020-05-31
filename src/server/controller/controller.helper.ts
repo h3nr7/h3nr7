@@ -106,9 +106,9 @@ export const transformArticlesResponse = ({
 })
 
 export const transformHtmlMetaResponse = ({
-    id, title, description, heroImage, twitterHandle, url, protocol, host, port
-}:IArticle & { twitterHandle:string, url:string, protocol: string, host:string, port:number }):IArticleHtmlMetatags => ({
-    id, title, 
+    id, title, description, heroImage, twitterHandle, url, protocol, host, port, type
+}:IArticle & { type: string, twitterHandle:string, url:string, protocol: string, host:string, port:number }):IArticleHtmlMetatags => ({
+    id, title, type, 
     description,
     image: `http:${heroImage ? heroImage.url : defaultImage}`,
     imageSecure: `https:${heroImage ? heroImage.url : defaultImage}`,
