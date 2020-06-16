@@ -10,6 +10,7 @@ import { Home } from './home';
 import { Article } from './article';
 import { About }from './about';
 import { Archive } from './archive';
+import { Me } from './me';
 import { NotFound } from './notfound';
 import { Burger } from "../components/burger";
 
@@ -35,6 +36,7 @@ const AppRouterComponent: React.StatelessComponent<{}> = () => {
                         <Route exact path="/" component={Home} />
                         <Route exact path="/article/:id" component={Article} />
                         <Route exact path="/about" component={About} />
+                        <Route exact path="/about/me" component={Me} />
                         <Route exact path="/archive" component={Archive} />
                         <Route component={NotFound} />
                     </StyledAnimatedSwitch>

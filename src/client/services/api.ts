@@ -3,6 +3,7 @@ import { IArticles, IArticle, IArticleTypes } from '../../shared/interfaces/arti
 import { ITopics } from '../../shared/interfaces/topics.interface';
 import { IImage } from '../../shared/interfaces/images.interface';
 import { IPdf } from '../../shared/interfaces/pdfs.interface';
+import { IUser } from '../../shared/interfaces/user.interface';
 
 /** get single article */
 export const getOneArticle = (id:string):Promise<IArticle> => {
@@ -33,3 +34,14 @@ export const getTopics = ():Promise<ITopics> => {
 export const getAsset = (assetId:string):Promise<IImage | IPdf> => {
     return axios.default.get(`/api/content/assets/${assetId}`).then(res=> res.data);
 }
+
+export const getLinkedinMe = (token:string):Promise<IUser> => {
+    const config:axios.AxiosRequestConfig = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    };
+
+    return axios.default.get(`/api/user`, config).then(res => res.data);
+
+};

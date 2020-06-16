@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import { Typography } from '@material-ui/core';
 
 export const EmImg = styled.img`
     width: 100%;
@@ -19,8 +20,19 @@ export const CodeMark = styled.span`
     color: #f24182;
 `;
 
+export const Paragraph = styled(Typography)`
+    margin-bottom: 1rem
+`;
+
 export const Spacedspan = styled.span`
     content: ' ';
     margin: 0 2em;
     display: inline-block;
+`;
+
+
+export const Li = styled.li`
+    > p {
+        margin-bottom: 0;  
+    }
 `;

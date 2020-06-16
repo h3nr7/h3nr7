@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { IArticles, IArticle, IArticleType, IArticleTypes } from '../../shared/interfaces/articles.interface';
-import { getArticles, getOneArticle, getArticleTypes } from '../services/api';
+import { getArticles, getOneArticle, getArticleTypes, getLinkedinMe } from '../services/api';
 import { ITopics } from '../../shared/interfaces/topics.interface';
 import { IMarkdown } from '../../shared/interfaces/markdowns.interface';
 import Axios from 'axios';
@@ -104,7 +104,7 @@ export function useArticleTypes():any {
             ...articleTypes.items,
             // disable
             // { title: 'archive', key:'archive', to: '/archive'},
-            // { title: 'about', key:'about', to: '/about'}
+            { title: 'about', key:'about', to: '/about'}
         ]
     };
 }
@@ -135,6 +135,21 @@ export function useTopics():any {
     }, [loaded]);
 
     return topics;
+}
+
+/**
+ * get auth user
+ */
+export function useCheckIsAuth(token: string):any {
+    const [isAuth, setIsAuth] = useState(null);
+
+    useEffect(() => {
+        async function checkLinkedInToken() {
+            const foundUser = await getLinkedinMe(token);
+        }
+    });
+
+    return isAuth;
 }
 
 /**
