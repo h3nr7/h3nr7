@@ -16,6 +16,7 @@ export const About:React.FC<{}> = () => {
             <Switch>
                 <Route path="/about/me" component={Me} />
                 {/* <RestrictedRoute path="/about/cv" component={CV} /> */}
+                
                 <Route path="/about/cv" component={CV} /> 
             </Switch>
         </div>
