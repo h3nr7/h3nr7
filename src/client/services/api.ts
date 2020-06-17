@@ -42,6 +42,6 @@ export const getLinkedinMe = (token:string):Promise<IUser> => {
         }
     };
 
-    return axios.default.get(`/api/user`, config).then(res => res.data);
+    return axios.default.get(`/api/users/me`, config).then(res => res.data);
 
 };

@@ -1,16 +1,15 @@
 import * as React from "react";
 import { hot } from "react-hot-loader";
-import { BrowserRouter, Route } from "react-router-dom";
+import { BrowserRouter, Route, Redirect } from "react-router-dom";
 import { ParallaxProvider } from 'react-scroll-parallax';
 import { StyledAnimatedSwitch } from './routes.styles';
-
 import { Navi } from '../components/navi';
 import { App } from "../app";
 import { Home } from './home';
 import { Article } from './article';
 import { About }from './about';
 import { Archive } from './archive';
-import { Me } from './me';
+import { User } from "./user";
 import { NotFound } from './notfound';
 import { Burger } from "../components/burger";
 
@@ -35,9 +34,11 @@ const AppRouterComponent: React.StatelessComponent<{}> = () => {
                         }}>
                         <Route exact path="/" component={Home} />
                         <Route exact path="/article/:id" component={Article} />
-                        <Route exact path="/about" component={About} />
-                        <Route exact path="/about/me" component={Me} />
+                        <Route path="/user" component={User} />
+                        <Route path="/about" component={About} />
                         <Route exact path="/archive" component={Archive} />
+                        {/* Redirects and Notfound */}
+                        <Redirect exact path="/article" to="/" />
                         <Route component={NotFound} />
                     </StyledAnimatedSwitch>
                 </App>

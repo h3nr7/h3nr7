@@ -4,3 +4,7 @@ import { Link as NavLink } from 'react-router-dom';
 export const Link = styled(NavLink)`
     
 `;
+
+export const MeContainer = styled.div`
+
+`;

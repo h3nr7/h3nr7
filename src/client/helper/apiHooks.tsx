@@ -1,9 +1,10 @@
 import { useEffect, useState } from 'react';
+import Axios from 'axios';
+import { getLinkedinToken, setLinkedinToken, setLinkedinUser, clearAll } from '../services/localstorage';
 import { IArticles, IArticle, IArticleType, IArticleTypes } from '../../shared/interfaces/articles.interface';
 import { getArticles, getOneArticle, getArticleTypes, getLinkedinMe } from '../services/api';
 import { ITopics } from '../../shared/interfaces/topics.interface';
 import { IMarkdown } from '../../shared/interfaces/markdowns.interface';
-import Axios from 'axios';
 
 export function useOneArticle(id:string):any {
     const initialState:IArticle = {
@@ -138,19 +139,32 @@ export function useTopics():any {
 }
 
 /**
- * get auth user
+ * check is user authed and update user
  */
-export function useCheckIsAuth(token: string):any {
-    const [isAuth, setIsAuth] = useState(null);
+export function useCheckUser(token:string = null):any {
+    if(token) setLinkedinToken(token);
+    else token = getLinkedinToken();
+
+    const [user, setUser] = useState(null);
 
     useEffect(() => {
         async function checkLinkedInToken() {
-            const foundUser = await getLinkedinMe(token);
+            try {
+                const foundUser = await getLinkedinMe(token);
+                setLinkedinUser(foundUser);
+                setUser(foundUser);
+            } catch(e) {
+                console.error('Invalid token');
+                clearAll();
+            }
         }
+
+        checkLinkedInToken();
     });
 
-    return isAuth;
+    return user;
 }
+
 
 /**
  * load markdown as str from contentful
