@@ -1,0 +1,10 @@
+{
+    "requestCv": {
+        "verification": {
+            "from": "noreply@h3nr7.com",
+            "subject": "Thank you for requesting my CV",
+            "text": "Thank you for your time and effort.  Please use the link below to access my CV:",
+            "templateName": "request_cv"
+        }
+    }
+}

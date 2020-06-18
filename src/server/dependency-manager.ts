@@ -1,6 +1,8 @@
 import * as express from 'express';
 import * as bunyan from "bunyan";
 import * as http from "http";
+import * as sgMail from '@sendgrid/mail';
+
 
 class DependencyManager {
     public Initialise = async (server: http.Server,
@@ -10,6 +12,8 @@ class DependencyManager {
                                firstRun: boolean) => {
         // TODO: Manage dependencies in here
         // such as databases and other services.
+        sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+
     }
 }
 

@@ -8,12 +8,18 @@ import {
     IContentfulArticleType, IContentfulTopic 
 } from '../../shared/interfaces/contentful.interface';
 import { IArticleHtmlMetatags } from '../../shared/interfaces/https.interface'
+import * as mailerData from '../settings/mailer.settings.json';
 import { EntryCollection } from 'contentful';
+import { emailer, IEmailer } from '../lib/emailer';
 
 const isDevMode = process.env.NODE_ENV === "development" || false;
 const defaultImage:string = process.env.DEFAULT_IMAGE;
 
-/** very complex mapper... */
+/**
+ * transform one article from contentful structure 
+ * to something meaningful on our end 
+ * very complex mapper... 
+ * */
 export const transformOneArticleResponse = (
     {
         sys: { id, createdAt, updatedAt },
@@ -56,7 +62,6 @@ export const transformOneArticleResponse = (
 
 /**
  * Convert all articles properly with typings
- * @param param
  */
 export const transformArticlesResponse = ({ 
     total, skip, limit, items, includes
@@ -104,6 +109,9 @@ export const transformArticlesResponse = ({
     }))
 })
 
+/**
+ * format html meta response from data received
+ */
 export const transformHtmlMetaResponse = ({
     id, title, description, heroImage, twitterHandle, url, protocol, host, port, type
 }:IArticle & { type: string, twitterHandle:string, url:string, protocol: string, host:string, port:number }):IArticleHtmlMetatags => ({
@@ -115,7 +123,9 @@ export const transformHtmlMetaResponse = ({
     twitterHandle
 });
 
-/** transform list of topics */
+/** 
+ * transform list of topics 
+ */
 export const transformArticleTypeResponse = ({ 
     total, skip, limit, items 
 }:IContentfulEntries):IArticleTypes => ({
@@ -129,7 +139,9 @@ export const transformArticleTypeResponse = ({
     }))
 })
 
-/** transform list of topics */
+/** 
+ * transform list of topics 
+ */
 export const transformTopicsResponse = ({ 
     total, skip, limit, items 
 }:IContentfulEntries):ITopics => ({
@@ -142,3 +154,25 @@ export const transformTopicsResponse = ({
         id, title, createdAt, updatedAt
     }))
 })
+
+export const sendRequestCvEmail = (
+    email: string,
+    firstName:string,
+    lastName: string,
+    token: string,
+    content?: string
+):Promise<IEmailer> => {
+    const { from, subject, templateName, text } = mailerData.requestCv.verification;
+    return emailer({
+        to: email,
+        from,
+        subject,
+        templateName,
+        text,
+        data: {
+            firstName,
+            token,
+            content
+        }
+    });
+}

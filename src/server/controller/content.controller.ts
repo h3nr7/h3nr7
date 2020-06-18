@@ -8,6 +8,9 @@ import {
 
 export const contentController = express.Router();
 
+/**
+ * Get single article by id from contentful
+ */
 contentController.get('/articles/:id', async(req: express.Request, res: express.Response) => {
     try {
         const { id } = req.params;
@@ -23,7 +26,9 @@ contentController.get('/articles/:id', async(req: express.Request, res: express.
     }
 })
 
-/** getting a list of articles */
+/** 
+ * getting a list of articles 
+ */
 contentController.get('/articles', async (req: express.Request, res: express.Response) => {
     try {
         const { limit=10, skip=0, order='-sys.updatedAt', home } = req.query;
@@ -42,7 +47,9 @@ contentController.get('/articles', async (req: express.Request, res: express.Res
     }
 });
 
-// getting just the article types
+/**
+ * getting just the article types
+ */
 contentController.get('/articletypes', async (req:express.Request, res: express.Response) => {
     try {
         const resData = await contentfulService.getArticleTypes(1000, 0);
@@ -52,7 +59,9 @@ contentController.get('/articletypes', async (req:express.Request, res: express.
     }
 })
 
-// getting all the topics
+/**
+ * getting all the topics
+ */
 contentController.get('/topics', async (req:express.Request, res: express.Response) => {
     try {
         const resData = await contentfulService.getTopics(1000, 0);
