@@ -43,7 +43,7 @@ viewController.get('/article/:id', async (req:express.Request, res:express.Respo
         const resArticleType = await contentfulService.getArticleTypes(1000, 0);
         const resTopic = await contentfulService.getTopics(1000, 0);
         // get one article
-        const resData = await contentfulService.getOneArticle(String(id));
+        const resData = await contentfulService.getOneEntry(String(id));
         const article:IArticle = transformOneArticleResponse(resData, resArticleType, resTopic);
         const metatags:IArticleHtmlMetatags = transformHtmlMetaResponse({
             ...article, 

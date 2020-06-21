@@ -5,24 +5,25 @@ if(process.env.NODE_ENV !== 'production') {
 }
 
 import * as express from 'express';
-import * as bunyan from 'bunyan';
+// import * as bunyan from 'bunyan';
 import * as config from 'config';
 import * as fs from 'fs';
 import * as http from 'http';
 import * as path from 'path';
 import { createApp } from './app';
 import { Dependencies } from './dependency-manager';
+import{ logger, logfilePath } from './lib/logger';
 
 // global settings for these using config
 process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
 const PORT:number = parseInt(process.env.PORT as string, 10);
 // path for logger
-const logfilePath = path.join(__dirname, '..', '..', 'logs');
+// const logfilePath = path.join(__dirname, '..', '..', 'logs');
 const configFilePath = path.join(__dirname, '..', '..', 'config');
 
-if(!fs.existsSync(logfilePath)) {
-    fs.mkdirSync(logfilePath);
-}
+// if(!fs.existsSync(logfilePath)) {
+//     fs.mkdirSync(logfilePath);
+// }
 
 const firstRunFileExists = fs.existsSync(path.join(configFilePath, '.firstrun'));
 let firstrun = !firstRunFileExists;
@@ -31,15 +32,15 @@ if(process.env.FIRSTRUN) {
 }
 
 // create logger
-const logger = bunyan.createLogger({
-    name: process.env.APP_LOGGER_NAME || 'h3nr7_default_logger',
-    streams: [
-        {
-            level: 'info',
-            path: path.join(logfilePath, 'app.log')
-        }
-    ]
-});
+// const logger = bunyan.createLogger({
+//     name: process.env.APP_LOGGER_NAME || 'h3nr7_default_logger',
+//     streams: [
+//         {
+//             level: 'info',
+//             path: path.join(logfilePath, 'app.log')
+//         }
+//     ]
+// });
 
 
 // create server

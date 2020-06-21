@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import Axios from 'axios';
 import { getLinkedinToken, setLinkedinToken, setLinkedinUser, clearAll } from '../services/localstorage';
 import { IArticles, IArticle, IArticleType, IArticleTypes } from '../../shared/interfaces/articles.interface';
-import { getArticles, getOneArticle, getArticleTypes, getLinkedinMe } from '../services/api';
+import { getArticles, getOneEntry, getArticleTypes, getLinkedinMe } from '../services/api';
 import { ITopics } from '../../shared/interfaces/topics.interface';
 import { IMarkdown } from '../../shared/interfaces/markdowns.interface';
 
@@ -27,7 +27,7 @@ export function useOneArticle(id:string):any {
     const [ article, setArticle ] = useState(initialState);
 
     useEffect(() => {
-        getOneArticle(id)
+        getOneEntry(id)
             .then(data => {
                 setArticle(data);
                 setLoaded(true);

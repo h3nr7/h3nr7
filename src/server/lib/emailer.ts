@@ -4,8 +4,13 @@ import * as path from 'path';
 import * as handlebars from 'handlebars';
 const MAILGUN_API_KEY = process.env.MAILGUN_API_KEY;
 const MAILGUN_SUBDOMAIN = process.env.MAILGUN_SUBDOMAIN;
+const MAILGUN_HOST = process.env.MAILGUN_HOST;
 // initialise mailgun
-const mg = mailgun({apiKey: MAILGUN_API_KEY, domain: MAILGUN_SUBDOMAIN});
+const mg = mailgun({
+    apiKey: MAILGUN_API_KEY, 
+    domain: MAILGUN_SUBDOMAIN,
+    host: MAILGUN_HOST
+});
 
 // interface for response
 export interface IEmailer {

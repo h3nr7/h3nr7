@@ -19,6 +19,14 @@ class ContentfulService extends EventEmitter implements IContentfulService {
         accessToken: CONTENTFUL_ACCESS_TOKEN
     });
 
+    /**
+     * 
+     * get one entry by id, doesn't matter which content model
+     */
+    getOneEntry(id:string):Promise<IContentfulEntry> {
+        return this.client.getEntry(id);
+    }
+
     /** get article types */
     getArticleTypes(limit:number, skip:number):Promise<IContentfulEntries> {
         return this.client.getEntries({
@@ -35,10 +43,7 @@ class ContentfulService extends EventEmitter implements IContentfulService {
             limit, skip
         }); 
     }
-
-    getOneArticle(id:string):Promise<IContentfulEntry> {
-        return this.client.getEntry(id);
-    }
+    
 
     /** get articles */
     getArticles(limit:number, skip: number, order?: string, isHome?: boolean):Promise<IContentfulEntries> {
@@ -46,6 +51,14 @@ class ContentfulService extends EventEmitter implements IContentfulService {
             order,
             content_type: 'article',
             "fields.showInHome": isHome,
+            limit, skip
+        });
+    }
+
+    getCVs(limit:number, skip: number, order?: string):Promise<IContentfulEntries> {
+        return this.client.getEntries({
+            order,
+            content_type: 'cv',
             limit, skip
         });
     }

@@ -2,6 +2,7 @@ import * as express from 'express';
 import { IArticles, IArticle, IArticleTypes, IArticleType } from '../../shared/interfaces/articles.interface'
 import { IImage } from '../../shared/interfaces/images.interface';
 import { ITopics } from '../../shared/interfaces/topics.interface';
+import { ICVs } from '../../shared/interfaces/cvs.interface';
 import { IPdf } from '../../shared/interfaces/pdfs.interface';
 import { 
     IContentfulEntries, IContentfulEntry, 
@@ -155,10 +156,26 @@ export const transformTopicsResponse = ({
     }))
 })
 
+export const transformCVResponse = ({
+    total, skip, limit, items
+}:IContentfulEntries):ICVs => ({
+    total, skip, limit,
+    items: items && items && items.map(({
+        sys: { id, createdAt, updatedAt }, fields:{ 
+            name, summary
+        }
+    }) => ({
+        id, name, summary, createdAt, updatedAt
+    }))
+})
+/**
+ * Send Request CV email with token
+ */
 export const sendRequestCvEmail = (
     email: string,
     firstName:string,
     lastName: string,
+    baseUrl: string,
     token: string,
     content?: string
 ):Promise<IEmailer> => {
@@ -171,6 +188,8 @@ export const sendRequestCvEmail = (
         text,
         data: {
             firstName,
+            lastName,
+            baseUrl,
             token,
             content
         }

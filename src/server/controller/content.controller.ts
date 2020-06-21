@@ -3,8 +3,10 @@ import { contentfulService } from '../service/contentful.service';
 import { 
     transformArticlesResponse, 
     transformOneArticleResponse,
-    transformTopicsResponse
+    transformTopicsResponse,
+    transformCVResponse
 } from './controller.helper';
+import content from '*.svg';
 
 export const contentController = express.Router();
 
@@ -18,7 +20,7 @@ contentController.get('/articles/:id', async(req: express.Request, res: express.
         const resArticleType = await contentfulService.getArticleTypes(1000, 0);
         const resTopic = await contentfulService.getTopics(1000, 0);
         // get one article
-        const resData = await contentfulService.getOneArticle(String(id));
+        const resData = await contentfulService.getOneEntry(String(id));
         // transform and flattening response
         res.status(200).send(transformOneArticleResponse(resData, resArticleType, resTopic));
     } catch(e) {
@@ -66,6 +68,32 @@ contentController.get('/topics', async (req:express.Request, res: express.Respon
     try {
         const resData = await contentfulService.getTopics(1000, 0);
         res.status(200).send(transformTopicsResponse(resData));
+    } catch(e) {
+        res.status(404).send(e.message);
+    }
+})
+
+/**
+ * get single cv entry
+ */
+contentController.get('/cvs/:id', async (req:express.Request, res:express.Response) => {
+    try {
+        const { id } = req.params;
+        const resData = await contentfulService.getOneEntry(id);
+        res.status(200).send(resData);
+
+    } catch(e) {
+        res.status(404).send(e.message);
+    }
+})
+
+/**
+ * get cv list
+ */
+contentController.get('/cvs', async (req:express.Request, res:express.Response) => {
+    try {
+        const resData = await contentfulService.getCVs(10, 0);
+        res.status(200).send(transformCVResponse(resData));
     } catch(e) {
         res.status(404).send(e.message);
     }

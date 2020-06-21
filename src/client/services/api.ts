@@ -6,7 +6,7 @@ import { IPdf } from '../../shared/interfaces/pdfs.interface';
 import { IUser } from '../../shared/interfaces/user.interface';
 
 /** get single article */
-export const getOneArticle = (id:string):Promise<IArticle> => {
+export const getOneEntry = (id:string):Promise<IArticle> => {
     return axios.default.get(`/api/content/articles/${id}`)
         .then(res => res.data);
 }

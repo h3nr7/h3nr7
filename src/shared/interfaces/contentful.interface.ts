@@ -34,10 +34,19 @@ export interface IContentfulArticle {
     linkUrl: EntryFields.Text
 }
 
-export interface IContentfulEntry extends Entry<IContentfulArticle & IContentfulTopic> {}
+export interface IContentfulCV {
+    name: EntryFields.Symbol,
+    summary: EntryFields.Text,
+    experiences: EntryFields.Array<Entry<unknown>>
+    educations: EntryFields.Array<Entry<unknown>>
+}
+
+export type IEntryModel = IContentfulArticle & IContentfulTopic & IContentfulCV
+
+export interface IContentfulEntry extends Entry<IEntryModel> {}
 
 /** interface for entries */
-export interface IContentfulEntries extends EntryCollection<IContentfulArticle & IContentfulTopic> {
+export interface IContentfulEntries extends EntryCollection<IEntryModel> {
     includes?: {
         Entry: Array<IContentfulEntry>
         Asset: Array<IContentfulImage | IContentfulPdf>
