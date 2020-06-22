@@ -5,11 +5,11 @@ import { getQueryByName } from '../../helper/routerHooks';
 import { IUser } from '../../../shared/interfaces/user.interface';
 import { UserContent } from './user.styles';
 import { hot } from 'react-hot-loader';
-import { useCheckUser } from '../../helper/apiHooks';
+import { useTokenUser } from '../../helper/apiHooks';
 
 const AuthorizedComp:React.FC<IUser> = (props) => {
     const accessToken:string = getQueryByName('access_token');
-    const user = useCheckUser(accessToken);
+    const user = useTokenUser(accessToken);
 
 
     return (

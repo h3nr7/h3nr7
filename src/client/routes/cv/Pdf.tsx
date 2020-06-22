@@ -1,9 +1,10 @@
 import * as React from 'react';
 import ReactPDF, { 
-    PDFDownloadLink, Image , Page, Font, Text, View, Document, StyleSheet 
+    Image , Page, Font, Text, View, Document, StyleSheet 
 } from '@react-pdf/renderer';
 import { hot } from 'react-hot-loader';
-import { PDFViewer } from './cv.styles';
+import { PDFViewer, PDFDownloadLink } from './cv.styles';
+import { useCV } from '../../helper/apiHooks';
 
 Font.register({
     family: 'rift-soft',
@@ -237,22 +238,24 @@ const Page2:React.FC<{}> = (props) => {
     )
 }
 
-const PdfComp:React.FC<{}> = (props) => {
+const PdfComp:React.FC<{user:any, token:string}> = ({user, token}) => {
+
+    const cv = useCV(token, user.cvId);
 
     return (
     <div>
-        <PDFViewer>
+        {/* <PDFViewer>
             <Document>
                 <Page1 />
                 <Page2 />
             </Document>
-        </PDFViewer>
-        {/* <PDFDownloadLink document={
+        </PDFViewer> */}
+        <PDFDownloadLink document={
             <Document>
                 <Page1 />
                 <Page2 />
             </Document>
-        }>Download</PDFDownloadLink> */}
+        }>Download</PDFDownloadLink>
     </div>
     );
 }

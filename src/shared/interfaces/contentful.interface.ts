@@ -14,8 +14,21 @@ export interface IContentfulTopic {
 }
 
 export interface IContentfulArticleType {
-    title: EntryFields.Text,
+    title: EntryFields.Text
     rankOrder?: EntryFields.Number
+}
+
+export interface IContentfulProfile {
+    displayName: EntryFields.Text
+    firstName: EntryFields.Text
+    lastName: EntryFields.Text
+    title: EntryFields.Text
+    email: EntryFields.Text
+    contact: EntryFields.Text
+    address1: EntryFields.Text
+    address2: EntryFields.Text
+    city: EntryFields.Text
+    postcode: EntryFields.Text
 }
 
 /** interface for article */
@@ -23,7 +36,7 @@ export interface IContentfulArticle {
     title: EntryFields.Text
     description:  EntryFields.Text
     content: EntryFields.RichText
-    markdownContent: IContentfulMarkdown,
+    markdownContent: IContentfulMarkdown
     articleType: Entry<unknown>
     showInHome?: EntryFields.Boolean
     heroImage: IContentfulImage
@@ -34,14 +47,33 @@ export interface IContentfulArticle {
     linkUrl: EntryFields.Text
 }
 
+export interface IContentfulExperiences {
+    companyName: EntryFields.Text
+    role: EntryFields.Text
+    isCurrent: EntryFields.Boolean
+    startDate: EntryFields.Date
+    endDate: EntryFields.Date
+    content: EntryFields.Text
+}
+
+export interface IContentfulEducations {
+    institute: EntryFields.Text
+    title: EntryFields.Text
+    isCurrent: EntryFields.Boolean
+    startDate: EntryFields.Date
+    endDate: EntryFields.Date
+}
+
 export interface IContentfulCV {
     name: EntryFields.Symbol,
     summary: EntryFields.Text,
-    experiences: EntryFields.Array<Entry<unknown>>
-    educations: EntryFields.Array<Entry<unknown>>
+    profile: Entry<IContentfulProfile>
+    experiences: Entry<IContentfulExperiences>[]
+    educations: Entry<IContentfulEducations>[]
 }
 
-export type IEntryModel = IContentfulArticle & IContentfulTopic & IContentfulCV
+export type IEntryModel = IContentfulArticle & IContentfulTopic & 
+    IContentfulCV & IContentfulProfile & IContentfulExperiences & IContentfulEducations
 
 export interface IContentfulEntry extends Entry<IEntryModel> {}
 

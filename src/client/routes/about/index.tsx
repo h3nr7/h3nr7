@@ -1,9 +1,8 @@
 import * as React from 'react';
-import { useLocation } from ''
 import { Switch, Route } from 'react-router-dom';
 import { Link } from './about.styles';
 import { Typography } from '@material-ui/core';
-import { RestrictedRoute } from '../restricted.routes';
+// import { RestrictedRoute } from '../restricted.routes';
 import { Me } from './me';
 
 export const About:React.FC<{}> = () => {
@@ -14,7 +13,7 @@ export const About:React.FC<{}> = () => {
             <Link to='/about/me'>Me</Link>
 
             <Switch>
-                <Route path="/about/me" component={Me} />
+                {/* <Route path="/about/me" component={Me} /> */}
                 {/* <RestrictedRoute path="/about/cv" component={CV} /> */}                
             </Switch>
         </div>

@@ -1,6 +1,6 @@
 import * as React from 'react';
-import { Route,  RouteProps, RouteComponentProps, useHistory } from 'react-router-dom';
-import { useCheckUser } from '../helper/apiHooks';
+import { Route,  RouteProps } from 'react-router-dom';
+import { useTokenUser } from '../helper/apiHooks';
 import { RedirectContainer } from './routes.styles';
 
 const RedirectingComp:React.StatelessComponent = () => {
@@ -9,11 +9,11 @@ const RedirectingComp:React.StatelessComponent = () => {
 }
 
 export const PrivateRoute = ({component:Component, ...rest}:RouteProps) => {
-    const user = useCheckUser();
+    const user = useTokenUser();
     return (
         <Route {...rest} render={(props) => (
             <div>
-                {!user ? <RedirectingComp /> : <Component {...props}/>}
+                {!user ? <RedirectingComp /> : <Component {...{...props, user}} />}
             </div>
         )} />
     );

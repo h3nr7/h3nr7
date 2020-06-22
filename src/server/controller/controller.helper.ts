@@ -2,8 +2,11 @@ import * as express from 'express';
 import { IArticles, IArticle, IArticleTypes, IArticleType } from '../../shared/interfaces/articles.interface'
 import { IImage } from '../../shared/interfaces/images.interface';
 import { ITopics } from '../../shared/interfaces/topics.interface';
-import { ICVs } from '../../shared/interfaces/cvs.interface';
+import { ICVs, ICV } from '../../shared/interfaces/cvs.interface';
 import { IPdf } from '../../shared/interfaces/pdfs.interface';
+import { IProfile } from '../../shared/interfaces/profiles.interface'; 
+import { IExperience } from '../../shared/interfaces/experiences.interface'
+import { IEducation } from '../../shared/interfaces/education.interface' 
 import { 
     IContentfulEntries, IContentfulEntry, 
     IContentfulArticleType, IContentfulTopic 
@@ -58,6 +61,43 @@ export const transformOneArticleResponse = (
     topics: topic && topic.map(({ sys }) => ({
         id: sys.id,
         title: topicDict.items.find(obj => obj.sys.id === sys.id).fields.title
+    }))
+});
+
+export const transformOneCvResponse = ({
+    sys: { id },
+    fields: {
+        name, profile, summary, experiences, educations  
+    }
+}:IContentfulEntry):ICV<IExperience, IEducation> => ({
+    id, name,
+    profile: {
+        displayName: profile.fields.displayName,
+        firstName: profile.fields.firstName,
+        lastName: profile.fields.lastName,
+        title: profile.fields.title,
+        email: profile.fields.email,
+        contact: profile.fields.contact,
+        address1: profile.fields.address1,
+        address2: profile.fields.address2,
+        city: profile.fields.city,
+        postcode: profile.fields.postcode
+    },
+    summary,
+    experiences: experiences && experiences.map(({ sys, fields}) => ({
+        companyName: fields.companyName,
+        role: fields.role,
+        isCurrent: fields.isCurrent,
+        startDate: fields.startDate,
+        endDate: fields.endDate,
+        content: fields.content
+    })),
+    educations: educations && educations.map(({ sys, fields }) => ({
+        institute: fields.institute,
+        title: fields.title,
+        isCurrent: fields.isCurrent,
+        startDate: fields.startDate,
+        endDate: fields.endDate
     }))
 });
 
@@ -156,6 +196,9 @@ export const transformTopicsResponse = ({
     }))
 })
 
+/**
+ * transform cv list
+ */
 export const transformCVResponse = ({
     total, skip, limit, items
 }:IContentfulEntries):ICVs => ({

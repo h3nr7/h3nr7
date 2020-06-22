@@ -1,3 +1,4 @@
+import { IProfile } from "./profiles.interface";
 
 export interface ICV<T=any, S=any> {
     id: string;
@@ -5,6 +6,7 @@ export interface ICV<T=any, S=any> {
     updatedAt?: string;
     name?: string
     summary?: string
+    profile?: IProfile
     experiences?: T[]
     educations?: S[]
 }

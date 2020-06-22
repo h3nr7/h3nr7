@@ -15,18 +15,18 @@ const JWT_SECRET = process.env.JWT_SECRET;
  */
 authController.post('/request_cv', async (req:express.Request, res:express.Response) => {
     try {   
-        const { email, firstName, lastName } = req.body;
+        const { email, firstName, lastName, cvId } = req.body;
         if (!email) throw new HttpException(422, 'Email , firstName, and lastName are required');
 
         const today = new Date();
         const expirationDate = new Date(today);
         // token last for 14 days only
-        expirationDate.setDate(today.getDate() + 14);
+        expirationDate.setDate(today.getDate() + 60);
 
         // generate token
         const token = await jwt.sign({
-            email, firstName, lastName,
-            date: today.toISOString(),
+            email, firstName, lastName, cvId,
+            date: today.toUTCString(),
             exp: parseInt(String(expirationDate.getTime()/1000), 10)
         }, JWT_SECRET);
 

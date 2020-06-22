@@ -4,9 +4,11 @@ import {
     transformArticlesResponse, 
     transformOneArticleResponse,
     transformTopicsResponse,
-    transformCVResponse
+    transformCVResponse,
+    transformOneCvResponse
 } from './controller.helper';
 import content from '*.svg';
+import { checkToken } from '../middleware/checktoken.middleware';
 
 export const contentController = express.Router();
 
@@ -76,11 +78,12 @@ contentController.get('/topics', async (req:express.Request, res: express.Respon
 /**
  * get single cv entry
  */
-contentController.get('/cvs/:id', async (req:express.Request, res:express.Response) => {
+contentController.get('/cvs/:id', checkToken, async (req:express.Request, res:express.Response) => {
     try {
+        const { token } = req.params;
         const { id } = req.params;
         const resData = await contentfulService.getOneEntry(id);
-        res.status(200).send(resData);
+        res.status(200).send(transformOneCvResponse(resData));
 
     } catch(e) {
         res.status(404).send(e.message);

@@ -22,7 +22,7 @@ export function registerRoutes(app:express.Application):void {
     app.use('/auth', authController);
     //add api controller routes here
     app.use('/api/content', contentController);
-    app.use('/api/users', usersController);
+    app.use('/api/user', usersController);
     // error and not found handler for api
     app.use('/api', errorHandler);
     app.use('/api', notFoundHandler);

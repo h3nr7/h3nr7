@@ -1,20 +1,13 @@
 /** Required External Modules and Interfaces */
 import * as express from "express";
 import * as axios from 'axios';
+import { checkToken } from "../middleware/checktoken.middleware";
 
 /** Router Definition */
 export const usersController = express.Router();
 
 /** Controller Definitions */
-// get user self details
-usersController.get("/me", async (req: express.Request, res: express.Response) => {
-    const { authorization } = req.headers;
-    const bearer = authorization.split(' ');
-    const token = bearer[1];
-
-    try {
-        res.status(200).send({hello: 'world'});
-    } catch(e) {
-        res.status(404).send(e.message);
-    }
+// simply return the user if token is correct
+usersController.get("/me", checkToken, async (req: express.Request, res: express.Response) => {
+    res.status(200).send(req.user);
 });

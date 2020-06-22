@@ -17,6 +17,7 @@ declare namespace Express {
 			firstName: string,
 			lastName: string,
 			email: string,
+			cvId?:string,
 			date?:string,
 			exp:string
 		}

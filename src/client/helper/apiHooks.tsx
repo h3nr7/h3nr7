@@ -2,9 +2,11 @@ import { useEffect, useState } from 'react';
 import Axios from 'axios';
 import { getLinkedinToken, setLinkedinToken, setLinkedinUser, clearAll } from '../services/localstorage';
 import { IArticles, IArticle, IArticleType, IArticleTypes } from '../../shared/interfaces/articles.interface';
-import { getArticles, getOneEntry, getArticleTypes, getLinkedinMe } from '../services/api';
+import { getArticles, getOneEntry, getArticleTypes, getLinkedinMe, getTokenUser, getCV } from '../services/api';
 import { ITopics } from '../../shared/interfaces/topics.interface';
 import { IMarkdown } from '../../shared/interfaces/markdowns.interface';
+import { ICV } from '../../shared/interfaces/cvs.interface';
+import { userInfo } from 'os';
 
 export function useOneArticle(id:string):any {
     const initialState:IArticle = {
@@ -139,30 +141,45 @@ export function useTopics():any {
 }
 
 /**
- * check is user authed and update user
+ * check is token is user and decode
  */
-export function useCheckUser(token:string = null):any {
-    if(token) setLinkedinToken(token);
-    else token = getLinkedinToken();
-
+export function useTokenUser(token:string = null):any {
     const [user, setUser] = useState(null);
 
     useEffect(() => {
-        async function checkLinkedInToken() {
+        async function getUser() {
             try {
-                const foundUser = await getLinkedinMe(token);
-                setLinkedinUser(foundUser);
+                const foundUser = await getTokenUser(token);
                 setUser(foundUser);
             } catch(e) {
                 console.error('Invalid token');
                 clearAll();
             }
         }
-
-        checkLinkedInToken();
-    });
+        getUser();
+    }, []);
 
     return user;
+}
+
+export function useCV(token:string, cvId:string):ICV {
+    const [cv, setCV] = useState(null);
+    console.log('laka', cvId);
+    useEffect(() => {
+        async function getData() {
+            try {
+                const found = await getCV(cvId, token);
+                setCV(found);
+            } catch(e) {
+                console.error(e.message);
+            }
+        }
+
+        getData();
+    }, [token, cvId]);
+    
+
+    return cv;
 }
 
 

@@ -3,6 +3,14 @@ export interface IProfiles {
 }
 
 export interface IProfile {
+    displayName: string,
     firstName: string,
-    lastName: string
+    lastName: string,
+    title: string,
+    email: string,
+    contact: string,
+    address1: string,
+    address2: string,
+    city: string,
+    postcode: string
 }

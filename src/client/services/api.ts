@@ -4,6 +4,7 @@ import { ITopics } from '../../shared/interfaces/topics.interface';
 import { IImage } from '../../shared/interfaces/images.interface';
 import { IPdf } from '../../shared/interfaces/pdfs.interface';
 import { IUser } from '../../shared/interfaces/user.interface';
+import { ICV } from '../../shared/interfaces/cvs.interface';
 
 /** get single article */
 export const getOneEntry = (id:string):Promise<IArticle> => {
@@ -30,9 +31,27 @@ export const getTopics = ():Promise<ITopics> => {
         .then(res=>res.data);
 }
 
+export const getCV = (id:string, token:string):Promise<ICV> => {
+    const config:axios.AxiosRequestConfig = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    return axios.default.get(`/api/content/cvs/${id}`, config).then(res => res.data);
+}
+
 /** get assets */
 export const getAsset = (assetId:string):Promise<IImage | IPdf> => {
     return axios.default.get(`/api/content/assets/${assetId}`).then(res=> res.data);
+}
+
+export const getTokenUser = (token:string): Promise<any> => {
+    const config:axios.AxiosRequestConfig = {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    }
+    return axios.default.get(`/api/user/me`, config).then(res => res.data);
 }
 
 export const getLinkedinMe = (token:string):Promise<IUser> => {
@@ -40,7 +59,7 @@ export const getLinkedinMe = (token:string):Promise<IUser> => {
         headers: {
             Authorization: `Bearer ${token}`
         }
-    };
+    }
 
     return axios.default.get(`/api/users/me`, config).then(res => res.data);
 

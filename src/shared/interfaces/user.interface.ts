@@ -1,8 +1,9 @@
 export interface IUser {
-    id: string,
     firstName: string,
     lastName: string,
-    email: string
+    email: string,
+    cvId: string,
+    exp?: string
 }
 
 export interface IUsers {
