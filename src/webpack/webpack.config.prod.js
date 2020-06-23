@@ -2,6 +2,7 @@ const path = require("path");
 const webpack = require("webpack");
 const ManifestPlugin = require('webpack-manifest-plugin');
 const paths = require('./paths');
+const clientEnv = require('./envs');
 
 module.exports = {
     mode: "production",
@@ -34,12 +35,7 @@ module.exports = {
         }
     },
     plugins: [
-        new webpack.DefinePlugin({
-            'process.env.LINKEDIN_SOCIAL_URL': JSON.stringify(process.env.LINKEDIN_SOCIAL_URL),
-            'process.env.TWITTER_SOCIAL_URL': JSON.stringify(process.env.TWITTER_SOCIAL_URL),
-            'process.env.GTHUB_SOCIAL_URL': JSON.stringify(process.env.GTHUB_SOCIAL_URL),
-            'process.env.INSTAGRAM_SOCIAL_URL': JSON.stringify(process.env.INSTAGRAM_SOCIAL_URL)
-        }),
+        new webpack.DefinePlugin(clientEnv),
         new ManifestPlugin({
             publicPath:'/dist/'
         })
