@@ -26,7 +26,7 @@ authController.post('/request_cv', async (req:express.Request, res:express.Respo
         // generate token
         const token = await jwt.sign({
             email, firstName, lastName, cvId,
-            date: today.toUTCString(),
+            date: parseInt(String(today.getTime()/1000), 10),
             exp: parseInt(String(expirationDate.getTime()/1000), 10)
         }, JWT_SECRET);
 

@@ -14,12 +14,13 @@ declare module '*.less';
 declare namespace Express {
 	export interface Request {
 		user?: {
-			firstName: string,
-			lastName: string,
-			email: string,
-			cvId?:string,
-			date?:string,
+			firstName: string
+			lastName: string
+			email: string
+			cvId?:string
+			date?:string
 			exp:string
 		}
+		token?: string
 	}
 }

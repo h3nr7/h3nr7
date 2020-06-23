@@ -163,8 +163,23 @@ export function useTokenUser(token:string = null):any {
 }
 
 export function useCV(token:string, cvId:string):ICV {
-    const [cv, setCV] = useState(null);
-    console.log('laka', cvId);
+    const initialCV:ICV = {
+        name: null,
+        id: null,
+        profile: {
+            displayName: null,
+            firstName: null,
+            lastName: null,
+            title: null,
+            contact: null,
+            email: null,
+            address1: null,
+            address2: null,
+            city: null,
+            postcode: null
+        }
+    }
+    const [cv, setCV] = useState(initialCV);
     useEffect(() => {
         async function getData() {
             try {

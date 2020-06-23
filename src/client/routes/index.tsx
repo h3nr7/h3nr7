@@ -36,7 +36,8 @@ const AppRouterComponent: React.StatelessComponent<{}> = () => {
                         <Route exact path="/" component={Home} />
                         <Route exact path="/article/:id" component={Article} />
                         <Route path="/user" component={User} />
-                        <Route path="/cv/:token" component={CV} />
+                        <Route exact path="/about" component={About} />
+                        <Route exact path="/about/cv/:token" component={CV} />
                         <Route exact path="/archive" component={Archive} />
                         {/* Redirects and Notfound */}
                         <Redirect exact path="/article" to="/" />

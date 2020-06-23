@@ -6,6 +6,7 @@ import { Markdown } from '../../components/markdown';
 import { RichText } from '../../components/richtext';
 import { SocialTags } from '../../components/socialtags';
 import { useOneArticle } from '../../helper/apiHooks';
+import { displayDate } from '../../helper/dateTimeFormat';
 
 import { 
     ArticleContainer, HeroImg, HeroGrid, TitleGrid, LinkTypo,
@@ -65,14 +66,7 @@ export const Article = () => {
                     {article.content ? <RichText document={article.content} /> : null}
                     {article.markdownContent ? <Markdown markdownContent={article.markdownContent} /> : null}
                     <Typography variant="body2">
-                        {`${String(article.articleType.title).toUpperCase()} - Updated on ${
-                            (new Date(article.updatedAt)).toLocaleDateString("en-GB", {  
-                                // weekday: 'long',
-                                year: 'numeric',
-                                month: 'short',
-                                day: 'numeric'
-                            })
-                        }`}
+                        {`${String(article.articleType.title).toUpperCase()} - Updated on ${displayDate(article.updatedAt)}`}
                     </Typography>
                 </Grid>
                 <Grid item sm={12} md={8}>

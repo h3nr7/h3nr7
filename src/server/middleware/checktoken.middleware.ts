@@ -21,6 +21,7 @@ export const checkToken = async (req:Request, res:Response, next: NextFunction) 
             firstName, lastName, email,
             cvId, date, exp
         };
+        req.token = token || bearerToken;
         next();
     } catch(e) {
         next(e.message);
