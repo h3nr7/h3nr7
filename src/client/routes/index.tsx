@@ -13,6 +13,8 @@ import { User } from "./user";
 import { NotFound } from './notfound';
 import { Burger } from "../components/burger";
 import { CV } from "./cv";
+import { CVForm } from "./cvform"
+
 
 const AppRouterComponent: React.StatelessComponent<{}> = () => {
 
@@ -37,6 +39,7 @@ const AppRouterComponent: React.StatelessComponent<{}> = () => {
                         <Route exact path="/article/:id" component={Article} />
                         <Route path="/user" component={User} />
                         <Route exact path="/about" component={About} />
+                        <Route exact path="/about/cv/request" component={CVForm} />
                         <Route exact path="/about/cv/:token" component={CV} />
                         <Route exact path="/archive" component={Archive} />
                         {/* Redirects and Notfound */}
