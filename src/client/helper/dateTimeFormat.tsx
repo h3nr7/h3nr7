@@ -10,5 +10,5 @@ export const displayDate = (timeStr:number):string => (new Date(timeStr)).toLoca
 
 // calculate days left
 export const calDaysLeft = (startDate:Date, endDate:Date):number => {
-    return Math.floor(Math.abs((Number(endDate.getTime()) - Number(startDate.getTime())) / (60 * 60 * 24)))
+    return Math.floor(Math.abs((Number(endDate.getTime()) - Number(startDate.getTime())) / (1000 * 60 * 60 * 24)))
 }

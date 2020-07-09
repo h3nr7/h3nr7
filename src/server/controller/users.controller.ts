@@ -9,7 +9,7 @@ export const usersController = express.Router();
 
 /** Controller Definitions */
 // simply return the user if token is correct
-usersController.get("/me", checkToken, async (req: express.Request, res: express.Response) => {
+usersController.get("/me", checkToken(false), async (req: express.Request, res: express.Response) => {
     const pic = await QrGenerator(req.token);
     const response = {
         ...req.user,

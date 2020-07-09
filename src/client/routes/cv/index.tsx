@@ -35,8 +35,10 @@ const CVComp:React.FC<{}> = (props) => {
 
     const { firstName, lastName, cvId, exp, date } = user;
     const today = new Date();
+    const endDate = new Date(Number(exp)*1000);
     const startDate = new Date(Number(date)*1000);
-    const daysLeft = calDaysLeft(startDate, today);
+    const daysLeft = calDaysLeft(today, endDate);
+
     return (
         <div>
             <Container>

@@ -43,13 +43,13 @@ authController.post('/request_cv', async (req:express.Request, res:express.Respo
 });
 
 /**
- * auth
+ * auth, verify even if token has expired
  */
-authController.get('/request_cv/:token', checkToken, async (req:express.Request, res:express.Response) => {
+authController.get('/request_cv/:token', checkToken(true), async (req:express.Request, res:express.Response) => {
     const { token } = req.params;
     const pic = await QrGenerator(token);
 
-    res.status(200).send({...req.user, oh: pic});
+    res.status(200).send({...req.user, tokenImg: pic});
 }, (err:Error, req:express.Request, res: express.Response, next:express.NextFunction) => {
     res.redirect(`/about/cv/error${err.message ? '?message=' + err.message : ''}`)
 });

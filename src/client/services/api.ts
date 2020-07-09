@@ -64,3 +64,7 @@ export const getLinkedinMe = (token:string):Promise<IUser> => {
     return axios.default.get(`/api/users/me`, config).then(res => res.data);
 
 };
+
+export const requestCV = (props:IUser):Promise<any> => {
+    return axios.default.post(`/auth/request_cv`, props).then(res => res.data);
+}

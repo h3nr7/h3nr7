@@ -78,7 +78,7 @@ contentController.get('/topics', async (req:express.Request, res: express.Respon
 /**
  * get single cv entry
  */
-contentController.get('/cvs/:id', checkToken, async (req:express.Request, res:express.Response) => {
+contentController.get('/cvs/:id', checkToken(false), async (req:express.Request, res:express.Response) => {
     try {
         const { token } = req.params;
         const { id } = req.params;

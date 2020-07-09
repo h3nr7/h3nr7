@@ -13,6 +13,8 @@ import { Experience } from './experience'
 import { Education } from './education'
 import { Skills } from './skill' 
 
+
+
 Font.register({
     family: 'rift-soft',
     fonts: [
@@ -82,8 +84,10 @@ const Page2:React.FC<IPage> = (props) => {
 const PdfComp:React.FC<{user:IUser, token:string}> = ({user, token}) => {
 
     const cv = useCV(token, user.cvId);
+    const { profile, educations, experiences } = cv
     const { tokenImg } = user;
-    return (
+
+    return profile && educations && experiences ? (
     <div>
         <PDFViewer>
             <Document>
@@ -98,6 +102,10 @@ const PdfComp:React.FC<{user:IUser, token:string}> = ({user, token}) => {
             </Document>
         }>Download</PDFDownloadLink> */}
     </div>
+    ) : (
+        <div>
+            Error
+        </div>
     );
 }
 
