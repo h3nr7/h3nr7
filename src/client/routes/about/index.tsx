@@ -29,17 +29,19 @@ export const About:React.FC<{}> = () => {
             <Section container>
                 <Grid item sm={12} md={6}>
                     <Paragraph variant="body2">
-                        Sometimes referred to as a technologist, most times a developer.  
-                        I am driven by the process of problem solving and innovation.  Having worked across industries
-                        from advertising and creative agencies to banking and fintech, I have led teams building service applications 
-                        with different requirements and infrastructures, designed end-to-end solutions and developed rapid prototypes 
-                        to validate ideas and concepts. 
+                        Sometimes referred to as technologist, otherwise a developer.  
+                        Driven by the process of problem solving and innovation.  I have worked across industries
+                        from creative agencies to banking and fintech, leading teams building applications 
+                        with different requirements and infrastructures, designed end-to-end solutions and rapid prototyped 
+                        for concept validations. 
                     </Paragraph>
                     <Paragraph variant="body2">
-                        Other than working,  I enjoy geeking out in my home workshop, training for triathlons or playing recreational basketball.
+                        I enjoy spending time in my workshop, training for triathlon and playing basketball with a team of old man.
                     </Paragraph>
                     <Paragraph variant="body2">
-                        For any enquiries, please feel free to get in touch via links below. ❌📧📞
+                        For my basic CV please use <Link 
+                        to={'/about/cv/request?cvid=6UrzkYkJ6z5mMzr9dWVdSj'}>this form
+                        </Link> or get in touch via social media below, may be for a chat over coffee (virtually for now until it is safe to do so in person of course).
                     </Paragraph>
                 </Grid>
             </Section>

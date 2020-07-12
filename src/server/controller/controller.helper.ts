@@ -14,7 +14,8 @@ import {
 import { IArticleHtmlMetatags } from '../../shared/interfaces/https.interface'
 import * as mailerData from '../settings/mailer.settings.json';
 import { EntryCollection } from 'contentful';
-import { emailer, IEmailer } from '../lib/emailer';
+import { emailer, IEmailer, IEmailerContent } from '../lib/emailer';
+import * as Moment from 'moment';
 
 const isDevMode = process.env.NODE_ENV === "development" || false;
 const defaultImage:string = process.env.DEFAULT_IMAGE;
@@ -67,7 +68,8 @@ export const transformOneArticleResponse = (
 export const transformOneCvResponse = ({
     sys: { id },
     fields: {
-        name, profile, summary, experiences, educations  
+        name, profile, summary, 
+        sortExperienceByDate, experiences, educations  
     }
 }:IContentfulEntry):ICV<IExperience, IEducation> => ({
     id, name,
@@ -81,16 +83,21 @@ export const transformOneCvResponse = ({
         address1: profile.fields.address1,
         address2: profile.fields.address2,
         city: profile.fields.city,
-        postcode: profile.fields.postcode
+        postcode: profile.fields.postcode,
+        skills: profile.fields.skills,
+        references: profile.fields.references
     },
     summary,
-    experiences: experiences && experiences.map(({ sys, fields}) => ({
-        companyName: fields.companyName,
-        role: fields.role,
-        isCurrent: fields.isCurrent,
-        startDate: fields.startDate,
-        endDate: fields.endDate,
-        content: fields.content
+    sortExperienceByDate: sortExperienceByDate,
+    experiences: experiences && experiences
+        .sort((a, b) => sortExperienceByDate ? Moment(a.fields.startDate).isBefore(b.fields.startDate) ? 1 : -1 : null)
+        .map(({ sys, fields}) => ({
+            companyName: fields.companyName,
+            role: fields.role,
+            isCurrent: fields.isCurrent,
+            startDate: fields.startDate,
+            endDate: fields.endDate,
+            content: fields.content
     })),
     educations: educations && educations.map(({ sys, fields }) => ({
         institute: fields.institute,
@@ -223,12 +230,14 @@ export const sendRequestCvEmail = (
     content?: string
 ):Promise<IEmailer> => {
     const { from, subject, templateName, text } = mailerData.requestCv.verification;
+    // construct the plain text view with link
+    const plainText = `Hello ${firstName} ${lastName}, \n\n ${text} \n\n ${baseUrl}/about/cv/${token}`
     return emailer({
         to: email,
         from,
         subject,
         templateName,
-        text,
+        text: plainText,
         data: {
             firstName,
             lastName,

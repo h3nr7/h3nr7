@@ -84,6 +84,14 @@ export const pdfStyles = StyleSheet.create({
         color: 'rgb(89, 90, 95)'
 
     },
+    h5: {
+        paddingBottom: 5,
+        paddingTop: 1,
+        fontFamily: 'Akkurat',
+        fontWeight: 300,
+        fontSize: 9,
+        textTransform: 'uppercase'
+    },
     h6: {
         paddingBottom: 5,
         paddingTop: 1,
@@ -96,6 +104,12 @@ export const pdfStyles = StyleSheet.create({
         lineHeight: 1.5,
         letterSpacing: 0,
         color: 'rgb(89, 90, 95)'
+    },
+    dot: {
+        display: 'flex',
+        maxWidth: '10%',
+        paddingRight: 20,
+        color: 'black'
     }
 });
 

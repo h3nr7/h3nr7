@@ -3,7 +3,7 @@ import { Link as NavLink } from 'react-router-dom';
 import { Grid } from '@material-ui/core';
 
 export const Link = styled(NavLink)`
-    
+    color: white
 `;
 
 export const MeContainer = styled.div`

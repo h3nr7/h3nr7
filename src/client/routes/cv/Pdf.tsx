@@ -12,6 +12,8 @@ import { Summary  } from './summary'
 import { Experience } from './experience'
 import { Education } from './education'
 import { Skills } from './skill' 
+import { Reference } from './Reference';
+import { ICV } from '../../../shared/interfaces/cvs.interface';
 
 
 
@@ -53,16 +55,20 @@ Font.register({
  */
 const Page1:React.FC<IPage> = ({user, cv}) => {
     const { tokenImg } = user; 
-    const { summary, experiences, profile } = cv
+    const { summary, experiences, educations, profile } = cv
     return (
         <Page size="A4" style={styles.page} rulerSteps={20}>
             <PageHeader img={tokenImg} profile={profile}/>
             <View style={styles.content}>
-                <Summary summary={summary}/>
-                <Experience experiences={experiences}/>
-            </View>
-            <View style={styles.content}>
-                <Skills />
+                <View style={styles.section}>
+                    <Summary style={{ marginBottom: 30 }} summary={summary}/>
+                    <Skills skills={profile.skills} pagebreak/>
+                </View>
+                <View style={styles.section}>
+                    <Experience style={{ marginBottom: 30 }} experiences={experiences}/>
+                    <Education style={{ marginBottom: 30 }} educations={educations} pageBreak={true}/>
+                    <Reference references={profile.references} />
+                </View>
             </View>
         </Page>
     )
@@ -71,15 +77,22 @@ const Page1:React.FC<IPage> = ({user, cv}) => {
 /**
  * Page 2 of CV
  */
-const Page2:React.FC<IPage> = (props) => {
-    return (
-        <Page size="A4" style={styles.page}>
-            <View style={styles.content}>
-                <Education />
-            </View>
-        </Page>
-    )
-}
+// const Page2:React.FC<IPage> = (props) => {
+//     return (
+//         <Page size="A4" style={styles.page}>
+//             <View style={styles.content}>
+//                 <Education />
+//             </View>
+//         </Page>
+//     )
+// }
+
+const CVContent:React.FC<{user:IUser, cv:ICV}> = ({user, cv}) => (
+    <Document>
+    <Page1 user={user} cv={cv}/>
+    {/* <Page2 user={user} cv={cv}/> */}
+</Document>
+)
 
 const PdfComp:React.FC<{user:IUser, token:string}> = ({user, token}) => {
 
@@ -89,18 +102,12 @@ const PdfComp:React.FC<{user:IUser, token:string}> = ({user, token}) => {
 
     return profile && educations && experiences ? (
     <div>
-        <PDFViewer>
-            <Document>
-                <Page1 user={user} cv={cv}/>
-                <Page2 user={user} cv={cv}/>
-            </Document>
-        </PDFViewer>
-        {/* <PDFDownloadLink document={
-            <Document>
-                <Page1 />
-                <Page2 />
-            </Document>
-        }>Download</PDFDownloadLink> */}
+        {/* <PDFViewer>
+            <CVContent user={user} cv={cv}/>
+        </PDFViewer> */}
+        <PDFDownloadLink document={<CVContent user={user} cv={cv}/>}>
+            Download
+        </PDFDownloadLink>
     </div>
     ) : (
         <div>

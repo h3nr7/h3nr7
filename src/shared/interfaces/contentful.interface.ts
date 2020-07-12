@@ -29,6 +29,8 @@ export interface IContentfulProfile {
     address2: EntryFields.Text
     city: EntryFields.Text
     postcode: EntryFields.Text
+    skills: EntryFields.Object
+    references: EntryFields.Object
 }
 
 /** interface for article */
@@ -68,6 +70,7 @@ export interface IContentfulCV {
     name: EntryFields.Symbol,
     summary: EntryFields.Text,
     profile: Entry<IContentfulProfile>
+    sortExperienceByDate: EntryFields.Boolean
     experiences: Entry<IContentfulExperiences>[]
     educations: Entry<IContentfulEducations>[]
 }

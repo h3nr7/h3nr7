@@ -34,10 +34,14 @@ export interface IEmailerContent<T=any> {
 export const emailer = async (props:(IEmailer & IEmailerContent)):Promise<IEmailer> => {
     try  {
         const { templateName, data, ...mailProps } = props;
-        // build from file
-        const source = await fs.readFileSync(path.join(__dirname, '..', '..', '..', 'templates', `${templateName}.hbs`), 'utf8');
+        // build from file with partials
+        const viewPath = path.join(__dirname, '..', '..', '..', 'views');
+        const source = await fs.readFileSync(path.join(viewPath, `${templateName}.hbs`), 'utf8');
+        const cssSrc = await fs.readFileSync(path.join(viewPath, 'partials', 'default_email_css.hbs'), 'utf8');
+        // compile templates
         const template = handlebars.compile(source);
-        const html = template(data);
+        const cssTemplate = handlebars.compile(cssSrc);
+        const html = template(data, { partials: {'default_email_css': cssTemplate} });
         // send mail and wait for response
         await mg.messages().send({...mailProps, html});
         return Promise.resolve(props);

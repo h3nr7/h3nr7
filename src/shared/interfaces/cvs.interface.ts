@@ -7,6 +7,7 @@ export interface ICV<T=any, S=any> {
     name?: string
     summary?: string
     profile?: IProfile
+    sortExperienceByDate?: boolean
     experiences?: T[]
     educations?: S[]
 }
