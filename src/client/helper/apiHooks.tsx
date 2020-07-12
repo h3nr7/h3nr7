@@ -176,7 +176,8 @@ export function useCV(token:string, cvId:string):ICV {
             address1: null,
             address2: null,
             city: null,
-            postcode: null
+            postcode: null,
+            skills: null
         }
     }
     const [cv, setCV] = useState(initialCV);

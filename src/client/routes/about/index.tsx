@@ -16,12 +16,6 @@ const INSTAGRAM_SOCIAL_URL = process.env.INSTAGRAM_SOCIAL_URL
 const GITHUB_SOCIAL_URL = process.env.GITHUB_SOCIAL_URL
 
 export const About:React.FC<{}> = () => {
-
-
-    console.log(LINKEDIN_SOCIAL_URL,
-        TWITTER_SOCIAL_URL,
-        INSTAGRAM_SOCIAL_URL)
-
     return (
         <Container>
             <Typography variant='h5'>Henry yp ho</Typography> 

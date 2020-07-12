@@ -1,4 +1,5 @@
 import { ISkills } from './skills';
+import { IReferences } from './references';
 
 export interface IProfiles {
     data: [IProfile]
@@ -16,5 +17,5 @@ export interface IProfile {
     city: string
     postcode: string
     skills: ISkills
-    references?: any
+    references?: IReferences
 }
