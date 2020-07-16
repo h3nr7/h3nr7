@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { Grid, Typography } from '@material-ui/core';
+import { Link as RoutLink } from 'react-router-dom';
 
 /**
  * default container
@@ -16,6 +17,30 @@ export const Section = styled(Grid)`
 export const Paragraph = styled(Typography)`
     padding-bottom: 1rem;
 `
+
+// plain link with nothing
+export const PlainLink = styled(RoutLink)`
+    text-decoration: none;
+    color: inherit;
+
+    &:visited {
+        color: inherit;
+    }
+`;
+
+// simple link with basic styles
+export const SimpleLink = styled(RoutLink)`
+    color: inherit;
+    text-decoration: underline;
+
+    &:visited {
+        color: inherit;
+    }
+
+    &:hover {
+        text-decoration: none;
+    }
+`;
 
 export const CTA = styled.button`
     border: none;

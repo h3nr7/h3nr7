@@ -1,5 +1,4 @@
 import styled from 'styled-components';
-import { Link as RoutLink } from 'react-router-dom';
 import { Typography } from '@material-ui/core';
 export const Ul = styled.ul`
     display: flex;
@@ -88,9 +87,4 @@ export const DesktopLi = styled(BasicLi)`
 
 export const Desc = styled(Typography)`
     color: rgba(255, 255, 255, 0.65);
-`;
-
-export const Link = styled(RoutLink)`
-    text-decoration: none;
-    color: inherit;
 `;

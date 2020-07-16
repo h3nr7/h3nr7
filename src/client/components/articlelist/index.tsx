@@ -3,9 +3,10 @@ import { Transition } from 'react-transition-group';
 
 import { useMediaDetect } from  '../../helper/mediaQueryHook';
 import { IProps, IItemProps } from './articlelist.interface';
-import { Ul, MobileLi, DesktopLi, Link, Desc } from './articlelist.styles';
+import { Ul, MobileLi, DesktopLi, Desc } from './articlelist.styles';
 import { Typography } from '@material-ui/core';
 import { IArticle } from '../../../shared/interfaces/articles.interface';
+import { PlainLink } from '../../styles/common.styles';
 
 /** each list item */
 const ArticleListItem:React.FC<IItemProps> = ({title, description, id, state, count, ...rest}) => {
@@ -19,10 +20,10 @@ const ArticleListItem:React.FC<IItemProps> = ({title, description, id, state, co
     }, [mediaType]);
     
     return (
-        <Li count={count} state={state}><Link to={`/article/${id}`}>
+        <Li count={count} state={state}><PlainLink to={`/article/${id}`}>
             <Typography variant="h3">{title}</Typography>
             <Desc variant="h6">{description}</Desc>
-        </Link></Li>
+        </PlainLink></Li>
     )
 }
 

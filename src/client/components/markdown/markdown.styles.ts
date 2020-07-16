@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Typography } from '@material-ui/core';
-
+import { Img } from 'react-image';
 // this would be hidden coming from markdown documents on github
 // export const H1 = styled(Typography)`
 //     font-size: 3rem;
@@ -66,7 +66,7 @@ export const Paragraph = styled.p`
     margin-bottom: 2rem;
 `;
 
-export const Image = styled.img`
+export const Image = styled(Img)`
     width: 100%;
     height: auto;
 `;

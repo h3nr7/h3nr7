@@ -4,8 +4,9 @@ import { Grid } from '@material-ui/core'
 export const TextInput = styled.input`
     display: block;
     border: none;
-    font-family: 'rift-soft';
+    font-family: 'rift-soft', sans-serif;
     font-weight: 300;
+    font-style: italic;
     font-size: 2rem;
     min-width: 200px;
     min-height: 40px;
@@ -16,8 +17,15 @@ export const TextInput = styled.input`
     background-repeat: repeat-x;
     background-size: 10px 1px, 1px 8px;
     margin-bottom: 1rem;
+
     &:focus {
         outline: none;
+    }
+
+    &::placeholder {
+        font-family: 'rift-soft', sans-serif;
+        font-weight: 300;
+        font-style: italic;
     }
 `
 

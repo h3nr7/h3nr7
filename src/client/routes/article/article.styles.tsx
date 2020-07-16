@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { Typography, Grid } from '@material-ui/core';
-
+import { Img } from 'react-image';
 export const ArticleContainer = styled.div`
     width: 100vw;
     padding: 0;
@@ -61,7 +61,7 @@ export const LinkTypo = styled(Typography)`
     }
 `;
 
-export const HeroImg = styled.img`
+export const HeroImg = styled(Img)`
     width: 100%;
     height: auto;
 `;
