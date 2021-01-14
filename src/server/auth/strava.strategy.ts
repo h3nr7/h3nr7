@@ -22,7 +22,8 @@ function verify(accessToken: string, refreshToken: string, profile: any, cb: any
 
 export const authRequired = async (req: Request, res: Response, next: NextFunction) => { 
 
-    console.log('test session', req.session);
+    const { ...respp } = req.session;
+    console.log('test this', respp);
 
     if(!req.session.passport || !req.session.passport.user || !req.session.passport.user.accessToken) {
             res.redirect(`/${process.env.STRAVA_AUTH_PATH}`);

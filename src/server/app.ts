@@ -25,7 +25,7 @@ const isProdMode: boolean = process.env.NODE_ENV === "production" || false;
 export function createApp(logfilePath: string):express.Application {
 
     // init app
-    const app:express.Application = express();
+	const app:express.Application = express();
 	// logger streams
 	const accessLogFilename: string = config.get("Logfiles.AccessFilename");
 	const accessLogStream: fs.WriteStream = fs.createWriteStream(path.join(logfilePath, accessLogFilename), { flags: "a" });
@@ -47,8 +47,8 @@ export function createApp(logfilePath: string):express.Application {
 	// sessions
 	let sessParams: session.SessionOptions = {
 		secret: process.env.SESSION_SECRET,
-		resave: true,
-    	saveUninitialized: true
+		resave: false,
+    	saveUninitialized: false
 	}
 	
 	if(isProdMode) {
@@ -60,7 +60,7 @@ export function createApp(logfilePath: string):express.Application {
 			...sessParams,
 			store: new RedisStore({ client: redisClient }),
 			cookie: {
-				secure: true
+				secure: false
 			}
 		}));
 	} else {
