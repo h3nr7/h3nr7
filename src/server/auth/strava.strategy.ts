@@ -22,12 +22,14 @@ function verify(accessToken: string, refreshToken: string, profile: any, cb: any
 
 export const authRequired = async (req: Request, res: Response, next: NextFunction) => { 
 
+    console.log('test session', req.session);
+
     if(!req.session.passport || !req.session.passport.user || !req.session.passport.user.accessToken) {
             res.redirect(`/${process.env.STRAVA_AUTH_PATH}`);
             return;
     }
 
-    const { accessToken } = req?.user;
+    const { accessToken } = req?.session?.passport?.user;
 
     const athlete = await stravaService.getAthlete(accessToken);
     const { id, ...resAthlete } = athlete;
