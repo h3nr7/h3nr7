@@ -12,7 +12,7 @@ export const Icon = styled(SVG)`
     width: auto;
     margin: 0rem 0rem 0rem 0rem;
     height: 2rem;
-    fill: white;
+    fill: ${props => props.theme.palette.text.primary};
     
 `;
 

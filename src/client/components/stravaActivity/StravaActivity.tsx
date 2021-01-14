@@ -16,6 +16,7 @@ import * as Moment from 'moment';
 import swim from '../../assets/swim.svg';
 import bike from '../../assets/bike.svg';
 import run from '../../assets/run.svg';
+import { calHrMinSecFromSecs, calKmFromMeters } from '../../helper/dateTimeFormat';
 
 
 export const StravaActivity:React.FC<IActivity> = ({
@@ -25,24 +26,22 @@ export const StravaActivity:React.FC<IActivity> = ({
     start_date,
     distance,
     elapsed_time,
-    total_elevation_gain
+    total_elevation_gain,
+    children
 }) => {
 
     let iconSrc;
     let showDistance;
     let showUnit;
     let showElevation = Math.round(total_elevation_gain);    
-    let secs = elapsed_time;
-    let minutes = Math.floor(secs / 60);
-    secs = secs%60;
-    let hours = Math.floor(minutes/60)
-    minutes = minutes%60;
+
+    const [hours, minutes, secs] = calHrMinSecFromSecs(elapsed_time);
 
     switch(type) {
         case 'VirtualRide':
         case 'Ride':
             iconSrc = bike;
-            showDistance = Math.round(distance/100)/10;
+            showDistance = calKmFromMeters(distance);
             showUnit = 'km';
             break;
         case 'Swim':
@@ -53,7 +52,7 @@ export const StravaActivity:React.FC<IActivity> = ({
         case 'VirtualRun':
         case 'Run':
             iconSrc = run;
-            showDistance = Math.round(distance/100)/10;
+            showDistance = calKmFromMeters(distance);
             showUnit = 'km';
             break;
     }
@@ -63,7 +62,7 @@ export const StravaActivity:React.FC<IActivity> = ({
             <ContentDiv>
                 <Grid container>
                     <Grid item xs={12}>
-                        <Title>{name}</Title>
+                        <Title>{children && `(${children}) - `}{name}</Title>
                         <Date>{Moment(start_date).format('YYYY-MM-DD')}</Date>
                         <Grid container>
                             <Grid item xs={12} sm={6} md={4} lg={3}>

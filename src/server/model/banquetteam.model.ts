@@ -4,12 +4,17 @@ import { IAthleteDocument } from './athlete.model';
 export const BanquetteamSchema = new Schema({
     name: {
         type: String,
-        required: true
+        required: true,
+        unique: true
     },
     contact: String,
     totDistance: Number,
     totElevation: Number,
-    totTime: Number
+    totTime: Number,
+    members: [{
+        type: Schema.Types.ObjectId,
+        ref: "Athlete"
+    }]
 }, {
     timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }
 });
@@ -26,7 +31,7 @@ export interface IBanquetteam {
 }
 
 export interface IBanquetteamDocument extends IBanquetteam, Document {
-    members: IAthleteDocument["_id"]
+    // members: IAthleteDocument["_id"]
 }
 
 export const BanquetteamModel = model<IBanquetteamDocument>("Banquetteam", BanquetteamSchema);

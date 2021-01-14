@@ -11,7 +11,7 @@ export const BanquetSchema = new Schema({
     },
     activities: [{
         type: Schema.Types.ObjectId,
-        ref: "activity"
+        ref: "Activity"
     }],
     team: {
         type: Schema.Types.ObjectId,
@@ -27,9 +27,9 @@ export interface IBanquet {
 }
 
 export interface IBanquetDocument extends IBanquet, Document {
-    athlete: IAthleteDocument["_id"]
-    activities: IActivityDocument["_id"]
-    team: IBanquetteamDocument["_id"]
+    // athlete: IAthleteDocument["_id"]
+    // activities: IActivityDocument["_id"]
+    // team: IBanquetteamDocument["_id"]
 }
 
-export const BanquetModel = model<IBanquetDocument>("Banquetteam", BanquetSchema);
+export const BanquetModel = model<IBanquetDocument>("Banquet", BanquetSchema);

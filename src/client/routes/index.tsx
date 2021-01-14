@@ -47,7 +47,7 @@ const AppRouterComponent: React.FC<{}> = () => {
                     {/* Redirects and Notfound */}
                     <Redirect exact path="/article" to="/" />
                     <Route exact path="/strava/profile" component={Strava} />
-                    <Route exact path="/strava/banquet2021" component={Banquet2021} />
+                    <Route exact path="/strava/bankuet2021/teams/:id" component={Banquet2021} />
                     <Route component={NotFound} />
                 </StyledAnimatedSwitch>
             </App>

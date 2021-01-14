@@ -30,14 +30,23 @@ const AppComponent: React.FC<IApp> = (props) => {
     }, [pathname]);
 
     let theme:Theme;
-    switch(pathname) {
-        case '/strava/banquet2021':
-            theme = banquetTheme({});
-            break;
-        default:
-            theme = brandedTheme({});
-            break;
+    // special for banquet2021 link
+    let subPathname = pathname.match(/\/strava\/bankuet2021/g);
+
+    if(!subPathname) {
+        theme = brandedTheme({});
+    } else {
+        theme = banquetTheme({});
     }
+
+    // switch(pathname) {
+    //     case '/strava/banquet2021/':
+    //         theme = banquetTheme({});
+    //         break;
+    //     default:
+    //         theme = brandedTheme({});
+    //         break;
+    // }
 
     return (
         <MuiThemeProvider theme={theme}>

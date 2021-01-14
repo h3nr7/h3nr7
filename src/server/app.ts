@@ -48,7 +48,12 @@ export function createApp(logfilePath: string):express.Application {
 	let sessParams: session.SessionOptions = {
 		secret: process.env.SESSION_SECRET,
 		resave: false,
-    	saveUninitialized: false
+		saveUninitialized: false,
+		// had to set cookie secure to false for passport to work with redis
+		// need to find a way to keep it secure.
+		cookie: {
+			secure: false
+		}
 	}
 	
 	if(isProdMode) {
@@ -58,17 +63,11 @@ export function createApp(logfilePath: string):express.Application {
 		});
 		app.use(session({
 			...sessParams,
-			store: new RedisStore({ client: redisClient }),
-			cookie: {
-				secure: false
-			}
+			store: new RedisStore({ client: redisClient })
 		}));
 	} else {
 		app.use(session({
-			...sessParams,
-			cookie: {
-				secure: false
-			}
+			...sessParams
 		}))
 	}
 	app.use(compression());

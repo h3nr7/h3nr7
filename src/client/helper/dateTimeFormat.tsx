@@ -18,3 +18,18 @@ export const displayMonthYearDate = (timeStr:number | string):string => {
 export const calDaysLeft = (startDate:Date, endDate:Date):number => {
     return Math.floor(Math.abs((Number(endDate.getTime()) - Number(startDate.getTime())) / (1000 * 60 * 60 * 24)))
 }
+
+// calculate hour minutes and seconds with seconds
+export const calHrMinSecFromSecs = (elapsed_time_seconds:number):[number, number, number] => {
+    let secs = elapsed_time_seconds;
+    let minutes = Math.floor(secs / 60);
+    secs = secs%60;
+    let hours = Math.floor(minutes/60)
+    minutes = minutes%60;
+
+    return [hours, minutes, secs];
+}
+
+export const calKmFromMeters = (d_meters:number): number => {
+    return Math.round(d_meters/100)/10;
+}
