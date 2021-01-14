@@ -3,7 +3,7 @@ import { pdfStyles as styles } from './cv.styles'
 import ReactPDF, { Text, View } from '@react-pdf/renderer';
 import { ISkills } from '../../../shared/interfaces/skills';
 
-export const Skills:React.FC<{skills:ISkills, style?:ReactPDF.Style, pagebreak?:boolean}> = ({skills, style, pagebreak}) => (
+export const Skills:React.FC<{skills:ISkills, style?:ReactPDF.Styles, pagebreak?:boolean}> = ({skills, style, pagebreak}) => (
     <View style={style} break={pagebreak}>
         <Text style={[styles.title, { paddingBottom: 5 }]}>Skill</Text>
         {skills.map((obj) => {

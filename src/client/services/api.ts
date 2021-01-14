@@ -5,6 +5,7 @@ import { IImage } from '../../shared/interfaces/images.interface';
 import { IPdf } from '../../shared/interfaces/pdfs.interface';
 import { IUser } from '../../shared/interfaces/user.interface';
 import { ICV } from '../../shared/interfaces/cvs.interface';
+import { IActivity, IAthlete } from 'strava-service'; 
 
 /** get single article */
 export const getOneEntry = (id:string):Promise<IArticle> => {
@@ -67,4 +68,14 @@ export const getLinkedinMe = (token:string):Promise<IUser> => {
 
 export const requestCV = (props:IUser):Promise<any> => {
     return axios.default.post(`/auth/request_cv`, props).then(res => res.data);
+}
+
+export const getStravaProfile = ():Promise<IAthlete> => {
+    return axios.default.get(`/api/strava/me`).then(res => res.data as IAthlete);
+}
+
+export const getStravaActivities = (params:{ 
+    startDate: string, endDate: string, perPage: number, page: number, saveData: boolean
+}) => {
+    return axios.default.get(`/api/strava/me/activities`, { params }).then(res => res.data as IActivity[]);
 }

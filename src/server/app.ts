@@ -7,12 +7,16 @@ import * as helmet from 'helmet';
 import * as cors from 'cors';
 import * as bodyParser from 'body-parser';
 import * as handlebars from 'express-handlebars';
+import * as session from 'express-session';
+import * as redis from 'redis';
+import * as connect from 'connect-redis';
 
 import * as webpack from 'webpack';
 import * as webpackDevMiddleware from 'webpack-dev-middleware';
 import * as webpackHotMiddleware from 'webpack-hot-middleware';
 import * as webpackConfig from '../webpack/webpack.config.dev';
 import { registerRoutes } from './controller/index';
+import { initAuth } from './auth/passport';  
 
 
 const isDevMode: boolean = process.env.NODE_ENV === "development" || false;
@@ -39,7 +43,32 @@ export function createApp(logfilePath: string):express.Application {
 		app.use("/dist", express.static(path.join(__dirname, "..", "dist")));
     }
     
-    // app use
+	// app use
+	// sessions
+	let sessParams: session.SessionOptions = {
+		secret: process.env.SESSION_SECRET,
+		resave: true,
+    	saveUninitialized: true
+	}
+	
+	if(isProdMode) {
+		let RedisStore = connect(session);
+		let redisClient = redis.createClient();
+		app.use(session({
+			...sessParams,
+			store: new RedisStore({ client: redisClient }),
+			cookie: {
+				secure: true
+			}
+		}));
+	} else {
+		app.use(session({
+			...sessParams,
+			cookie: {
+				secure: false
+			}
+		}))
+	}
 	app.use(compression());
 	app.use(helmet());
 	app.use(cors());
@@ -54,7 +83,9 @@ export function createApp(logfilePath: string):express.Application {
 		extname: '.hbs'
 	}));
 	app.set('view engine', '.hbs');
-	
+
+	// init auth for app
+	initAuth(app);
     // use controller routes
     registerRoutes(app);
 

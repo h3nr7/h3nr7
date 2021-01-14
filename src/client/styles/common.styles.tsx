@@ -42,6 +42,44 @@ export const SimpleLink = styled(RoutLink)`
     }
 `;
 
+export const A = styled.a`
+        color: inherit;
+    text-decoration: underline;
+
+    &:visited {
+        color: inherit;
+    }
+
+    &:hover {
+        text-decoration: none;
+    }
+`;
+
+export const OutlinedButton = styled.button`
+    border-radius: 3rem;
+    height: auto;
+    padding: 0.5rem 1.5rem;
+    font-family: titillium-web, san-serifs;
+    font-weight: 300;
+    font-size: 0.8rem;
+    background: none;
+    color: white;
+    border: 2px white solid;
+    cursor: pointer;
+
+    &:hover{
+        color: #cccccc;
+        border: 2px #cccccc solid;
+        &:before {
+            clip-path: polygon(0% 0%, 20% 0%, calc(20% - 0.65rem) 100%, 0 100%);
+        }
+    }
+
+    &:focus {
+        outline: none;
+    }
+`
+
 export const CTA = styled.button`
     border: none;
     background: none;

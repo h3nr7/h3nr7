@@ -6,8 +6,7 @@ import {
     transformTopicsResponse,
     transformCVResponse,
     transformOneCvResponse
-} from './controller.helper';
-import content from '*.svg';
+} from './helper/content.controller.helper';
 import { checkToken } from '../middleware/checktoken.middleware';
 
 export const contentController = express.Router();

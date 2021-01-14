@@ -1,12 +1,15 @@
-import { useEffect, useState } from 'react';
 import Axios from 'axios';
+import { useEffect, useState } from 'react';
 import { getLinkedinToken, setLinkedinToken, setLinkedinUser, clearAll } from '../services/localstorage';
 import { IArticles, IArticle, IArticleType, IArticleTypes } from '../../shared/interfaces/articles.interface';
-import { getArticles, getOneEntry, getArticleTypes, getLinkedinMe, getTokenUser, getCV } from '../services/api';
+import { 
+    getArticles, getOneEntry, getArticleTypes, getLinkedinMe, 
+    getTokenUser, getCV, getStravaProfile, getStravaActivities } from '../services/api';
 import { ITopics } from '../../shared/interfaces/topics.interface';
 import { IMarkdown } from '../../shared/interfaces/markdowns.interface';
 import { ICV } from '../../shared/interfaces/cvs.interface';
 import { userInfo } from 'os';
+import { IActivity, IAthlete } from 'strava-service';
 
 export function useOneArticle(id:string):any {
     const initialState:IArticle = {
@@ -222,4 +225,59 @@ export function useMarkdown(content:IMarkdown):any {
     }, [content, loaded]);
 
     return markdownStr;
+}
+
+export function useStravaMe():IAthlete {
+    const [ loaded, setLoaded ] = useState(false);
+    const [athlete, setAthlete] = useState<IAthlete>();
+
+    useEffect(() => {
+        async function getData() {
+            try {
+                const profile = await getStravaProfile();
+                setAthlete(profile);
+                setLoaded(true);
+            } catch(e) {
+                console.error('error loading profile');
+                setLoaded(true);
+            }
+        }
+
+        getData();
+    }, [loaded]);
+
+    return athlete;
+}
+
+export function useStravaActivities(
+    startDate?:string, 
+    endDate?:string, 
+    saveData?: boolean, 
+    perPage?: number, 
+    page?: number
+):IActivity[] {
+    console.log('geeeet data', startDate,
+    endDate,
+    saveData,
+    perPage,
+    page);
+    const [activities, setActivities] = useState<IActivity[]>();
+
+    useEffect(() => {
+        async function getData() {
+            try {
+                const activities = await getStravaActivities({
+                    startDate, endDate, perPage, page, saveData
+                });
+                setActivities(activities);
+            } catch(e) {
+                console.error('error loading profile');
+            }
+        }
+
+        getData();
+    }, [startDate, endDate, saveData, perPage, page]);
+
+    return activities;
+
 }

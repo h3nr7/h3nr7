@@ -2,16 +2,24 @@ import * as React from "react";
 import { hot } from "react-hot-loader";
 import { animateScroll } from 'react-scroll';
 import { useLocation } from "react-router-dom";
+import { Theme, ThemeProvider as MuiThemeProvider } from '@material-ui/core/styles';
+import brandedTheme from './styles/brandedTheme';
+import banquetTheme from './styles/banquetTheme';
+import CssBaseline from '@material-ui/core/CssBaseline';
+
 
 import { AppContainer, AppContent } from './styles/app.styles';
-import { Head } from './components/head';
-import { Foot } from './components/foot';
+import { ThemeProvider } from "styled-components";
 
 
-const AppComponent: React.StatelessComponent<{}> = (props) => {
+interface IApp {
+
+}
+
+const AppComponent: React.FC<IApp> = (props) => {
 
     const location = useLocation();
-
+    const { pathname } = location;
     // scroll back to top when route changes
     React.useEffect(() => {
         animateScroll.scrollToTop({
@@ -19,14 +27,30 @@ const AppComponent: React.StatelessComponent<{}> = (props) => {
             delay: 250,
             smooth: "easeInOutQuart"
         });
-    }, [location]);
+    }, [pathname]);
+
+    let theme:Theme;
+    switch(pathname) {
+        case '/strava/banquet2021':
+            theme = banquetTheme({});
+            break;
+        default:
+            theme = brandedTheme({});
+            break;
+    }
 
     return (
-        <AppContainer>
-            <AppContent>
-            {props.children}
-            </AppContent>
-        </AppContainer>
+        <MuiThemeProvider theme={theme}>
+            <ThemeProvider theme={theme}>
+            <CssBaseline>
+                <AppContainer>
+                    <AppContent>
+                    {props.children}
+                    </AppContent>
+                </AppContainer>
+            </CssBaseline>
+            </ThemeProvider>
+        </MuiThemeProvider>
     );
 
 };

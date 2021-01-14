@@ -1,20 +1,18 @@
 import * as express from 'express';
-import { IArticles, IArticle, IArticleTypes, IArticleType } from '../../shared/interfaces/articles.interface'
-import { IImage } from '../../shared/interfaces/images.interface';
-import { ITopics } from '../../shared/interfaces/topics.interface';
-import { ICVs, ICV } from '../../shared/interfaces/cvs.interface';
-import { IPdf } from '../../shared/interfaces/pdfs.interface';
-import { IProfile } from '../../shared/interfaces/profiles.interface'; 
-import { IExperience } from '../../shared/interfaces/experiences.interface'
-import { IEducation } from '../../shared/interfaces/education.interface' 
+import { IArticles, IArticle, IArticleTypes, IArticleType } from '../../../shared/interfaces/articles.interface'
+import { IImage } from '../../../shared/interfaces/images.interface';
+import { ITopics } from '../../../shared/interfaces/topics.interface';
+import { ICVs, ICV } from '../../../shared/interfaces/cvs.interface';
+import { IPdf } from '../../../shared/interfaces/pdfs.interface';
+import { IProfile } from '../../../shared/interfaces/profiles.interface'; 
+import { IExperience } from '../../../shared/interfaces/experiences.interface'
+import { IEducation } from '../../../shared/interfaces/education.interface' 
 import { 
     IContentfulEntries, IContentfulEntry, 
     IContentfulArticleType, IContentfulTopic 
-} from '../../shared/interfaces/contentful.interface';
-import { IArticleHtmlMetatags } from '../../shared/interfaces/https.interface'
-import * as mailerData from '../settings/mailer.settings.json';
+} from '../../../shared/interfaces/contentful.interface';
+import { IArticleHtmlMetatags } from '../../../shared/interfaces/https.interface'
 import { EntryCollection } from 'contentful';
-import { emailer, IEmailer, IEmailerContent } from '../lib/emailer';
 import * as Moment from 'moment';
 
 const isDevMode = process.env.NODE_ENV === "development" || false;
@@ -218,32 +216,3 @@ export const transformCVResponse = ({
         id, name, summary, createdAt, updatedAt
     }))
 })
-/**
- * Send Request CV email with token
- */
-export const sendRequestCvEmail = (
-    email: string,
-    firstName:string,
-    lastName: string,
-    baseUrl: string,
-    token: string,
-    content?: string
-):Promise<IEmailer> => {
-    const { from, subject, templateName, text } = mailerData.requestCv.verification;
-    // construct the plain text view with link
-    const plainText = `Hello ${firstName} ${lastName}, \n\n ${text} \n\n ${baseUrl}/about/cv/${token}`
-    return emailer({
-        to: email,
-        from,
-        subject,
-        templateName,
-        text: plainText,
-        data: {
-            firstName,
-            lastName,
-            baseUrl,
-            token,
-            content
-        }
-    });
-}

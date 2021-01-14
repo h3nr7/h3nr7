@@ -16,7 +16,7 @@ const EducationItem:React.FC<IEducation> = ({institute ,title ,isCurrent ,startD
     </View>
 )
 
-export const Education:React.FC<{educations: IEducation[], pageBreak?:boolean, style?:ReactPDF.Style}> = ({educations, pageBreak, style}) => (
+export const Education:React.FC<{educations: IEducation[], pageBreak?:boolean, style?:ReactPDF.Styles}> = ({educations, pageBreak, style}) => (
     <View style={style} break={pageBreak}>
         <Text style={[styles.title, { paddingBottom: 5 }]}>Education</Text>
         {educations.map((item) => <EducationItem {...item} />)}

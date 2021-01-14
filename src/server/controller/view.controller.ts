@@ -3,8 +3,9 @@ import * as path from 'path';
 import * as loadjsonfile from "load-json-file";
 import { contentfulService } from '../service/contentful.service';
 import { IArticle } from '../../shared/interfaces/articles.interface';
-import { transformOneArticleResponse, transformHtmlMetaResponse } from './controller.helper';
+import { transformOneArticleResponse, transformHtmlMetaResponse } from './helper/content.controller.helper';
 import { IArticleHtmlMetatags } from '../../shared/interfaces/https.interface';
+import { authRequired } from '../auth/strava.strategy';
 export const viewController = express.Router();
 
 // constant vars from ENVIRONMENT
@@ -78,6 +79,44 @@ viewController.get('/article/:id', async (req:express.Request, res:express.Respo
         res.status(404).send(e.message);
     }
 });
+
+async function StravaController(req:express.Request, res:express.Response) {
+    const { profile, accessToken } = req?.user || {};
+    const title:string = `h3nr7 :: Hello ${profile.firstname}, welcome to our Strava playground`;
+    const metatags = {
+        title,
+        desc: `Strava Profile for all the fun experiments with your Strava Data`,
+        type: 'website',
+        image: `http://${req.host}${isDevMode && req.socket.localPort ? `:${req.socket.localPort}` : ''}/${DEFAULT_IMAGE}`,
+        imageSecure: `https://${req.host}${isDevMode && req.socket.localPort ? `:${req.socket.localPort}` : ''}/${DEFAULT_IMAGE}`,
+        url:`${req.protocol}://${req.host}${isDevMode && req.socket.localPort ? `:${req.socket.localPort}` : ''}${req.originalUrl}`
+    };
+
+    let hbsData:any = {
+        layout: 'default',
+        title,
+        typekitId,
+        vendorsJSUrl,
+        bundleJSUrl
+    };
+
+    // only show all the tracking and meta in prod
+    if(isProdMode) {
+        hbsData = {
+            ...hbsData, 
+            gaId,
+            fbId,
+            twitterPixelId,
+            metatags
+        };
+    }
+
+    if(accessToken) res.header({ Authorization: `bearer ${accessToken}` })
+    res.render('home', hbsData);
+}
+// strava logged in view
+viewController.get('/strava/profile',  authRequired, StravaController);
+// viewController.get('/strava/banquet2021', authRequired, StravaController);
 
 // default views
 viewController.use((req: express.Request, res: express.Response) => {

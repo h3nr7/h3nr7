@@ -21,9 +21,13 @@ const initialUser:IUser = {
     exp: null
 }
 
+export interface ICVParams {
+    token: string
+}
+
 const CVComp:React.FC<{}> = (props) => {
 
-    const { token } = useParams();
+    const { token } = useParams<ICVParams>();
     const [user, setUser] = React.useState<IUser>(initialUser);
     React.useEffect(() => {
         async function fetchCV() {

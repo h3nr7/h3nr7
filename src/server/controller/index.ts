@@ -8,6 +8,8 @@ import { errorHandler } from '../middleware/error.middleware';
 import { notFoundHandler } from '../middleware/not-found.middleware';
 import { contentController } from './content.controller';
 import { authController } from './auth.controller'; 
+import { stravaController } from './strava.controller';
+import { banquetController } from './banquet.controller';
 
 /**
  * Register all routes
@@ -23,6 +25,8 @@ export function registerRoutes(app:express.Application):void {
     //add api controller routes here
     app.use('/api/content', contentController);
     app.use('/api/user', usersController);
+    app.use('/api/strava', stravaController);
+    app.use('/api/banquet', banquetController);
     // error and not found handler for api
     app.use('/api', errorHandler);
     app.use('/api', notFoundHandler);

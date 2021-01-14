@@ -49,7 +49,7 @@ export const H5 = styled.h5`
 `;
 
 export const H6 = styled.h6`
-    font-family: ff-dagny-web-pro,serif;
+    font-family: titillium-web,serif;
     font-size: 0.875rem;
     font-weight:300;
     line-height: 1.43;
@@ -59,7 +59,7 @@ export const H6 = styled.h6`
 
 export const Paragraph = styled.p`
     font-size: 0.875rem;
-    font-family: ff-dagny-web-pro,serif;
+    font-family: titillium-web,serif;
     font-weight: 400;
     line-height: 1.43;
     margin: 0;

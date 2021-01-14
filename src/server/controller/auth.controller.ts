@@ -1,8 +1,9 @@
 import * as express from 'express';
 import * as jwt from 'jsonwebtoken';
+import * as passport from 'passport';
 import { logger } from '../lib/logger';
 import HttpException from '../lib/http-exception';
-import { sendRequestCvEmail } from './controller.helper';
+import { sendRequestCvEmail } from './helper/auth.controller.helper';
 import { checkToken } from '../middleware/checktoken.middleware';
 import { QrGenerator } from '../lib/qr';
 export const authController = express.Router();
@@ -11,7 +12,7 @@ const isDevMode:boolean = process.env.NODE_ENV === "development" || false;
 const JWT_SECRET = process.env.JWT_SECRET;
 
 /**
- * auth
+ * auth for request CV 
  */
 authController.post('/request_cv', async (req:express.Request, res:express.Response) => {
     try {   
@@ -53,3 +54,21 @@ authController.get('/request_cv/:token', checkToken(true), async (req:express.Re
 }, (err:Error, req:express.Request, res: express.Response, next:express.NextFunction) => {
     res.redirect(`/about/cv/error${err.message ? '?message=' + err.message : ''}`)
 });
+
+/**
+ * strava oauth2 middleware
+ */
+authController.get('/strava', passport.authenticate('oauth2'));
+
+/**
+ * strava oath2 callback
+ */
+authController.get(
+    '/strava/callback', 
+    passport.authenticate('oauth2', { 
+        failureRedirect: '/auth/failed'
+     }),
+    (req: express.Request, res: express.Response) => {
+        res.redirect('/strava/profile');
+    }
+);

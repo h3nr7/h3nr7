@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { hot } from 'react-hot-loader';
-import { 
-    Image , Page, Font, Text, View, Document, StyleSheet 
+import ReactPDF, { 
+    Image , Page, Font, Text, View, Document 
 } from '@react-pdf/renderer';
 import { IUser } from '../../../shared/interfaces/user.interface';
 import { IPage } from './cv.interface';
@@ -56,17 +56,24 @@ Font.register({
 const Page1:React.FC<IPage> = ({user, cv}) => {
     const { tokenImg } = user; 
     const { summary, experiences, educations, profile } = cv
+
+    const viewStyles:ReactPDF.Styles = {
+        style: {
+            marginBottom: 30
+        }
+    }
+
     return (
-        <Page size="A4" style={styles.page} rulerSteps={20}>
+        <Page size="A4" style={styles.page} /*rulerSteps={20}*/ >
             <PageHeader img={tokenImg} profile={profile}/>
             <View style={styles.content}>
                 <View style={styles.section}>
-                    <Summary style={{ marginBottom: 30 }} summary={summary}/>
+                    <Summary summary={summary} style={viewStyles} />
                     <Skills skills={profile.skills} pagebreak/>
                 </View>
                 <View style={styles.section}>
-                    <Experience style={{ marginBottom: 30 }} experiences={experiences}/>
-                    <Education style={{ marginBottom: 30 }} educations={educations} pageBreak={true}/>
+                    <Experience style={viewStyles} experiences={experiences}/>
+                    <Education style={viewStyles} educations={educations} pageBreak={true}/>
                     <Reference references={profile.references} />
                 </View>
             </View>

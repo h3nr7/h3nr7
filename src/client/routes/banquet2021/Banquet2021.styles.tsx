@@ -1,0 +1,43 @@
+import styled from 'styled-components';
+import { Typography, Grid } from '@material-ui/core';
+
+export const TitleGrid = styled(Grid)`
+    padding-bottom: 2rem;
+`;
+
+export const SubTitleGrid = styled(Grid)`
+padding-bottom: 0rem;
+`;
+
+export const TopInfoGrid = styled(Grid)`
+    padding-bottom: 2rem;
+`;
+
+export const MemberGrid = styled(Grid)`
+    padding-bottom: 2rem;
+`;
+
+export const TeamGrid = styled(Grid)`
+    padding-bottom: 2rem;
+`;
+
+export const Unit = styled.span`
+    font-size: 3rem;
+    font-family: titillium-web, san-serifs;
+    letter-spacing: 0.01rem;
+`   
+
+export const SmallUnit = styled.span`
+    font-family: titillium-web, san-serifs;
+    letter-spacing: 0.01rem;
+    font-size: 0.85rem;
+
+`;
+
+export const MembeContainer = styled.div`
+    padding-bottom: 2rem;
+`;
+
+export const MemberDataGrid = styled(Grid)`
+    text-align:right;
+`;

@@ -12,7 +12,8 @@
 		"outDir": "./build",	
 		"types": ["react", "@types/jest", "node"],	
 		"typeRoots": ["node_modules/@types", "./src/shared/typings"],
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"allowSyntheticDefaultImports": true
 	},
 	"include": [
 		"./src/**/*",

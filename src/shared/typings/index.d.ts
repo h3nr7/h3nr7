@@ -1,26 +1,24 @@
 // import * as jsonwebtoken from 'jsonwebtoken';
-
-// declare for all image extension
-declare module '*.svg' {
-	const content: string;
-  	export default content;
-}
-declare module '*.png';
-declare module '*.jpg';
-declare module '*.gif';
-declare module '*.less';
-
+import { IAthlete } from 'strava-service';
 // express request add on 
-declare namespace Express {
-	export interface Request {
-		user?: {
-			firstName: string
-			lastName: string
-			email: string
+declare global {
+	namespace Express {
+
+		export interface User {
+			firstName?: string
+			lastName?: string
+			email?: string
 			cvId?:string
 			date?:string
-			exp:string
+			exp?:string
+			accessToken?:string
+			refreshToken?:string
+			profile?: IAthlete
 		}
-		token?: string
+		
+		export interface Request {
+			user?: User
+			token?: string
+		}
 	}
 }

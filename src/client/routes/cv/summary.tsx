@@ -3,7 +3,7 @@ import { pdfStyles as styles } from './cv.styles'
 import ReactPDF, { Text, View } from '@react-pdf/renderer';
 
 
-export const Summary:React.FC<{summary:string, style: ReactPDF.Style}> = ({summary, style}) => (
+export const Summary:React.FC<{summary:string, style: ReactPDF.Styles}> = ({summary, style}) => (
     <View style={style}>
         <Text style={[styles.title, { paddingBottom: 5 }]}>Summary</Text>
         <Text style={styles.h5}>About</Text>
