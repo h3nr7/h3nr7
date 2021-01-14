@@ -53,7 +53,9 @@ export function createApp(logfilePath: string):express.Application {
 	
 	if(isProdMode) {
 		let RedisStore = connect(session);
-		let redisClient = redis.createClient();
+		let redisClient = redis.createClient({
+			url: process.env.REDIS_URL
+		});
 		app.use(session({
 			...sessParams,
 			store: new RedisStore({ client: redisClient }),
