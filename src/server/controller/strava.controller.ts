@@ -22,7 +22,7 @@ stravaController.get(
     authApiRequired,
     async (req: express.Request, res: express.Response, next: express.NextFunction) => {
     try {
-        const athlete = await stravaService.getAthlete(req.user.accessToken);
+        const athlete = await stravaService.getAthlete(req.session.passport.user.accessToken);
         const { id, ...baseAthlete } = athlete;
         const updatedAthlete = await AthleteModel.findOneAndUpdate({ stravaId: id }, {
             stravaId: id,
@@ -44,7 +44,7 @@ stravaController.get(
         try {
             const { id } = req.params;
             console.log( id );
-            const activity = await stravaService.getOneActivity(id, req.user.accessToken);
+            const activity = await stravaService.getOneActivity(id, req.session.passport.user.accessToken);
             res.status(200).send(activity);
         } catch(e) {
             res.status(404).send(e.message);
@@ -67,7 +67,7 @@ stravaController.get(
                 after: startDate ? Moment(startDate as string).unix() : undefined,
                 page: Number(page) ? Number(page) : 1,
                 per_page: perPage ? Number(perPage) : 30
-            }, req.user.accessToken);
+            }, req.session.passport.user.accessToken);
             
             if(saveData && saveData==='true') {
 

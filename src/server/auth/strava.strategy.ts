@@ -22,7 +22,7 @@ function verify(accessToken: string, refreshToken: string, profile: any, cb: any
 
 export const authRequired = async (req: Request, res: Response, next: NextFunction) => { 
 
-    if(!req.user || !req.user.accessToken) {
+    if(!req.session.passport || !req.session.passport.user || !req.session.passport.user.accessToken) {
             res.redirect(`/${process.env.STRAVA_AUTH_PATH}`);
             return;
     }
@@ -39,7 +39,7 @@ export const authRequired = async (req: Request, res: Response, next: NextFuncti
         }
     , { upsert: true });
     if(dbAthlete) {
-        req.user.profile = transAthleteRes(dbAthlete);
+        req.session.passport.user.profile = transAthleteRes(dbAthlete);
         next();
     } else {
         res.redirect(`/${process.env.STRAVA_AUTH_PATH}`);
@@ -48,8 +48,9 @@ export const authRequired = async (req: Request, res: Response, next: NextFuncti
 
 export const authApiRequired = (req: Request, res: Response, next: NextFunction) => { 
     if(
-        !req.user || 
-        !req.user.accessToken) {
+        !req.session.passport ||
+        !req.session.passport.user || 
+        !req.session.passport.user.accessToken) {
             res.status(401).json({status: 401, message: 'Not authorized by strava.'})
     }
 
