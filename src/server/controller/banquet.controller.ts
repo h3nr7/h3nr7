@@ -135,7 +135,7 @@ banquetController.get(
                                         ]},
                                         { $lte: [
                                             { $toDate: "$start_date" },
-                                            { $toDate: '2021-01-14' }
+                                            { $toDate: '2021-02-15' }
                                         ]},
                                         { $eq: ["$members.stravaId", "$$activities_AthleteId"] },
                                         {
