@@ -56,7 +56,7 @@ export function createApp(logfilePath: string):express.Application {
 		}
 	}
 	
-	if(isProdMode) {
+	// if(isProdMode) {
 		let RedisStore = connect(session);
 		let redisClient = redis.createClient({
 			url: process.env.REDIS_URL
@@ -65,11 +65,11 @@ export function createApp(logfilePath: string):express.Application {
 			...sessParams,
 			store: new RedisStore({ client: redisClient })
 		}));
-	} else {
-		app.use(session({
-			...sessParams
-		}))
-	}
+	// } else {
+	// 	app.use(session({
+	// 		...sessParams
+	// 	}))
+	// }
 	app.use(compression());
 	app.use(helmet());
 	app.use(cors());

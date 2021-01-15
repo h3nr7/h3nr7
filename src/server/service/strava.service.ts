@@ -15,16 +15,14 @@ class StravaService extends EventEmitter implements IStravaService {
      * get athlete
      * @param token 
      */
-    async getAthlete(token: string):Promise<IRawAthlete> {
+    getAthlete(token: string):Promise<IRawAthlete> {
         const url =`${this.apiUrl}/athlete`;
-        try {
-            const res = await Axios(url, {
+        console.log('me wrong again');
+        return Axios(url, {
                 headers: { Authorization: `Bearer ${token}` }
-            });
-            return res.data as IRawAthlete;
-        } catch(e) {
-            throw new Error(`Strava service error: ${e.message}`)
-        }
+            })
+            .then(res => res.data as IRawAthlete)
+            .catch(e => { throw e });
     }
 
     /**
@@ -32,16 +30,13 @@ class StravaService extends EventEmitter implements IStravaService {
      * @param id 
      * @param token 
      */
-    async getOneActivity(id: string, token: string):Promise<IRawActivity> {
+    getOneActivity(id: string, token: string):Promise<IRawActivity> {
         const url =`${this.apiUrl}/activities/${id}`;
-        try {
-            const res = await Axios(url, {
+        return Axios(url, {
                 headers: { Authorization: `Bearer ${token}` }
-            });
-            return res.data as IRawActivity;
-        } catch(e) {
-            throw new Error(`Strava service error: ${e.message}`)
-        }
+            })
+            .then(res => res.data as IRawActivity)
+            .catch(e => { throw e });
     }
 
     /**
@@ -49,17 +44,14 @@ class StravaService extends EventEmitter implements IStravaService {
      * @param params 
      * @param token 
      */
-    async getActivities(params:IGetActivities, token: string):Promise<IRawActivity[]> {
+    getActivities(params:IGetActivities, token: string):Promise<IRawActivity[]> {
         const url =`${this.apiUrl}/athlete/activities`;
-        try {
-            const res = await Axios(url, {
-                params,
-                headers: { Authorization: `Bearer ${token}` }
-            });
-            return res.data as IRawActivity[];
-        } catch(e) {
-            throw new Error(`Strava service error: ${e.message}`)
-        }
+        return Axios(url, {
+            params,
+            headers: { Authorization: `Bearer ${token}` }
+        })
+        .then(res => res.data as IRawActivity[])
+        .catch(e => { throw e });
     }
 }
 

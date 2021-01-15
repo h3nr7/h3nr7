@@ -1,8 +1,10 @@
 import * as OAuth2Strategy from 'passport-oauth2';
+import * as refresh from 'passport-oauth2-refresh';
 import { NextFunction, Response, Request } from 'express';
 import { stravaService } from '../service/strava.service';
 import { transAthleteRes } from '../controller/helper/strava.controller.helper';
 import { AthleteModel } from '../model/athlete.model';
+import { logger } from '../lib/logger';
 
 /**
  * STRATEGY
@@ -21,31 +23,40 @@ function verify(accessToken: string, refreshToken: string, profile: any, cb: any
 }
 
 export const authRequired = async (req: Request, res: Response, next: NextFunction) => { 
-
-    const { ...respp } = req.session;
-    console.log('test this', respp);
-
     if(!req.session.passport || !req.session.passport.user || !req.session.passport.user.accessToken) {
             res.redirect(`/${process.env.STRAVA_AUTH_PATH}`);
             return;
     }
 
-    const { accessToken } = req?.session?.passport?.user;
+    const { accessToken, refreshToken } = req?.session?.passport?.user;
 
-    const athlete = await stravaService.getAthlete(accessToken);
-    const { id, ...resAthlete } = athlete;
-    const dbAthlete = await AthleteModel.findOneAndUpdate(
-        { stravaId: id },
-        {
-            stravaId: id,
-            ...resAthlete
+    try {
+        const athlete = await stravaService.getAthlete(accessToken);
+        const { id, ...resAthlete } = athlete;
+        const dbAthlete = await AthleteModel.findOneAndUpdate(
+            { stravaId: id },
+            {
+                stravaId: id,
+                ...resAthlete
+            }
+        , { upsert: true });
+        if(dbAthlete) {
+            req.session.passport.user.profile = transAthleteRes(dbAthlete);
+            next();
+        } else {
+            res.redirect(`/${process.env.STRAVA_AUTH_PATH}`);
         }
-    , { upsert: true });
-    if(dbAthlete) {
-        req.session.passport.user.profile = transAthleteRes(dbAthlete);
-        next();
-    } else {
-        res.redirect(`/${process.env.STRAVA_AUTH_PATH}`);
+    } catch(e) {
+        if(!refreshToken) res.redirect(`/${process.env.STRAVA_AUTH_PATH}`);
+        refresh.requestNewAccessToken('oauth2', refreshToken, (err, nAccessToken, nRefreshToken) => {
+            if(err) {
+                logger.error('Error with request new access token');
+                res.redirect(`/${process.env.STRAVA_AUTH_PATH}`);
+            }
+            req.session.passport.user.accessToken = nAccessToken;
+            req.session.passport.user.refreshToken = nRefreshToken;
+            next();
+        });
     }
 }
 
