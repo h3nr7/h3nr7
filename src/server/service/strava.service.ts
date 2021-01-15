@@ -17,7 +17,6 @@ class StravaService extends EventEmitter implements IStravaService {
      */
     getAthlete(token: string):Promise<IRawAthlete> {
         const url =`${this.apiUrl}/athlete`;
-        console.log('me wrong again');
         return Axios(url, {
                 headers: { Authorization: `Bearer ${token}` }
             })

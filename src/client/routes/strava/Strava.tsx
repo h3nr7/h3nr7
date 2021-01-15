@@ -15,7 +15,7 @@ export const StravaComp = () => {
     let { username, firstname, lastname, stravaId, profile } = me || {};
     const [saveActivity, setSaveActivity] = React.useState(false);
     const startDate = Moment().subtract(4, 'weeks').format('YYYY-MM-DD');
-    const endDate = Moment().format('YYYY-MM-DD');
+    const endDate = Moment().add(1, 'days').format('YYYY-MM-DD');
     const activities = useStravaActivities(startDate, endDate, saveActivity, 200);  
     const sycnHandler = (e:React.MouseEvent<HTMLButtonElement>) => {
         setSaveActivity(true);

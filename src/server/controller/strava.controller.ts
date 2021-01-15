@@ -62,11 +62,12 @@ stravaController.get(
         let activities:IActivity[];
         try {
             const { startDate, endDate, perPage, page, saveData } = req.query;
+            console.log('startDate, endDate, perPage, page, saveData',  startDate, endDate, perPage, page, saveData);
             const stravaRes =  await stravaService.getActivities({
                 before: endDate ? Moment(endDate as string).unix() : undefined,
                 after: startDate ? Moment(startDate as string).unix() : undefined,
                 page: Number(page) ? Number(page) : 1,
-                per_page: perPage ? Number(perPage) : 30
+                per_page: perPage ? Number(perPage) : 100
             }, req.session.passport.user.accessToken);
             
             if(saveData && saveData==='true') {
