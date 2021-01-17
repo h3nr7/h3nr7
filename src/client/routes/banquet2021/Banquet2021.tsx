@@ -13,15 +13,12 @@ import { StravaActivity } from '../../components/stravaActivity';
 import { IActivity } from 'strava-service';
 import { RestrictedRoute } from '../restricted.routes';
 
-const MAX_NUM_TO_SHOW = 8;
-
 export const Banquet:React.FC<{}> = () => {
     
     const { id } = useParams<{id:string}>();
     const stats = useBanquetTeamStats(id);
     const { _id, name, members, totDistance, totElevation, totTime, activities } = stats || {};
 
-    const outActivities:IActivity[] = activities && (activities.slice(0, Math.min(MAX_NUM_TO_SHOW, Math.max(MAX_NUM_TO_SHOW, activities.length))) as unknown as IActivity[]);
     const [hours, minutes, secs] = calHrMinSecFromSecs(totTime);
     const showTotDistance = calKmFromMeters(totDistance);
     const showTotElevation = Math.round(totElevation);
@@ -30,6 +27,8 @@ export const Banquet:React.FC<{}> = () => {
         let { stravaId, ...rest } = post;
         return {...acc, [stravaId]: {...rest}};
     }, {});
+
+    console.log(memObj, activities);
 
 
     return (
@@ -85,7 +84,7 @@ export const Banquet:React.FC<{}> = () => {
                                     <BanquetMember />
                                 </Grid>
                             </Grid> */}
-                            {outActivities && outActivities.map(a => {
+                            {activities && activities.map(a => {
                                 return (<StravaActivity {...a}>{memObj[a.athlete.id].username}</StravaActivity>)
                             })}
                         </Grid>

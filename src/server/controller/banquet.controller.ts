@@ -103,27 +103,17 @@ banquetController.get(
                 {   
                     $lookup: {
                         from: "athletes",
-                        let: {
-                            athlete_id: "$athletes._id"
-                        },
-                        pipeline: [
-                            {
-                                $match: {
-                                    $expr: {
-                                        $eq: ["$members", "$$athlete_id"]
-                                    }
-                                }
-                            },
-                            { $sort: { "firstname": 1 } }
-                        ],
+                        localField: "members",
+                        foreignField: "_id",
                         as: "members"
                     }
                 },
+                { $unwind: "$members" },
                 {
                     $lookup: {
                         from: "activities",
                         let: { 
-                            activities_AthleteId: "$activities.athlete.id"
+                            members_stravaId: "$members.stravaId"
                         },
                         pipeline: [
                             { $match: {
@@ -137,7 +127,7 @@ banquetController.get(
                                             { $toDate: "$start_date" },
                                             { $toDate: '2021-02-15' }
                                         ]},
-                                        { $eq: ["$members.stravaId", "$$activities_AthleteId"] },
+                                        { $eq: ["$$members_stravaId", "$athlete.id"] },
                                         {
                                             $or: [
                                                 {$eq: ["$type", 'Ride']},
@@ -168,6 +158,41 @@ banquetController.get(
                     }
                 },
                 {
+                    $group: {
+                        _id: "$_id",
+                        name: { $first: "$name" },
+                        createdAt: { $first: "$createdAt" },
+                        updatedAt:{ $first: "$updatedAt" },
+                        contact: { $first: "$contact" },
+                        members: { $push: "$members" },
+                        activities: { $push: "$activities" }
+                    }
+                },
+                {
+                    $addFields: {
+                        activities: { 
+                                $reduce: {
+                                input: "$activities",
+                                initialValue: [],
+                                in: { $concatArrays: ["$$value", "$$this"] }
+                            }
+                        }
+                    }
+                },
+                { $unwind: "$activities" },
+                { $sort: { "activities.start_date": -1 }}, 
+                {
+                    $group: {
+                        _id: "$_id",
+                        name: { $first: "$name" },
+                        createdAt: { $first: "$createdAt" },
+                        updatedAt:{ $first: "$updatedAt" },
+                        contact: { $first: "$contact" },
+                        members: { $first: "$members" },
+                        activities: { $push: "$activities" }
+                    }
+                },
+                {
                     $set: {
                         totDistance: {
                             $sum: "$activities.distance"
@@ -178,6 +203,23 @@ banquetController.get(
                         totTime: {
                             $sum: "$activities.elapsed_time"
                         }
+                    }
+                },
+                {
+                    $project: {
+                        _id: 1,
+                        name: 1,
+                        createdAt: 1,
+                        updatedAt: 1,
+                        contact: 1,
+                        members: 1,
+                        activities: {
+                            $slice: [ "$activities", 0,  8]
+                        },
+                        totDistance: 1,
+                        totElevation: 1,
+                        totTime: 1
+
                     }
                 },
                 {
