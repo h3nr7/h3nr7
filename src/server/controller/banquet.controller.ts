@@ -4,7 +4,118 @@ import { Types } from 'mongoose';
 import { ActivityModel } from '../model/activity.model';
 import { BanquetteamModel, BanquetteamSchema } from '../model/banquetteam.model';
 import * as Moment from 'moment';
+import { authApiRequired } from '../auth/strava.strategy';
+import { stravaService } from '../service/strava.service';
+import { transStravaActivityListRes, getByPage } from './helper/strava.controller.helper';
+import { IActivity, ISummaryActivity } from 'strava-service';
+import { BanquetactivityModel } from '../model/banquetactivity.model';
 export const banquetController = express.Router();
+
+
+const BANKUET_CLUB_ID = "818526";
+
+/**
+ * GET all activities and sync
+ */
+banquetController.get(
+    "/activities/sync",
+    authApiRequired,
+    async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        try {
+            const stravaRes =  await getByPage(BANKUET_CLUB_ID, req.session.passport.user.accessToken, 1, []);
+
+            const asyncFunc = async (data:ISummaryActivity) => {
+                const { resource_state, name, distance, athlete, type, elapsed_time, moving_time, total_elevation_gain } = data;
+                const outData = await BanquetactivityModel.findOneAndUpdate({ 
+                    resource_state, name, distance, 
+                    athlete, type, elapsed_time, 
+                    moving_time, total_elevation_gain }, {
+                    ...data
+                }, { upsert: true, new: true });
+
+                return outData;
+            };
+
+            const mongoData = await Promise.all(stravaRes.map(item => asyncFunc(item)));
+            res.status(200).send(mongoData);
+
+        } catch(e) {
+            res.status(404).send(e.message);
+        }
+    }
+);
+
+/**
+ * GET list of teams
+ */
+banquetController.get(
+    "/activities",
+    async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        const { perPage, page } = req.query;
+
+        const skip = (page && Number(page)>0) ? Number(page) : 1;
+        const limit = (perPage && Number(perPage)>0) ? Number(perPage) : 10;
+        try {
+            const activities = await BanquetactivityModel.find({}, {}, {
+                skip, limit
+            });
+            res.status(200).send(activities);
+        } catch(e) {
+            res.status(404).send(e.message);
+        }
+
+    });
+
+/**
+ * GET summary aggregation of activities
+ */
+banquetController.get(
+    "/activities/summary",
+    async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        try {
+            const summary = await BanquetactivityModel.aggregate([
+                {
+                    $unset: [
+                        "__v"
+                    ]
+                },
+                {
+                    $group: {
+                        _id: null,
+                        totDistance: {
+                            $sum: "$distance"
+                        },
+                        totElevation: {
+                            $sum: "$total_elevation_gain"
+                        },
+                        totTime: {
+                            $sum: "$elapsed_time"
+                        },
+                        activities: {
+                            $push: "$$ROOT"
+                        }
+                    }
+                },
+                {
+                    $project: {
+                        totDistance: 1,
+                        totElevation: 1,
+                        totTime: 1,
+                        latestActivities: {
+                            $slice: [ "$activities", 0,  10]
+                        }
+
+                    }
+                },
+            ])
+            res.status(200).send(summary[0]);
+        } catch(e) {
+            res.status(404).send(e.message);
+        }
+
+    }
+);
+
 
 /**
  * POST to create or update a team

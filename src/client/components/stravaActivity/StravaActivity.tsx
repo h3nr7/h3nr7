@@ -1,6 +1,5 @@
 import * as React from 'react';
 import { Grid } from '@material-ui/core';
-import { IActivity } from 'strava-service';
 import {
     Container,
     Title,
@@ -17,9 +16,11 @@ import swim from '../../assets/swim.svg';
 import bike from '../../assets/bike.svg';
 import run from '../../assets/run.svg';
 import { calHrMinSecFromSecs, calKmFromMeters } from '../../helper/dateTimeFormat';
+import { IBanquetActivity } from '../../../shared/interfaces/banquet.interface';
+import { IActivity } from 'strava-service';
 
 
-export const StravaActivity:React.FC<IActivity> = ({
+export const StravaActivity:React.FC<IBanquetActivity | IActivity> = ({
     stravaId,
     name,
     type,

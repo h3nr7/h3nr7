@@ -12,6 +12,7 @@ import { calHrMinSecFromSecs, calKmFromMeters } from '../../helper/dateTimeForma
 import { StravaActivity } from '../../components/stravaActivity';
 import { IActivity } from 'strava-service';
 import { RestrictedRoute } from '../restricted.routes';
+import { IBanquetActivity } from '../../../shared/interfaces/banquet.interface';
 
 export const Banquet:React.FC<{}> = () => {
     
@@ -84,7 +85,7 @@ export const Banquet:React.FC<{}> = () => {
                                     <BanquetMember />
                                 </Grid>
                             </Grid> */}
-                            {activities && activities.map(a => {
+                            {activities && activities.map((a:IBanquetActivity) => {
                                 return (<StravaActivity {...a}>{memObj[a.athlete.id].username}</StravaActivity>)
                             })}
                         </Grid>

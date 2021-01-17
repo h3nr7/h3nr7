@@ -68,6 +68,23 @@ declare module "strava-service" {
         embed_token: string
     }
 
+    export interface ISummaryActivity {
+        resource_state: number
+        athlete:{
+            resource_state: number
+            firstname: string
+            lastname: string
+        }
+        name: string
+        distance: number
+        moving_time: number
+        elapsed_time: number
+        total_elevation_gain: number
+        type: string
+    }
+
+    
+
     export interface IRawActivity extends IBaseActivity {
         id: number
     }
@@ -79,6 +96,11 @@ declare module "strava-service" {
     export interface IGetActivities {
         before?: number
         after?: number
+        page?: number
+        per_page?: number
+    }
+
+    export interface IGetMembers {
         page?: number
         per_page?: number
     }

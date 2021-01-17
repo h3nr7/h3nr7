@@ -8,8 +8,8 @@ import { authApiRequired } from '../auth/strava.strategy';
 export const stravaController = express.Router();
 import { stravaService } from '../service/strava.service';
 import { AthleteModel } from '../model/athlete.model';
-import { transActivityListRes, transAthleteRes, transStravaActivityListRes } from './helper/strava.controller.helper';
-import { IActivity, IRawActivity } from "strava-service";
+import { transActivityListRes, transAthleteRes, transStravaActivityListRes, getByPage } from './helper/strava.controller.helper';
+import { IActivity, IRawActivity, ISummaryActivity } from "strava-service";
 import { ActivityModel } from "../model/activity.model";
 /** Controller Definitions */
 // simply return the user if token is correct
@@ -43,13 +43,81 @@ stravaController.get(
     async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         try {
             const { id } = req.params;
-            console.log( id );
             const activity = await stravaService.getOneActivity(id, req.session.passport.user.accessToken);
             res.status(200).send(activity);
         } catch(e) {
             res.status(404).send(e.message);
         }
     });
+
+/**
+ * get list of club activities
+ */
+stravaController.get(
+    "/clubs/:id/activities",
+    authApiRequired,
+    async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        const { id } = req.params;
+        const { perPage, page } = req.query;
+
+        try {
+            const stravaRes =  await stravaService.getClubActivities(
+                id, 
+                req.session.passport.user.accessToken, 
+                {
+                    page: Number(page) ? Number(page) : 1,
+                    per_page: perPage ? Number(perPage) : 30
+                });
+            res.status(200).send(stravaRes);
+        } catch(e) {
+            res.status(404).send(e.message);
+        }
+    }
+)
+
+
+/**
+ * get all activities of club
+ */
+stravaController.get(
+    "/clubs/:id/activities/all",
+    authApiRequired,
+    async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        const { id } = req.params;
+        try {
+            const stravaRes =  await getByPage(id, req.session.passport.user.accessToken, 1, []);
+            res.status(200).send(stravaRes);
+        } catch(e) {
+            res.status(404).send(e.message);
+        }
+    }
+)
+
+stravaController.get(
+    "/clubs/:id/members",
+    authApiRequired,
+    async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        let activities:IActivity[];
+        const { id } = req.params;
+        const { perPage, page } = req.query;
+
+        try {
+            const stravaRes =  await stravaService.getClubMembers(
+                id, 
+                req.session.passport.user.accessToken, 
+                {
+                    page: Number(page) ? Number(page) : 1,
+                    per_page: perPage ? Number(perPage) : 50
+                });
+
+            activities = transStravaActivityListRes(stravaRes);
+            res.status(200).send(activities);
+        } catch(e) {
+            res.status(404).send(e.message);
+        }
+
+    }
+)      
 
 /**
  * get list of activities
@@ -62,7 +130,6 @@ stravaController.get(
         let activities:IActivity[];
         try {
             const { startDate, endDate, perPage, page, saveData } = req.query;
-            console.log('startDate, endDate, perPage, page, saveData',  startDate, endDate, perPage, page, saveData);
             const stravaRes =  await stravaService.getActivities({
                 before: endDate ? Moment(endDate as string).unix() : undefined,
                 after: startDate ? Moment(startDate as string).unix() : undefined,
