@@ -16,19 +16,20 @@ import swim from '../../assets/swim.svg';
 import bike from '../../assets/bike.svg';
 import run from '../../assets/run.svg';
 import { calHrMinSecFromSecs, calKmFromMeters } from '../../helper/dateTimeFormat';
-import { IBanquetActivity, IBanquetSummaryActivity } from '../../../shared/interfaces/banquet.interface';
+import { IBanquetSummaryActivity } from '../../../shared/interfaces/banquet.interface';
 import { IActivity } from 'strava-service';
 
 
-export const StravaActivity:React.FC<IBanquetActivity | IActivity> = ({
-    stravaId,
+export const StravaSummaryActivity:React.FC<IBanquetSummaryActivity> = ({
     name,
     type,
-    start_date,
+    moving_time,
     distance,
     elapsed_time,
     total_elevation_gain,
-    children
+    children,
+    createdAt,
+    athlete
 }) => {
 
     let iconSrc;
@@ -63,8 +64,8 @@ export const StravaActivity:React.FC<IBanquetActivity | IActivity> = ({
             <ContentDiv>
                 <Grid container>
                     <Grid item xs={12}>
-                        <Title>{children && `(${children}) - `}{name}</Title>
-                        <Date>{start_date && Moment(start_date).format('YYYY-MM-DD')}</Date>
+                        <Title>({athlete.firstname} {athlete.lastname}) - {name}</Title>
+                        <Date>{createdAt && Moment(createdAt).format('YYYY-MM')}</Date>
                         <Grid container>
                             <Grid item xs={12} sm={6} md={4} lg={3}>
                                 <DataBox><Desc>distance</Desc> {showDistance}<Unit>{showUnit}</Unit></DataBox>

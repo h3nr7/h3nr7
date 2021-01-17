@@ -127,12 +127,13 @@ banquetController.post(
             name,
             contact
         } = req.body
-
+        console.log('mama', name, contact);
         try {
             const team = await BanquetteamModel.findOneAndUpdate({ name }, {
                 name,
                 contact
-            });
+            }, { upsert: true, new: true });
+            console.log('nana', name, contact);
             res.status(200).send(team);
         } catch(e) {
             res.status(404).send(e.message);
@@ -147,7 +148,17 @@ banquetController.get(
     "/teams",
     async (req: express.Request, res: express.Response) => {
         try {
-            const team = await BanquetteamModel.find();
+            const team = await BanquetteamModel.aggregate([
+                { $match: {} },
+                {   
+                    $lookup: {
+                        from: "athletes",
+                        localField: "members",
+                        foreignField: "_id",
+                        as: "members"
+                    }
+                }
+            ]);
             res.status(200).send(team);
         } catch(e) {
             res.status(404).send(e.message);

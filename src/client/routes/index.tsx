@@ -16,7 +16,7 @@ import { CVForm } from "./cvform"
 import { Strava } from "./strava";
 
 // side projects
-import { Banquet2021 } from "./banquet2021";
+import { Banquet2021, BanquetTeam } from "./banquet2021";
 
 
 const AppRouterComponent: React.FC<{}> = () => {
@@ -47,7 +47,8 @@ const AppRouterComponent: React.FC<{}> = () => {
                     {/* Redirects and Notfound */}
                     <Redirect exact path="/article" to="/" />
                     <Route exact path="/strava/profile" component={Strava} />
-                    <Route exact path="/strava/bankuet2021/teams/:id" component={Banquet2021} />
+                    <Route exact path="/lftc/bankuet2021" component={Banquet2021} />
+                    <Route exact path="/lftc/bankuet2021/teams/:id" component={BanquetTeam} />
                     <Route component={NotFound} />
                 </StyledAnimatedSwitch>
             </App>

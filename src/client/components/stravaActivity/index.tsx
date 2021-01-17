@@ -1,3 +1,6 @@
 import { StravaActivity } from './StravaActivity';
-
-export { StravaActivity };
+import { StravaSummaryActivity } from './StravaSummaryActivity'
+export { 
+    StravaSummaryActivity,
+    StravaActivity 
+};

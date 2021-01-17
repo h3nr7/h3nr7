@@ -14,6 +14,8 @@ export const BanquetactivitySchema = new Schema({
     elapsed_time: Number,
     total_elevation_gain: Number,
     type: String
+}, {
+    timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }
 });
 
 export interface IBanquetactivityDocument extends ISummaryActivity, Document {

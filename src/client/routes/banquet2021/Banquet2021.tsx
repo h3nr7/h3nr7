@@ -5,76 +5,80 @@ import {
     TopInfoGrid, MemberGrid, 
     TitleGrid, TeamGrid,
     Unit } from './Banquet2021.styles';
-import { BanquetMember } from './BanquetMember';
-import { useBanquetTeamStats } from '../../helper/apiHooks';
-import { useParams } from 'react-router-dom';
+import { useBanquetStats, useBanquetTeams } from '../../helper/apiHooks';
 import { calHrMinSecFromSecs, calKmFromMeters } from '../../helper/dateTimeFormat';
-import { StravaActivity } from '../../components/stravaActivity';
-import { IActivity } from 'strava-service';
-import { RestrictedRoute } from '../restricted.routes';
-import { IBanquetActivity } from '../../../shared/interfaces/banquet.interface';
+import { StravaSummaryActivity } from '../../components/stravaActivity';
+import { IBanquetSummaryActivity } from '../../../shared/interfaces/banquet.interface';
+import { dayCountdown } from './Bankquet.helper';
 
 export const Banquet:React.FC<{}> = () => {
     
-    const { id } = useParams<{id:string}>();
-    const stats = useBanquetTeamStats(id);
-    const { _id, name, members, totDistance, totElevation, totTime, activities } = stats || {};
+    const stats = useBanquetStats();
+    const teams = useBanquetTeams();
+    const { totDistance, totElevation, totTime, latestActivities } = stats || {};
+
+    const [daysLeft, totDays] = dayCountdown();
 
     const [hours, minutes, secs] = calHrMinSecFromSecs(totTime);
     const showTotDistance = calKmFromMeters(totDistance);
     const showTotElevation = Math.round(totElevation);
-
-    const memObj:Record<number, { username:string }> = members && members.reduce((acc, post) => {
-        let { stravaId, ...rest } = post;
-        return {...acc, [stravaId]: {...rest}};
-    }, {});
-
-    console.log(memObj, activities);
-
 
     return (
         <Container>
             <Grid container>
                 <TitleGrid item sm={10} md={9}>
                     <Typography variant='h3'>LFTC Bankuet 2021</Typography>
-                    <Typography variant='body1'>Charity event</Typography>
+                    <Typography variant='body1'>Main page</Typography>
                 </TitleGrid>
                 <Grid item sm={2} md={3} />
             </Grid>
 
             <Grid container>
-                <Grid item sm={12} md={3} lg={5}>
+                <Grid item xs={12} sm={3} md={3} lg={4}>
                     <Grid container>
-                        <TeamGrid item xs={12} sm={6} md={12}>
-                            <Typography variant='h4'>Team</Typography>
-                            <Typography variant='body1'>{name}</Typography>
-                        </TeamGrid>
-                        <MemberGrid item xs={12} sm={6} md={12}>
-                            <Typography variant='h4'>Members</Typography>
-                            { members && members.map(m => (
-                                <Typography key={`mem_${m._id}`} variant='body1'>{m.firstname} {m.lastname}</Typography>
-                            )) }
-                        </MemberGrid>
+                        <TopInfoGrid item xs={12} sm={12} md={12} lg={6}>
+                            <Typography variant='h4'>Distance so far</Typography>
+                            <Typography variant='h3'>{showTotDistance}<Unit>km</Unit></Typography>
+                        </TopInfoGrid>
+                        <TopInfoGrid item xs={12} sm={12} md={12} lg={6}>
+                            <Typography variant='h4'>Elevations</Typography>
+                            <Typography variant='h3'>{showTotElevation}<Unit>m</Unit></Typography>
+                        </TopInfoGrid>
+                        <TopInfoGrid item xs={12} sm={12} md={12} lg={6}>
+                            <Typography variant='h4'>Time spent</Typography>
+                            <Typography variant='h3'>{hours}<Unit>h</Unit> {minutes}<Unit>m</Unit></Typography>
+                        </TopInfoGrid>
+                        <TopInfoGrid item xs={12} sm={12} md={12} lg={6}>
+                            <Typography variant='h4'>Active days</Typography>
+                            <Typography variant='h3'>{daysLeft}<Unit>/</Unit> {totDays}</Typography>
+                        </TopInfoGrid>
+                       
                     </Grid>
                 </Grid>
-                <Grid item sm={12} md={9} lg={7}>
+                <Grid item xs={12} sm={9} md={9} lg={8}>
                     <Grid container>
-                        <TopInfoGrid item xs={12} sm={6}>
-                            <Typography variant='h4'>Total distance</Typography>
-                            <Typography variant='h1'>{showTotDistance}<Unit>km</Unit></Typography>
-                        </TopInfoGrid>
-                        <TopInfoGrid item xs={12} sm={6}>
-                            <Typography variant='h4'>Total elevation</Typography>
-                            <Typography variant='h1'>{showTotElevation}<Unit>m</Unit></Typography>
-                        </TopInfoGrid>
-                        <TopInfoGrid item xs={12} sm={6}>
-                            <Typography variant='h4'>Total Time</Typography>
-                            <Typography variant='h1'>{hours}<Unit>h</Unit> {minutes}<Unit>m</Unit></Typography>
-                        </TopInfoGrid>
-                        <TopInfoGrid item xs={12} sm={6}>
-                            <Typography variant='h4'>Total Days</Typography>
-                            <Typography variant='h1'>3<Unit>/</Unit> 30</Typography>
-                        </TopInfoGrid>
+                        <MemberGrid item xs={12} sm={12} md={12}>
+                            <Typography variant='h4'>INfo</Typography>
+                            <Typography variant='body1'>
+                                Join a reality- virtual team of up to 4 to ride 2021km, and help LFTC raise £2021 for Bankuet 
+                                (10th January- 14th February 2021) who are launching a pop-up food bank in Hackney 
+                                (our home borough) on the 18th January to meet increasing demand in the area. 
+                            </Typography>
+                        </MemberGrid>
+                        <TeamGrid item xs={12} sm={12} md={12}>
+                            <Typography variant='h4'>Team</Typography>
+                            <Grid container>
+                            { teams && teams.map(m => (
+                                <Grid item key={`mem_${m._id}`} xs={12} sm={6} md={4}>
+                                    <Typography variant='body1' style={{paddingRight: '2rem'}}>
+                                        <SimpleLink to={`/lftc/bankuet2021/teams/${m._id}`}>{m.name}</SimpleLink>
+                                    </Typography>
+                                </Grid>
+                            )) }      
+                            </Grid>                  
+                        </TeamGrid>
+                    </Grid>
+                    <Grid container>
                         <Grid item xs={12}>
                             <Typography variant='h4'>Recent activities</Typography>
                             {/* <Grid container>
@@ -85,8 +89,8 @@ export const Banquet:React.FC<{}> = () => {
                                     <BanquetMember />
                                 </Grid>
                             </Grid> */}
-                            {activities && activities.map((a:IBanquetActivity) => {
-                                return (<StravaActivity {...a}>{memObj[a.athlete.id].username}</StravaActivity>)
+                            {latestActivities && latestActivities.map((a:IBanquetSummaryActivity) => {
+                                return (<StravaSummaryActivity {...a} />)
                             })}
                         </Grid>
                     </Grid>

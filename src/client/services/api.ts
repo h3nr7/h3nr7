@@ -6,7 +6,7 @@ import { IPdf } from '../../shared/interfaces/pdfs.interface';
 import { IUser } from '../../shared/interfaces/user.interface';
 import { ICV } from '../../shared/interfaces/cvs.interface';
 import { IActivity, IAthlete } from 'strava-service'; 
-import { IBanquetTeamStats } from '../../shared/interfaces/banquet.interface';
+import { IBanquetStats, IBanquetTeam, IBanquetTeamStats } from '../../shared/interfaces/banquet.interface';
 
 /** get single article */
 export const getOneEntry = (id:string):Promise<IArticle> => {
@@ -81,6 +81,19 @@ export const getStravaActivities = (params:{
     return axios.default.get(`/api/strava/me/activities`, { params }).then(res => res.data as IActivity[]);
 }
 
+export const getBanquetTeams = () => {
+    return axios.default.get(`/api/banquet/teams`).then(res => res.data as IBanquetTeamStats[]);
+}
+
+export const getOneBanquetTeam = (id:string) => {
+    return axios.default.get(`/api/banquet/teams/${id}`).then(res => res.data as IBanquetTeam);
+}
+
 export const getBanquetTeamStats = (id:string) => {
     return axios.default.get(`/api/banquet/teams/${id}/stats`).then(res => res.data as IBanquetTeamStats);
+}
+
+export const getBanquetStats = () => {
+    return axios.default.get(`/api/banquet/activities/summary`).then(res => res.data as IBanquetStats);
+ 
 }

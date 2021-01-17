@@ -4,13 +4,13 @@ import { getLinkedinToken, setLinkedinToken, setLinkedinUser, clearAll } from '.
 import { IArticles, IArticle, IArticleType, IArticleTypes } from '../../shared/interfaces/articles.interface';
 import { 
     getArticles, getOneEntry, getArticleTypes, getLinkedinMe, 
-    getTokenUser, getCV, getStravaProfile, getStravaActivities, getBanquetTeamStats } from '../services/api';
+    getTokenUser, getCV, getStravaProfile, getStravaActivities, getBanquetTeamStats, getBanquetStats, getBanquetTeams, getOneBanquetTeam } from '../services/api';
 import { ITopics } from '../../shared/interfaces/topics.interface';
 import { IMarkdown } from '../../shared/interfaces/markdowns.interface';
 import { ICV } from '../../shared/interfaces/cvs.interface';
 import { userInfo } from 'os';
 import { IActivity, IAthlete } from 'strava-service';
-import { IBanquetTeamStats } from '../../shared/interfaces/banquet.interface';
+import { IBanquetTeamStats, IBanquetStats, IBanquetTeam } from '../../shared/interfaces/banquet.interface';
 import { idea } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
 export function useOneArticle(id:string):any {
@@ -284,8 +284,47 @@ export function useStravaActivities(
 
 }
 
+export function useBanquetTeams():IBanquetTeam[] {
+    const [stats, setStats] = useState<IBanquetTeam[]>();
+
+    useEffect(() => {
+        async function getStats() {
+            try {
+                const res = await getBanquetTeams();
+                setStats(res);
+            } catch(e) {
+                console.error('Invalid Stats');
+            }
+        }
+
+        getStats();
+    }, []);
+
+    return stats;
+}
+
+export function useBanquetOneTeam(id:string = null):IBanquetTeam {
+    const [team, setTeam] = useState<IBanquetTeam>();
+
+    useEffect(() => {
+        async function getStats() {
+            try {
+                const res = await getOneBanquetTeam(id);
+                setTeam(res);
+            } catch(e) {
+                console.error('Invalid Stats');
+            }
+        }
+
+        getStats();
+    }, [id]);
+
+    return team;
+}
+
+
 /**
- * check is token is user and decode
+ * get banquet team stats
  */
 export function useBanquetTeamStats(id:string = null):IBanquetTeamStats {
     const [stats, setStats] = useState<IBanquetTeamStats>();
@@ -302,6 +341,25 @@ export function useBanquetTeamStats(id:string = null):IBanquetTeamStats {
 
         getStats();
     }, [id]);
+
+    return stats;
+}
+
+export function useBanquetStats():IBanquetStats {
+    const [stats, setStats] = useState<IBanquetStats>();
+
+    useEffect(() => {
+        async function getStats() {
+            try {
+                const res = await getBanquetStats();
+                setStats(res);
+            } catch(e) {
+                console.error('Invalid Stats');
+            }
+        }
+
+        getStats();
+    }, []);
 
     return stats;
 }

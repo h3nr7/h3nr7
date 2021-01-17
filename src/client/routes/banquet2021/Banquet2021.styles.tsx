@@ -22,7 +22,7 @@ export const TeamGrid = styled(Grid)`
 `;
 
 export const Unit = styled.span`
-    font-size: 3rem;
+    font-size: 50%;
     font-family: titillium-web, san-serifs;
     letter-spacing: 0.01rem;
 `   

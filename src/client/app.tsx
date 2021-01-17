@@ -31,7 +31,7 @@ const AppComponent: React.FC<IApp> = (props) => {
 
     let theme:Theme;
     // special for banquet2021 link
-    let subPathname = pathname.match(/\/strava\/bankuet2021/g);
+    let subPathname = pathname.match(/\/lftc\/bankuet2021/g);
 
     if(!subPathname) {
         theme = brandedTheme({});

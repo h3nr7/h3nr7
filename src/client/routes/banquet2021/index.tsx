@@ -1,4 +1,10 @@
 import { hot } from 'react-hot-loader';
 import { Banquet } from './Banquet2021';
+import { BanquetTeam } from './BanquetTeam';
 
-export const Banquet2021 = hot(module)(Banquet);
+const Banquet2021 = hot(module)(Banquet);
+
+export {
+    Banquet2021,
+    BanquetTeam
+}

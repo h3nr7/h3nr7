@@ -31,6 +31,24 @@ export interface IBanquetActivity {
     type: string
 }
 
+export interface IBanquetSummaryActivity {
+    _id: string
+    athlete: {
+        firstname: string
+        lastname: string
+        resource_state: number
+    }
+    distance: number
+    elapsed_time: number
+    moving_time: number
+    name: string
+    resource_state: 2
+    total_elevation_gain: number
+    type: string
+    createdAt: string
+    updatedAt: string
+}
+
 export interface IBanquetTeamStats {
     _id: string
     name: string
@@ -42,4 +60,24 @@ export interface IBanquetTeamStats {
     totTime: number
     members: IBanquetMember[]
     activities: IBanquetActivity[]
+}
+
+export interface IBanquetTeam {
+    _id: string
+    name: string
+    createdAt: string
+    updatedAt: string
+    contact: string
+    totElevation: number
+    totDistance: number
+    totTime: number
+    members: IBanquetMember[]
+
+}
+
+export interface IBanquetStats {
+    totDistance: number
+    totElevation: number
+    totTime: number
+    latestActivities: IBanquetSummaryActivity[]
 }
