@@ -26,6 +26,8 @@ const AthleteSchema = new Schema({
     country: String
 });
 
+AthleteSchema.index({'$**': 'text'});
+
 // export interface IMongoAthlete {
 //     firstName: string
 //     lastname: string

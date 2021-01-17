@@ -25,7 +25,7 @@ contentController.get('/articles/:id', async(req: express.Request, res: express.
         // transform and flattening response
         res.status(200).send(transformOneArticleResponse(resData, resArticleType, resTopic));
     } catch(e) {
-        res.status(404).send(e.message);
+        res.status(400).send(e.message);
     }
 })
 
@@ -46,7 +46,7 @@ contentController.get('/articles', async (req: express.Request, res: express.Res
         ); 
         res.status(200).send(transformArticlesResponse(resData));
     } catch(e) {
-        res.status(404).send(e.message);
+        res.status(400).send(e.message);
     }
 });
 
@@ -58,7 +58,7 @@ contentController.get('/articletypes', async (req:express.Request, res: express.
         const resData = await contentfulService.getArticleTypes(1000, 0);
         res.status(200).send(transformTopicsResponse(resData));
     } catch(e) {
-        res.status(404).send(e.message);
+        res.status(400).send(e.message);
     }
 })
 
@@ -70,7 +70,7 @@ contentController.get('/topics', async (req:express.Request, res: express.Respon
         const resData = await contentfulService.getTopics(1000, 0);
         res.status(200).send(transformTopicsResponse(resData));
     } catch(e) {
-        res.status(404).send(e.message);
+        res.status(400).send(e.message);
     }
 })
 
@@ -85,7 +85,7 @@ contentController.get('/cvs/:id', checkToken(false), async (req:express.Request,
         res.status(200).send(transformOneCvResponse(resData));
 
     } catch(e) {
-        res.status(404).send(e.message);
+        res.status(400).send(e.message);
     }
 })
 

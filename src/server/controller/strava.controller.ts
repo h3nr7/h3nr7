@@ -8,9 +8,14 @@ import { authApiRequired } from '../auth/strava.strategy';
 export const stravaController = express.Router();
 import { stravaService } from '../service/strava.service';
 import { AthleteModel } from '../model/athlete.model';
-import { transActivityListRes, transAthleteRes, transStravaActivityListRes, getByPage } from './helper/strava.controller.helper';
+import { 
+    transActivityListRes, transAthleteRes, 
+    transStravaActivityListRes, getByPage,
+    transAthleteListRes
+} from './helper/strava.controller.helper';
 import { IActivity, IRawActivity, ISummaryActivity } from "strava-service";
 import { ActivityModel } from "../model/activity.model";
+import { idText } from "typescript";
 /** Controller Definitions */
 // simply return the user if token is correct
 
@@ -21,18 +26,52 @@ stravaController.get(
     "/me", 
     authApiRequired,
     async (req: express.Request, res: express.Response, next: express.NextFunction) => {
-    try {
-        const athlete = await stravaService.getAthlete(req.session.passport.user.accessToken);
-        const { id, ...baseAthlete } = athlete;
-        const updatedAthlete = await AthleteModel.findOneAndUpdate({ stravaId: id }, {
-            stravaId: id,
-            ...baseAthlete
-        }, { upsert: true, new: true });
-        res.status(200).send(updatedAthlete);
-    } catch(e) {
-        res.status(404).send(e.message);
-    }
+        try {
+            const athlete = await stravaService.getAthlete(req.session.passport.user.accessToken);
+            const { id, ...baseAthlete } = athlete;
+            const updatedAthlete = await AthleteModel.findOneAndUpdate({ stravaId: id }, {
+                stravaId: id,
+                ...baseAthlete
+            }, { upsert: true, new: true });
+            res.status(200).send(updatedAthlete);
+        } catch(e) {
+            res.status(400).send(e.message);
+        }
 });
+
+stravaController.get(
+    "/athlete/search",
+    async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        const { stravaId, text } = req.query;
+
+        let inQuery = {};
+        if(stravaId) inQuery = { stravaId: Number(stravaId) };
+        else if(text) inQuery = { $text: { $search: text} };
+        else return res.status(204).send([]);
+
+        try {
+            const athleteRes = await AthleteModel.find(inQuery);
+            const athlete = transAthleteListRes(athleteRes);
+            res.status(200).send(athlete);
+        } catch(e) {
+            res.status(400).send(e.message);
+        }
+    }
+)
+
+stravaController.get(
+    "/athlete/:id",
+    async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        const { id } = req.params;
+        try {
+            const athleteRes = await AthleteModel.findById(id);
+            const athlete = transAthleteRes(athleteRes);
+            res.status(200).send(athlete);
+        } catch(e) {
+            res.status(400).send(e.message);
+        }
+    }
+)
 
 /**
  * get one activity
@@ -46,7 +85,7 @@ stravaController.get(
             const activity = await stravaService.getOneActivity(id, req.session.passport.user.accessToken);
             res.status(200).send(activity);
         } catch(e) {
-            res.status(404).send(e.message);
+            res.status(400).send(e.message);
         }
     });
 
@@ -70,7 +109,7 @@ stravaController.get(
                 });
             res.status(200).send(stravaRes);
         } catch(e) {
-            res.status(404).send(e.message);
+            res.status(400).send(e.message);
         }
     }
 )
@@ -88,7 +127,7 @@ stravaController.get(
             const stravaRes =  await getByPage(id, req.session.passport.user.accessToken, 1, []);
             res.status(200).send(stravaRes);
         } catch(e) {
-            res.status(404).send(e.message);
+            res.status(400).send(e.message);
         }
     }
 )
@@ -113,7 +152,7 @@ stravaController.get(
             activities = transStravaActivityListRes(stravaRes);
             res.status(200).send(activities);
         } catch(e) {
-            res.status(404).send(e.message);
+            res.status(400).send(e.message);
         }
 
     }

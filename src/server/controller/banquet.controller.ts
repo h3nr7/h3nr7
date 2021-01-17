@@ -40,7 +40,7 @@ banquetController.get(
             res.status(200).send(mongoData);
 
         } catch(e) {
-            res.status(404).send(e.message);
+            res.status(400).send(e.message);
         }
     }
 );
@@ -61,7 +61,7 @@ banquetController.get(
             });
             res.status(200).send(activities);
         } catch(e) {
-            res.status(404).send(e.message);
+            res.status(400).send(e.message);
         }
 
     });
@@ -78,6 +78,9 @@ banquetController.get(
                     $unset: [
                         "__v"
                     ]
+                },
+                {
+                    $sort: { createdAt: -1, updatedAt: -1, name: -1, distance: 1 }
                 },
                 {
                     $group: {
@@ -110,7 +113,7 @@ banquetController.get(
             ])
             res.status(200).send(summary[0]);
         } catch(e) {
-            res.status(404).send(e.message);
+            res.status(400).send(e.message);
         }
 
     }
@@ -136,7 +139,7 @@ banquetController.post(
             console.log('nana', name, contact);
             res.status(200).send(team);
         } catch(e) {
-            res.status(404).send(e.message);
+            res.status(400).send(e.message);
         }
     }
 )
@@ -161,7 +164,7 @@ banquetController.get(
             ]);
             res.status(200).send(team);
         } catch(e) {
-            res.status(404).send(e.message);
+            res.status(400).send(e.message);
         }
     }
 );
@@ -179,7 +182,7 @@ banquetController.put(
             }, { new: true });
             res.status(200).send(team);
         } catch(e) {
-            res.status(404).send(e.message);
+            res.status(400).send(e.message);
         }
     }
 );
@@ -198,7 +201,7 @@ banquetController.put(
             const team = await BanquetteamModel.collection.bulkWrite(bulkOps)
             res.status(200).send(team);
         } catch(e) {
-            res.status(404).send(e.message);
+            res.status(400).send(e.message);
         }
     }
 )
@@ -210,7 +213,7 @@ banquetController.get(
             const team = await BanquetteamModel.findById(req.params.id);
             res.status(200).send(team);
         } catch(e) {
-            res.status(404).send(e.message);
+            res.status(400).send(e.message);
         }
     }
 );
@@ -358,7 +361,7 @@ banquetController.get(
                 res.status(200).send(team[0]);
             }
         } catch(e) {
-            res.status(404).send(e.message);
+            res.status(400).send(e.message);
         }
     }
 )
@@ -377,7 +380,7 @@ banquetController.get(
             ]);
             res.status(200).send(agg);
         } catch(e) {
-            res.status(404).send(e.message);
+            res.status(400).send(e.message);
         }
     }
 );
