@@ -384,7 +384,7 @@ export function useBanquetTeamStandings(weekCount: number): IStandings {
 }
 
 export function useBanquetClubStats(): IBanquetStats {
-    const [stats, setStats] = useState<IBanquetStats>({});
+    const [stats, setStats] = useState<IBanquetStats>();
 
     useEffect(() => {
         async function getStats() {
