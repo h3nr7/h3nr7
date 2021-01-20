@@ -34,7 +34,7 @@ banquetController.post(
             }, { totTime: 0, totDistance: 0 })
             const doc = await BanquetleaderboardModel.create({
                 totTime, totDistance,
-                published: published === "true", weekCount, data
+                published, weekCount, data
             })
             res.status(200).json(doc);
         } catch(e) {

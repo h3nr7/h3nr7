@@ -1,5 +1,5 @@
 import { IActivity } from "strava-service";
-import { ILeaderboardResponse } from "../typings/lftc-banquet";
+import { ILeaderboardResponse } from "strava-service";
 
 
 export interface IBanquetMember {
