@@ -27,8 +27,9 @@ if (isProdMode) {
 }
 
 // common vars
-const vendorsJSUrl:string = isProdMode ? webpackManifest["vendors.js"] : '/dist/vendors.bundle.js';
-const bundleJSUrl:string = isProdMode ? webpackManifest["main.js"] : '/dist/bundle.js';
+const version = new Date().getTime();
+const vendorsJSUrl:string = isProdMode ? webpackManifest["vendors.js"] : `/dist/vendors.bundle.js?v=${version}`;
+const bundleJSUrl:string = isProdMode ? webpackManifest["main.js"] : `/dist/bundle.js?v=${version}`;
 const twitterHandle:string = TWITTER_ID;
 const fbId:string = FB_ID;
 const gaId: string = GA_ID;
@@ -136,7 +137,8 @@ viewController.use((req: express.Request, res: express.Response) => {
         title,
         typekitId,
         vendorsJSUrl,
-        bundleJSUrl
+        bundleJSUrl,
+        
     };
 
     // only show all the tracking and meta in prod
