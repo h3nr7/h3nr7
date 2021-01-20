@@ -14,7 +14,7 @@ import { StravaSummaryActivity } from '../../components/stravaActivity';
 
 export const Banquet:React.FC<{}> = () => {
     
-    const { latestActivities } = useBanquetClubStats();
+    const { latestActivities } = useBanquetClubStats() || {};
     const [daysSofar, totDays, weeksSofar, totWeeks] = dayCountdown();
     const mainLeaderboard = useBanquetLeaderboard(weeksSofar as number);
     const { leaderboard, teamsLeaderboard } = useBanquetTeamStandings(weeksSofar as number)
