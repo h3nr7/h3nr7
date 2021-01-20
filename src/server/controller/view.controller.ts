@@ -1,4 +1,5 @@
 import * as express from 'express';
+import * as Moment from 'moment';
 import * as path from 'path';
 import * as loadjsonfile from "load-json-file";
 import { contentfulService } from '../service/contentful.service';
@@ -27,7 +28,7 @@ if (isProdMode) {
 }
 
 // common vars
-const version = new Date().getTime();
+const version = Moment().unix();
 const vendorsJSUrl:string = isProdMode ? webpackManifest["vendors.js"] : `/dist/vendors.bundle.js?v=${version}`;
 const bundleJSUrl:string = isProdMode ? webpackManifest["main.js"] : `/dist/bundle.js?v=${version}`;
 const twitterHandle:string = TWITTER_ID;
