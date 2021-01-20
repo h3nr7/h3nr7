@@ -60,6 +60,30 @@ export const authRequired = async (req: Request, res: Response, next: NextFuncti
     }
 }
 
+export const authApiIsClubAdmin = async (req: Request, res: Response, next: NextFunction) => {
+    if(
+        !req.session.passport ||
+        !req.session.passport.user || 
+        !req.session.passport.user.accessToken) {
+        res.status(401).json({status: 401, message: 'Not authorized by strava.'})
+    }
+
+    try {
+        const { clubId } = req.params;
+        const club = await stravaService.getClub(clubId, req.session.passport.user.accessToken);
+        console.log('auth api club', club);
+        if(!club.admin) {
+            return res.status(401).send({status: 401, message: 'Not an admin of the club'});
+        }
+
+        next();
+
+    } catch(e) {
+        return res.status(401).send({status: 401, message: 'Not an admin of the club'});
+    }
+
+}
+
 export const authApiRequired = (req: Request, res: Response, next: NextFunction) => { 
     if(
         !req.session.passport ||

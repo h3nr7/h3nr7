@@ -15,10 +15,7 @@ const AthleteSchema = new Schema({
         required: true,
         unique: true
     },
-    username: {
-        type: String,
-        required: true
-    },
+    username: String,
     createdAt: String,
     updatedAt: String,
     profile: String,

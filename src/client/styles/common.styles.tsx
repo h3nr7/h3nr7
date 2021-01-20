@@ -43,7 +43,7 @@ export const SimpleLink = styled(RoutLink)`
 `;
 
 export const A = styled.a`
-        color: inherit;
+    color: inherit;
     text-decoration: underline;
 
     &:visited {

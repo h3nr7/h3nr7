@@ -35,9 +35,6 @@ export const BanquetTeam:React.FC<{}> = () => {
         return {...acc, [stravaId]: {...rest}};
     }, {});
 
-    console.log(stats, activities);
-
-
     return (
         <Container>
             <Grid container>
@@ -86,8 +83,8 @@ export const BanquetTeam:React.FC<{}> = () => {
                             </TopInfoGrid>
                             <Grid item xs={12}>
                                 <Typography variant='h4'>Recent activities</Typography>
-                                {activities && activities.map((a:IBanquetActivity) => {
-                                    return (<StravaActivity {...a}>{memObj[a.athlete.id].username}</StravaActivity>)
+                                {activities && activities.map((a:IBanquetActivity, index: number) => {
+                                    return (<StravaActivity key={`strava_activity_${a._id}`} {...a}>{memObj[a.athlete.id].username}</StravaActivity>)
                                 })}
                             </Grid>
                         </Grid>

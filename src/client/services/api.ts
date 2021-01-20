@@ -5,8 +5,8 @@ import { IImage } from '../../shared/interfaces/images.interface';
 import { IPdf } from '../../shared/interfaces/pdfs.interface';
 import { IUser } from '../../shared/interfaces/user.interface';
 import { ICV } from '../../shared/interfaces/cvs.interface';
-import { IActivity, IAthlete } from 'strava-service'; 
-import { IBanquetStats, IBanquetTeam, IBanquetTeamStats } from '../../shared/interfaces/banquet.interface';
+import { IActivity, IAthlete, IBanquetleaderboard, ILeaderboardResponse } from 'strava-service'; 
+import { IBanquetStats, IBanquetTeam, IBanquetTeamStandings, IBanquetTeamStats } from '../../shared/interfaces/banquet.interface';
 
 /** get single article */
 export const getOneEntry = (id:string):Promise<IArticle> => {
@@ -81,6 +81,12 @@ export const getStravaActivities = (params:{
     return axios.default.get(`/api/strava/me/activities`, { params }).then(res => res.data as IActivity[]);
 }
 
+export const getBanquetLeaderboard = (weekCount:number) => {
+    return axios.default.get(`/api/banquet/leaderboards`, {
+        params: { weekCount, published: true }
+    }).then(res => res.data as IBanquetleaderboard);
+}
+
 export const getBanquetTeams = () => {
     return axios.default.get(`/api/banquet/teams`).then(res => res.data as IBanquetTeamStats[]);
 }
@@ -93,7 +99,15 @@ export const getBanquetTeamStats = (id:string) => {
     return axios.default.get(`/api/banquet/teams/${id}/stats`).then(res => res.data as IBanquetTeamStats);
 }
 
+export const getBanquetTeamStandings = (weekCount:number) => {
+    return axios.default.get(`/api/banquet/teams/standings`, {
+        params: { weekCount, published: true }
+    }).then(res => res.data as { 
+        leaderboard: ILeaderboardResponse[]
+        teamsLeaderboard: IBanquetTeamStandings[]
+    });
+}
+
 export const getBanquetStats = () => {
     return axios.default.get(`/api/banquet/activities/summary`).then(res => res.data as IBanquetStats);
- 
 }

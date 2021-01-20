@@ -1,4 +1,5 @@
 import { Model, Schema, Document, model, Types } from 'mongoose';
+import { IAthlete } from 'strava-service';
 import { IAthleteDocument } from './athlete.model';
 
 export const BanquetteamSchema = new Schema({
@@ -19,7 +20,7 @@ export const BanquetteamSchema = new Schema({
     timestamps: { createdAt: 'createdAt', updatedAt: 'updatedAt' }
 });
 
-export interface IBanquetteam {
+export interface IBaseBanquetteam {
     name: string
     contacat: string
     totDistance: number
@@ -27,7 +28,14 @@ export interface IBanquetteam {
     totTime: number
     createdAt: string
     updatedAt: string
-    members: Types.ObjectId[]
+}
+
+export interface IBanquetteam extends IBaseBanquetteam {
+    members: string[]
+}
+
+export interface IBanquetteamWithAthlete extends IBaseBanquetteam {
+    members: IAthleteDocument[]
 }
 
 export interface IBanquetteamDocument extends IBanquetteam, Document {
