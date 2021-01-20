@@ -21,6 +21,11 @@ export const TeamGrid = styled(Grid)`
     padding-bottom: 2rem;
 `;
 
+export const TeamStandingGridContainer = styled(Grid)`
+    padding-top: 0.5rem;
+`;
+TeamStandingGridContainer.defaultProps = { container: true };
+
 export const Unit = styled.span`
     font-size: 50%;
     font-family: titillium-web, san-serifs;

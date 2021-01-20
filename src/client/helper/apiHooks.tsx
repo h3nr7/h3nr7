@@ -3,14 +3,14 @@ import { useEffect, useState } from 'react';
 import { getLinkedinToken, setLinkedinToken, setLinkedinUser, clearAll } from '../services/localstorage';
 import { IArticles, IArticle, IArticleType, IArticleTypes } from '../../shared/interfaces/articles.interface';
 import { 
-    getArticles, getOneEntry, getArticleTypes, getLinkedinMe, 
-    getTokenUser, getCV, getStravaProfile, getStravaActivities, getBanquetTeamStats, getBanquetStats, getBanquetTeams, getOneBanquetTeam } from '../services/api';
+    getArticles, getOneEntry, getArticleTypes, getLinkedinMe, getBanquetStats,
+    getTokenUser, getCV, getStravaProfile, getStravaActivities, getBanquetTeamStats, getBanquetLeaderboard, getBanquetTeams, getOneBanquetTeam, getBanquetTeamStandings } from '../services/api';
 import { ITopics } from '../../shared/interfaces/topics.interface';
 import { IMarkdown } from '../../shared/interfaces/markdowns.interface';
 import { ICV } from '../../shared/interfaces/cvs.interface';
 import { userInfo } from 'os';
-import { IActivity, IAthlete } from 'strava-service';
-import { IBanquetTeamStats, IBanquetStats, IBanquetTeam } from '../../shared/interfaces/banquet.interface';
+import { IActivity, IAthlete, IBanquetleaderboard, ILeaderboardResponse } from 'strava-service';
+import { IBanquetTeamStats, IBanquetStats, IBanquetTeam, IBanquetTeamStandings } from '../../shared/interfaces/banquet.interface';
 import { idea } from 'react-syntax-highlighter/dist/cjs/styles/hljs';
 
 export function useOneArticle(id:string):any {
@@ -258,11 +258,6 @@ export function useStravaActivities(
     perPage?: number, 
     page?: number
 ):IActivity[] {
-    console.log('geeeet data', startDate,
-    endDate,
-    saveData,
-    perPage,
-    page);
     const [activities, setActivities] = useState<IActivity[]>();
 
     useEffect(() => {
@@ -345,13 +340,13 @@ export function useBanquetTeamStats(id:string = null):IBanquetTeamStats {
     return stats;
 }
 
-export function useBanquetStats():IBanquetStats {
-    const [stats, setStats] = useState<IBanquetStats>();
+export function useBanquetLeaderboard(weekCount: number):IBanquetleaderboard {
+    const [stats, setStats] = useState<IBanquetleaderboard>();
 
     useEffect(() => {
         async function getStats() {
             try {
-                const res = await getBanquetStats();
+                const res = await getBanquetLeaderboard(weekCount);
                 setStats(res);
             } catch(e) {
                 console.error('Invalid Stats');
@@ -364,6 +359,45 @@ export function useBanquetStats():IBanquetStats {
     return stats;
 }
 
+interface IStandings {
+    leaderboard: ILeaderboardResponse[] | null
+    teamsLeaderboard: IBanquetTeamStandings[] | null
+}
 
+export function useBanquetTeamStandings(weekCount: number): IStandings {
+    const [stats, setStats] = useState<IStandings>({ leaderboard: null, teamsLeaderboard: null });
 
+    useEffect(() => {
+        async function getStats() {
+            try {
+                const res = await getBanquetTeamStandings(weekCount);
+                setStats(res);
+            } catch(e) {
+                console.error('Invalid team standings');
+            }
+        }
 
+        getStats();
+    }, []);
+
+    return stats;
+}
+
+export function useBanquetClubStats(): IBanquetStats {
+    const [stats, setStats] = useState<IBanquetStats>({});
+
+    useEffect(() => {
+        async function getStats() {
+            try {
+                const res = await getBanquetStats();
+                setStats(res);
+            } catch(e) {
+                console.error('Invalid team standings');
+            }
+        }
+
+        getStats();
+    }, []);
+
+    return stats;
+}

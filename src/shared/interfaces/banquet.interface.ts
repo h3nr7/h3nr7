@@ -1,4 +1,5 @@
 import { IActivity } from "strava-service";
+import { ILeaderboardResponse } from "../typings/lftc-banquet";
 
 
 export interface IBanquetMember {
@@ -80,4 +81,13 @@ export interface IBanquetStats {
     totElevation: number
     totTime: number
     latestActivities: IBanquetSummaryActivity[]
+}
+
+export interface IBanquetTeamStandings extends IBanquetTeam {
+    members: IBanquetMember[] & {
+        rank: number
+        weekTotDistance: number
+        rankData: ILeaderboardResponse
+    }[]
+    teamTotDistance: number
 }

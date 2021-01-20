@@ -1,7 +1,7 @@
 
 import { EventEmitter } from 'events';
 import Axios from 'axios';
-import { IRawAthlete, IRawActivity, IGetActivities, IGetMembers, ISummaryActivity } from 'strava-service';
+import { IRawAthlete, IRawActivity, IGetActivities, IGetMembers, ISummaryActivity, IRawClub } from 'strava-service';
 interface IStravaService {
     apiUrl: string
 }
@@ -12,6 +12,27 @@ class StravaService extends EventEmitter implements IStravaService {
     apiUrl = `${process.env.STRAVA_API_URL}/${process.env.STRAVA_API_VERSION}`;
     
 
+    /**
+     * get club
+     * @param id
+     * @param token 
+     */
+    getClub(id:string, token: string):Promise<IRawClub> {
+        const url =`${this.apiUrl}/clubs/${id}`;
+        return Axios(url, {
+                headers: { Authorization: `Bearer ${token}` }
+            })
+            .then(res => res.data as IRawClub)
+            .catch(e => { throw e });
+    }
+
+
+    /**
+     * get club members
+     * @param id 
+     * @param token 
+     * @param params 
+     */
     getClubMembers(id:string, token: string, params:IGetMembers):Promise<IRawActivity[]> {
         const url =`${this.apiUrl}/clubs/${id}/members`;
         return Axios(url, {
@@ -22,6 +43,12 @@ class StravaService extends EventEmitter implements IStravaService {
             .catch(e => { throw e });
     }
 
+    /**
+     * Get club activities
+     * @param id 
+     * @param token 
+     * @param params 
+     */
     getClubActivities(id:string, token: string, params:IGetActivities):Promise<ISummaryActivity[]> {
         const url =`${this.apiUrl}/clubs/${id}/activities`;
         return Axios(url, {

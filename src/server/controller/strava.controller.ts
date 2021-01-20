@@ -7,17 +7,51 @@ import { authApiRequired } from '../auth/strava.strategy';
 /** Router Definition */
 export const stravaController = express.Router();
 import { stravaService } from '../service/strava.service';
-import { AthleteModel } from '../model/athlete.model';
+import { AthleteModel, IAthleteDocument } from '../model/athlete.model';
 import { 
     transActivityListRes, transAthleteRes, 
     transStravaActivityListRes, getByPage,
     transAthleteListRes
 } from './helper/strava.controller.helper';
-import { IActivity, IRawActivity, ISummaryActivity } from "strava-service";
+import { IActivity, IAthlete, IRawActivity, ISummaryActivity } from "strava-service";
 import { ActivityModel } from "../model/activity.model";
-import { idText } from "typescript";
 /** Controller Definitions */
 // simply return the user if token is correct
+
+
+stravaController.post(
+    "/athletes",
+    async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        try {
+            const { stravaId, firstname, lastname, username } = req.body;
+            const newAthlete = await AthleteModel.create({ 
+                firstname,
+                lastname,
+                username,
+                stravaId: Number(stravaId)
+            });
+            res.status(200).send(newAthlete);
+        } catch(e) {
+            res.status(400).send(e.message);
+        }
+});
+
+stravaController.post(
+    "/athletes/bulk",
+    async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        try {
+            const { athletes } = req.body;
+            const insertAthletes = athletes as IAthleteDocument[];
+            const newAthlete = await AthleteModel.insertMany(
+                insertAthletes, {
+                    ordered: false
+                }
+            );
+            res.status(200).send(newAthlete);
+        } catch(e) {
+            res.status(400).send(e.message);
+        }
+});
 
 /**
  * GET self
@@ -40,7 +74,7 @@ stravaController.get(
 });
 
 stravaController.get(
-    "/athlete/search",
+    "/athletes/search",
     async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         const { stravaId, text } = req.query;
 
@@ -57,10 +91,32 @@ stravaController.get(
             res.status(400).send(e.message);
         }
     }
+);
+
+stravaController.get(
+    "/athletes",
+    async (req: express.Request, res: express.Response, next: express.NextFunction) => {
+        const { id } = req.params;
+        try {
+            const athleteRes = await AthleteModel.find();
+            const athleteList = athleteRes
+                                    .map(res => transAthleteRes(res))
+                                    .sort((a:IAthlete, b:IAthlete) => (
+                                       a.firstname.localeCompare(b.firstname)
+                                    ));
+            
+            res.status(200).send({
+                count: athleteList.length,
+                data: athleteList
+            });
+        } catch(e) {
+            res.status(400).send(e.message);
+        }
+    }
 )
 
 stravaController.get(
-    "/athlete/:id",
+    "/athletes/:id",
     async (req: express.Request, res: express.Response, next: express.NextFunction) => {
         const { id } = req.params;
         try {
