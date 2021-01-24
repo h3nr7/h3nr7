@@ -19,7 +19,7 @@ export const Article = () => {
 
     const [ isLoaded, setIsLoaded ] = React.useState(false);
     const history = useHistory();
-    const { id } = useParams();
+    const { id } = useParams<{id: string}>();
     const article = useOneArticle(id);
 
 

@@ -1,4 +1,5 @@
 import styled from 'styled-components';
+import{ Img as ReactImg } from 'react-image';
 import { Typography, Grid } from '@material-ui/core';
 
 export const TitleGrid = styled(Grid)`
@@ -93,4 +94,23 @@ export const Unknown = styled.div`
         height: 3rem;
         padding-top: 0.75rem;
     }
+`;
+
+export const HeroGrid = styled(Grid)`
+    && {
+        height: 10rem;
+        overflow: hidden;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: #ffffff;
+        clip-path: polygon(0% 0%, 100% 0%, calc(100% - 2.75rem) 100%, 0% 100%);
+
+        margin-bottom: 2rem;
+    }
+`;
+
+export const HeroImg = styled(ReactImg)`
+    width: 100%;
+    height: auto;
 `;

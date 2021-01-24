@@ -4,7 +4,9 @@ import { Typography, Grid } from '@material-ui/core';
 import { 
     TopInfoGrid, MemberGrid, Paragraph,
     TitleGrid, TeamGrid, TeamStandingGridContainer,
-    Unit } from './Banquet2021.styles';
+    Unit, 
+    HeroGrid,
+    HeroImg} from './Banquet2021.styles';
 import { 
     useBanquetLeaderboard, useBanquetTeams, 
     useBanquetClubStats, useBanquetTeamStandings 
@@ -15,7 +17,6 @@ import { IBanquetSummaryActivity, IBanquetTeam, IBanquetTeamStandings } from '..
 import { dayCountdown } from './Bankquet.helper';
 import { ILeaderboardResponse } from 'strava-service';
 import { StravaSummaryActivity } from '../../components/stravaActivity';
-
 export const Banquet:React.FC<{}> = () => {
     
     const { latestActivities } = useBanquetClubStats() || {};
@@ -101,6 +102,9 @@ export const Banquet:React.FC<{}> = () => {
                 </Grid>
                 <Grid item xs={12} sm={9} md={9} lg={8}>
                     <Grid container>
+                        <HeroGrid item xs={10} sm={10} md={10} lg={10}>
+                            <HeroImg src={'https://images.squarespace-cdn.com/content/v1/5c879a2bfb18207eec330764/1610122973698-ZDT2SK8ZIUKLLRIR2AKP/ke17ZwdGBToddI8pDm48kJnMC2i9apNV2mpj19O9Qd4UqsxRUqqbr1mOJYKfIPR7LoDQ9mXPOjoJoqy81S2I8N_N4V1vUb5AoIIIbLZhVYxCRW4BPu10St3TBAUQYVKcmHpETfta7BKfPfnQk2NglVdGpn_EkxcjmJBK41ed9hjm6ZnOiZa_CENYWJwCUADz/Hero+image+11.png?format=750w'} />
+                        </HeroGrid>
                         <MemberGrid item xs={12} sm={12} md={12}>
                             <Typography variant='h4'>Info</Typography>
                             <Paragraph>
