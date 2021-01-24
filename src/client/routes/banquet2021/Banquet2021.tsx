@@ -11,7 +11,7 @@ import {
     useBanquetLeaderboard, useBanquetTeams, 
     useBanquetClubStats, useBanquetTeamStandings 
 } from '../../helper/banquetHooks';
-import { calHrMinSecFromSecs, calKmFromMeters } from '../../helper/timeDistanceHook';
+import { calHrMinSecFromSecs, calKmFromMeters } from '../../helper/dateTimeFormat';
 import { BanquetHeader } from './BanquetHeader';
 import { IBanquetSummaryActivity, IBanquetTeam, IBanquetTeamStandings } from '../../../shared/interfaces/banquet.interface';
 import { dayCountdown } from './Bankquet.helper';

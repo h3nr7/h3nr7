@@ -8,7 +8,7 @@ import {
     MiniImg} from './Banquet2021.styles';
 import { useBanquetTeamStats, useBanquetOneTeam, useBanquetTeamStandings, useBanquetTeams } from '../../helper/banquetHooks';
 import { useParams } from 'react-router-dom';
-import { calHrMinSecFromSecs, calKmFromMeters } from '../../helper/timeDistanceHook';
+import { calHrMinSecFromSecs, calKmFromMeters } from '../../helper/dateTimeFormat';
 import { StravaActivity } from '../../components/stravaActivity';
 import { IActivity } from 'strava-service';
 import { RestrictedRoute } from '../restricted.routes';
@@ -33,6 +33,7 @@ export const BanquetMember:React.FC<{}> = ({}) => {
 
     const [hours, minutes, secs] = calHrMinSecFromSecs(weekTotMovingTime);
     const showTotDistance = calKmFromMeters(weekTotDistance);
+    // fix zero elevation which is possible
     const showTotElevation = weekTotElevation !== undefined ? Math.round(weekTotElevation) : undefined;
 
     console.log(weekTotDistance, showTotDistance)
