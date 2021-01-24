@@ -63,13 +63,13 @@ export const OutlinedButton = styled.button`
     font-weight: 300;
     font-size: 0.8rem;
     background: none;
-    color: white;
-    border: 2px white solid;
+    color: ${props => props.theme.palette.text.primary};
+    border: 1px ${props => props.theme.palette.text.primary} solid;
     cursor: pointer;
 
     &:hover{
         color: #cccccc;
-        border: 2px #cccccc solid;
+        border: 1px #cccccc solid;
         &:before {
             clip-path: polygon(0% 0%, 20% 0%, calc(20% - 0.65rem) 100%, 0 100%);
         }

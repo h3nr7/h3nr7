@@ -19,7 +19,7 @@ export const banquetController = express.Router();
 
 
 /**
- * create a leaderboard in Mongo
+ * POST create a leaderboard in Mongo
  */
 banquetController.post(
     "/leaderboards",
@@ -44,7 +44,7 @@ banquetController.post(
 );
 
 /**
- * get club leaderboard
+ * GET club leaderboard
  */
 banquetController.get(
     "/leaderboards",
@@ -63,7 +63,7 @@ banquetController.get(
 )
 
 /**
- * sync members from leaderboard to athletes
+ * POST sync members from leaderboard to athletes
  */
 banquetController.post(
     "/leaderboards/sync_members",
@@ -91,7 +91,7 @@ banquetController.post(
 )
 
 /**
- * get list of club activities
+ * GET list of club activities
  */
 banquetController.get(
     "/activities/sync",
@@ -274,6 +274,9 @@ banquetController.get(
     }
 );
 
+/**
+ * GET teams weekly standings
+ */
 banquetController.get(
     "/teams/standings",
     async (req: express.Request, res: express.Response) => {
@@ -311,7 +314,7 @@ banquetController.get(
                     weekTotDistance: "$data.distance",
                     weekTotElapsedTime: "$data.elapsed_time",
                     weekTotMovingTime: "$data.moving_time",
-                    weekTotElevation: "#data.elev_gain",
+                    weekTotElevation: "$data.elev_gain",
                     weekTotActivityCount: "$data.num_activities",
                     weekBestActivityDistance: "$data.best_activities_distance",
                     weekBestActivityDistanceId: "$data.best_activities_distance_activity_id",
@@ -406,8 +409,21 @@ banquetController.get(
     "/teams/:id",
     async (req: express.Request, res: express.Response) => {
         try {
-            const team = await BanquetteamModel.findById(req.params.id);
-            res.status(200).send(team);
+            const team = await BanquetteamModel.aggregate([
+                { $match: { _id: Types.ObjectId(req.params.id)} },
+                {   
+                    $lookup: {
+                        from: "athletes",
+                        localField: "members",
+                        foreignField: "_id",
+                        as: "members"
+                    }
+                }
+            ]);
+            if(!team || team.length <=0) {
+                return res.status(400).send('No team found');
+            }
+            res.status(200).send(team[0]);
         } catch(e) {
             res.status(400).send(e.message);
         }
@@ -568,17 +584,35 @@ banquetController.get(
 /**
  * GET Athlete from Strava
  */
+// banquetController.get(
+//     "/athletes/:id",
+//     async (req: express.Request, res: express.Response) => {
+//         try {
+//             const agg = await ActivityModel.aggregate([
+//                 {
+//                     $group: {
+//                         _id: '$athlete.id',
+//                         totDistance: { $sum: "$distance" }
+//                     }
+//                 }
+//             ]);
+//             res.status(200).send(agg);
+//         } catch(e) {
+//             res.status(400).send(e.message);
+//         }
+//     }
+// );
+
 banquetController.get(
-    "/athletes/:id",
+    "/members/:stravaId",
     async (req: express.Request, res: express.Response) => {
         try {
-            const agg = await ActivityModel.aggregate([
-                {
-                    $group: {
-                        _id: '$athlete.id',
-                        totDistance: { $sum: "$distance" }
-                    }
-                }
+            const { stravaId } = req.params;
+            if(!stravaId) return res.status(400).send('Invalid Strava id');
+
+            const agg = await AthleteModel.aggregate([
+                { $match: { stravaId: Number(stravaId) } },
+                
             ]);
             res.status(200).send(agg);
         } catch(e) {

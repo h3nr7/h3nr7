@@ -47,11 +47,17 @@ export const StravaComp = () => {
                         <Grid item xs={9} sm={9} md={10}>
                             <Typography variant='h3'>{username}</Typography>
                             <Typography variant='body1'>Greetings {firstname} {lastname}, this page is pulling your latest activites from the past 3 weeks in Strava. 
-                            You can find and edit them from you <A href={`https://www.strava.com/athletes/${stravaId}`} target="strava">profile page</A>.</Typography>
-                            <Typography variant='body1'>
-                                If you are particitipating with an events that I am tracking, please click sync below in order to update your data into our database.
-                            </Typography>
+                            If you are particitipating with an events that I am tracking, press SYNC to let me use your data.</Typography>
+
                             <MobileUpdateButton onClick={sycnHandler}>Sync</MobileUpdateButton>
+
+                            <Typography variant='h5'>
+                                Participating in the LFTC Bankuet 2021 event?
+                            </Typography>
+                            <Typography variant='body1'>
+                               <SimpleLink to="/lftc/bankuet2021/members/me">Click here</SimpleLink> for your Bankuet profile.
+                            </Typography>
+                            
                         </Grid>
                         <ActivityGrid item xs={12}>
                             <Grid container>

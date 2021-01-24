@@ -66,9 +66,7 @@ authController.get('/strava', passport.authenticate('oauth2'));
 authController.get(
     '/strava/callback', 
     passport.authenticate('oauth2', { 
-        failureRedirect: '/auth/failed'
-     }),
-    (req: express.Request, res: express.Response) => {
-        res.redirect('/strava/profile');
-    }
+        failureRedirect: '/auth/failed',
+        successRedirect: '/strava/profile'
+     })
 );

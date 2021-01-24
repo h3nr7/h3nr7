@@ -75,39 +75,12 @@ export const getStravaProfile = ():Promise<IAthlete> => {
     return axios.default.get(`/api/strava/me`).then(res => res.data as IAthlete);
 }
 
+/**
+ * get strava activities
+ * @param params 
+ */
 export const getStravaActivities = (params:{ 
     startDate: string, endDate: string, perPage: number, page: number, saveData: boolean
 }) => {
     return axios.default.get(`/api/strava/me/activities`, { params }).then(res => res.data as IActivity[]);
-}
-
-export const getBanquetLeaderboard = (weekCount:number) => {
-    return axios.default.get(`/api/banquet/leaderboards`, {
-        params: { weekCount, published: true }
-    }).then(res => res.data as IBanquetleaderboard);
-}
-
-export const getBanquetTeams = () => {
-    return axios.default.get(`/api/banquet/teams`).then(res => res.data as IBanquetTeamStats[]);
-}
-
-export const getOneBanquetTeam = (id:string) => {
-    return axios.default.get(`/api/banquet/teams/${id}`).then(res => res.data as IBanquetTeam);
-}
-
-export const getBanquetTeamStats = (id:string) => {
-    return axios.default.get(`/api/banquet/teams/${id}/stats`).then(res => res.data as IBanquetTeamStats);
-}
-
-export const getBanquetTeamStandings = (weekCount:number) => {
-    return axios.default.get(`/api/banquet/teams/standings`, {
-        params: { weekCount, published: true }
-    }).then(res => res.data as { 
-        leaderboard: ILeaderboardResponse[]
-        teamsLeaderboard: IBanquetTeamStandings[]
-    });
-}
-
-export const getBanquetStats = () => {
-    return axios.default.get(`/api/banquet/activities/summary`).then(res => res.data as IBanquetStats);
 }

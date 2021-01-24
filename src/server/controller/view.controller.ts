@@ -116,6 +116,7 @@ async function StravaController(req:express.Request, res:express.Response) {
     if(accessToken) res.header({ Authorization: `bearer ${accessToken}` })
     res.render('home', hbsData);
 }
+
 // strava logged in view
 viewController.get('/strava/profile',  authRequired, StravaController);
 // viewController.get('/strava/banquet2021', authRequired, StravaController);

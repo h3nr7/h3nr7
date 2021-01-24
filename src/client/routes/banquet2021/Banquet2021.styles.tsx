@@ -21,6 +21,14 @@ export const TeamGrid = styled(Grid)`
     padding-bottom: 2rem;
 `;
 
+export const Paragraph = styled(Typography)`
+    padding: 0 0rem 1.5rem 0;
+`;
+
+Paragraph.defaultProps = { variant: 'body1' }; 
+
+
+
 export const TeamStandingGridContainer = styled(Grid)`
     padding-top: 0.5rem;
 `;
@@ -39,10 +47,50 @@ export const SmallUnit = styled.span`
 
 `;
 
-export const MembeContainer = styled.div`
-    padding-bottom: 2rem;
-`;
-
 export const MemberDataGrid = styled(Grid)`
     text-align:right;
+`;
+
+export const ImgGrid = styled(Grid)`
+    padding-bottom: 2rem;
+`;
+ImgGrid.defaultProps = { container: true };
+
+export const MiniImg = styled.img`
+    border-radius: 50px;
+    margin-right: 0.5rem;
+
+    ${props => props.theme.breakpoints.down('sm')} {
+        width: 3rem;
+        height: 3rem;
+    }
+
+    ${props => props.theme.breakpoints.up('sm')} {
+        width: 3rem;
+        height: 3rem;
+    }
+
+`;
+
+export const Unknown = styled.div`
+    border-radius: 50px;
+    margin-right: 0.5rem;
+    background: grey;
+    color: white;
+    font-size: 1rem;
+    font-weight: 600;
+    text-align: center;
+    letter-spacing: 0.2rem;
+
+    ${props => props.theme.breakpoints.down('sm')} {
+        width: 3rem;
+        height: 3rem;
+        padding-top: 0.75rem;
+    }
+
+    ${props => props.theme.breakpoints.up('sm')} {
+        width: 3rem;
+        height: 3rem;
+        padding-top: 0.75rem;
+    }
 `;

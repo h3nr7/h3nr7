@@ -1,12 +1,16 @@
 import * as React from 'react';
-import { Container, SimpleLink, A } from '../../styles/common.styles';
+import { Container, SimpleLink, A, OutlinedButton } from '../../styles/common.styles';
 import { Typography, Grid } from '@material-ui/core';
 import { 
-    TopInfoGrid, MemberGrid, 
+    TopInfoGrid, MemberGrid, Paragraph,
     TitleGrid, TeamGrid, TeamStandingGridContainer,
     Unit } from './Banquet2021.styles';
-import { useBanquetLeaderboard, useBanquetTeams, useBanquetClubStats, useBanquetTeamStandings } from '../../helper/apiHooks';
+import { 
+    useBanquetLeaderboard, useBanquetTeams, 
+    useBanquetClubStats, useBanquetTeamStandings 
+} from '../../helper/banquetHooks';
 import { calHrMinSecFromSecs, calKmFromMeters } from '../../helper/dateTimeFormat';
+import { BanquetHeader } from './BanquetHeader';
 import { IBanquetSummaryActivity, IBanquetTeam, IBanquetTeamStandings } from '../../../shared/interfaces/banquet.interface';
 import { dayCountdown } from './Bankquet.helper';
 import { ILeaderboardResponse } from 'strava-service';
@@ -29,13 +33,7 @@ export const Banquet:React.FC<{}> = () => {
 
     return (
         <Container>
-            <Grid container>
-                <TitleGrid item sm={10} md={9}>
-                    <Typography variant='h3'>LFTC Bankuet 2021</Typography>
-                    <Typography variant='body1'>Main page</Typography>
-                </TitleGrid>
-                <Grid item sm={2} md={3} />
-            </Grid>
+            <BanquetHeader />
 
             <Grid container>
                 <Grid item xs={12} sm={3} md={3} lg={4}>
@@ -71,12 +69,32 @@ export const Banquet:React.FC<{}> = () => {
                                             </Grid>
                                             <Grid item xs={8} sm={8} md={8}>
                                                 <Typography variant='body1' style={{paddingRight: '2rem'}}>
-                                                    <A target={`strava_${m.stravaId}`} href={`https://www.strava.com/athletes/${m.stravaId}`}>{m.firstname} {m.lastname}</A>
+                                                    <SimpleLink to={`/lftc/bankuet2021/members/${m.stravaId}`}>{m.firstname} {m.lastname}</SimpleLink>
                                                 </Typography>
                                             </Grid>
                                         </Grid>
                                     </Grid>
                                 )) } 
+                                <Grid item xs={12} sm={11}>
+                                    <Grid container>
+                                        <Grid item xs={1} sm={1} md={1} />
+                                        <Grid item xs={8} sm={8} md={8}>
+                                            <Typography variant='body1' style={{paddingRight: '2rem'}}>
+                                                ...
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
+                                <Grid item xs={12} sm={11}>
+                                    <Grid container>
+                                        <Grid item xs={1} sm={1} md={1} />
+                                        <Grid item xs={8} sm={8} md={8}>
+                                            <Typography variant='body1' style={{paddingRight: '2rem'}}>
+                                                <SimpleLink to={'/lftc/bankuet2021/members'}>full list of athletes</SimpleLink>
+                                            </Typography>
+                                        </Grid>
+                                    </Grid>
+                                </Grid>
                             </TeamStandingGridContainer>  
                         </TopInfoGrid>                      
                     </Grid>
@@ -84,12 +102,18 @@ export const Banquet:React.FC<{}> = () => {
                 <Grid item xs={12} sm={9} md={9} lg={8}>
                     <Grid container>
                         <MemberGrid item xs={12} sm={12} md={12}>
-                            <Typography variant='h4'>INfo</Typography>
-                            <Typography variant='body1'>
+                            <Typography variant='h4'>Info</Typography>
+                            <Paragraph>
                                 Join a reality- virtual team of up to 4 to ride 2021km, and help LFTC raise £2021 for Bankuet 
                                 (10th January- 14th February 2021) who are launching a pop-up food bank in Hackney 
-                                (our home borough) on the 18th January to meet increasing demand in the area. 
-                            </Typography>
+                                (our home borough) on the 18th January to meet increasing demand in the area.  If you want to support the team in their amazing efforts you can make a donation to the club fundraising campaign here: 
+                            </Paragraph>
+                            <Paragraph>
+                                If you want to support the team in their amazing efforts you can make a donation to the club fundraising campaign here.  Select LFTC as the campaign code under additional information at checkout.
+                            </Paragraph>
+                            <Paragraph>    
+                                <OutlinedButton onClick={() => window.open("//bankuet.co.uk/hackneypopup", 'bankuet')}>Hackney Pop-up Foodbank</OutlinedButton>
+                            </Paragraph>
                         </MemberGrid>
                         <TeamGrid item xs={12} sm={12} md={12}>
                             <Typography variant='h4'>This week team standings</Typography>
