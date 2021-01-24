@@ -11,18 +11,23 @@ import {
     useBanquetLeaderboard, useBanquetTeams, 
     useBanquetClubStats, useBanquetTeamStandings 
 } from '../../helper/banquetHooks';
-import { calHrMinSecFromSecs, calKmFromMeters } from '../../helper/dateTimeFormat';
+import { calHrMinSecFromSecs, calKmFromMeters } from '../../helper/timeDistanceHook';
 import { BanquetHeader } from './BanquetHeader';
 import { IBanquetSummaryActivity, IBanquetTeam, IBanquetTeamStandings } from '../../../shared/interfaces/banquet.interface';
 import { dayCountdown } from './Bankquet.helper';
 import { ILeaderboardResponse } from 'strava-service';
 import { StravaSummaryActivity } from '../../components/stravaActivity';
+import { useParams } from 'react-router-dom';
+import { getQueryByName } from '../../helper/routerHooks';
 export const Banquet:React.FC<{}> = () => {
     
+    const week = getQueryByName('week');
+
     const { latestActivities } = useBanquetClubStats() || {};
     const [daysSofar, totDays, weeksSofar, totWeeks] = dayCountdown();
-    const mainLeaderboard = useBanquetLeaderboard(weeksSofar as number);
-    const { leaderboard, teamsLeaderboard } = useBanquetTeamStandings(weeksSofar as number)
+    const curWeek = week || weeksSofar;
+    const mainLeaderboard = useBanquetLeaderboard(curWeek as number);
+    const { leaderboard, teamsLeaderboard } = useBanquetTeamStandings(curWeek as number)
     const teams = useBanquetTeams();
     const { totDistance, totElevation, totTime, data } = mainLeaderboard || {};
     const leaderboardTop10 = leaderboard && leaderboard.slice(0, 10);
@@ -41,7 +46,7 @@ export const Banquet:React.FC<{}> = () => {
                     <Grid container>
                         <TopInfoGrid item xs={12} sm={12} md={12} lg={6}>
                             <Typography variant='h4'>Current Week</Typography>
-                            <Typography variant='h3'>{weeksSofar}<Unit>/</Unit> {totWeeks}</Typography>
+                            <Typography variant='h3'>{curWeek}<Unit>/</Unit> {totWeeks}</Typography>
                         </TopInfoGrid>   
                         <TopInfoGrid item xs={12} sm={12} md={12} lg={6}>
                             <Typography variant='h4'>Week total distance</Typography>

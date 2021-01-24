@@ -8,7 +8,7 @@ import {
     MiniImg} from './Banquet2021.styles';
 import { useBanquetTeamStats, useBanquetOneTeam, useBanquetTeamStandings, useBanquetTeams } from '../../helper/banquetHooks';
 import { useParams } from 'react-router-dom';
-import { calHrMinSecFromSecs, calKmFromMeters } from '../../helper/dateTimeFormat';
+import { calHrMinSecFromSecs, calKmFromMeters } from '../../helper/timeDistanceHook';
 import { StravaActivity } from '../../components/stravaActivity';
 import { IActivity } from 'strava-service';
 import { RestrictedRoute } from '../restricted.routes';
@@ -33,8 +33,9 @@ export const BanquetMember:React.FC<{}> = ({}) => {
 
     const [hours, minutes, secs] = calHrMinSecFromSecs(weekTotMovingTime);
     const showTotDistance = calKmFromMeters(weekTotDistance);
-    const showTotElevation = Math.round(weekTotElevation);
+    const showTotElevation = weekTotElevation !== undefined ? Math.round(weekTotElevation) : undefined;
 
+    console.log(weekTotDistance, showTotDistance)
 
     return (
         <Container>
@@ -68,7 +69,7 @@ export const BanquetMember:React.FC<{}> = ({}) => {
                                     <Unknown>{firstname[0]}{lastname[0]}</Unknown> : null
                         }
                     </ImgGrid>
-                    {(weekTotDistance && weekTotElevation && weekTotMovingTime) ? (
+                    {(weekTotDistance && showTotElevation!==undefined && weekTotMovingTime) ? (
                         <Grid container>
                             <TopInfoGrid item xs={12} sm={6}>
                                 <Typography variant='h4'>Total distance</Typography>

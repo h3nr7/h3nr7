@@ -7,7 +7,7 @@ import {
     Unit, ImgGrid, MiniImg, Unknown } from './Banquet2021.styles';
 import { useBanquetTeamStats, useBanquetOneTeam, useBanquetTeamStandings } from '../../helper/banquetHooks';
 import { useParams } from 'react-router-dom';
-import { calHrMinSecFromSecs, calKmFromMeters } from '../../helper/dateTimeFormat';
+import { calHrMinSecFromSecs, calKmFromMeters } from '../../helper/timeDistanceHook';
 import { StravaActivity } from '../../components/stravaActivity';
 import { IActivity, ILeaderboardResponse } from 'strava-service';
 import { RestrictedRoute } from '../restricted.routes';
