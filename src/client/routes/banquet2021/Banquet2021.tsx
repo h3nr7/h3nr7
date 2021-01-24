@@ -1,10 +1,10 @@
 import * as React from 'react';
-import { Container, SimpleLink, A, OutlinedButton } from '../../styles/common.styles';
+import { Container, SimpleLink, A } from '../../styles/common.styles';
 import { Typography, Grid } from '@material-ui/core';
 import { 
     TopInfoGrid, MemberGrid, Paragraph,
     TitleGrid, TeamGrid, TeamStandingGridContainer,
-    Unit, 
+    Unit, MainOutlinedButton,
     HeroGrid,
     HeroImg} from './Banquet2021.styles';
 import { 
@@ -116,7 +116,7 @@ export const Banquet:React.FC<{}> = () => {
                                 If you want to support the team in their amazing efforts you can make a donation to the club fundraising campaign here.  Select LFTC as the campaign code under additional information at checkout.
                             </Paragraph>
                             <Paragraph>    
-                                <OutlinedButton onClick={() => window.open("//bankuet.co.uk/hackneypopup", 'bankuet')}>Hackney Pop-up Foodbank</OutlinedButton>
+                                <MainOutlinedButton onClick={() => window.open("//bankuet.co.uk/hackneypopup", 'bankuet')}>Hackney Pop-up Foodbank</MainOutlinedButton>
                             </Paragraph>
                         </MemberGrid>
                         <TeamGrid item xs={12} sm={12} md={12}>

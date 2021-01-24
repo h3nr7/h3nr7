@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import{ Img as ReactImg } from 'react-image';
 import { Typography, Grid } from '@material-ui/core';
+import { OutlinedButton } from '../../styles/common.styles';
 
 export const TitleGrid = styled(Grid)`
     padding-bottom: 2rem;
@@ -113,4 +114,16 @@ export const HeroGrid = styled(Grid)`
 export const HeroImg = styled(ReactImg)`
     width: 100%;
     height: auto;
+`;
+
+export const MainOutlinedButton = styled(OutlinedButton)`
+    && {
+        border-color: rgb(255, 70, 20);
+        color: rgb(255, 70, 20);
+
+        &:hover {
+            border-color: grey;
+            color: grey;
+        }
+    }
 `;
