@@ -3,7 +3,7 @@ import { Container, SimpleLink } from '../../styles/common.styles';
 import { Typography, Grid } from '@material-ui/core';
 import { 
     TopInfoGrid, MemberGrid, 
-    TitleGrid, TeamGrid, ImgGrid, Img, Unknown,
+    TitleGrid, TeamGrid, ImgGrid, Unknown,
     Unit, 
     MiniImg} from './Banquet2021.styles';
 import { useBanquetTeamStats, useBanquetOneTeam, useBanquetTeamStandings, useBanquetTeams } from '../../helper/banquetHooks';
