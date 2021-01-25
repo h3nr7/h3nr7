@@ -33,9 +33,9 @@ export const Banquet:React.FC<{}> = () => {
     const leaderboardTop10 = leaderboard && leaderboard.slice(0, 10);
 
 
-    const [hours, minutes, secs] = calHrMinSecFromSecs(totTime);
-    const showTotDistance = calKmFromMeters(totDistance);
-    const showTotElevation = Math.round(totElevation);
+    const [hours, minutes, secs] = totTime ? calHrMinSecFromSecs(totTime) : [0,0,0];
+    const showTotDistance = totDistance ? calKmFromMeters(totDistance) : 0;
+    const showTotElevation = totElevation ? Math.round(totElevation) : 0;
 
     return (
         <Container>
