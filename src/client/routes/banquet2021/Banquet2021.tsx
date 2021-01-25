@@ -37,6 +37,8 @@ export const Banquet:React.FC<{}> = () => {
     const showTotDistance = totDistance ? calKmFromMeters(totDistance) : 0;
     const showTotElevation = totElevation ? Math.round(totElevation) : 0;
 
+    const isShowLatestActivities = (curWeek === weeksSofar) && latestActivities && latestActivities.length > 0;
+
     return (
         <Container>
             <BanquetHeader />
@@ -148,15 +150,17 @@ export const Banquet:React.FC<{}> = () => {
                             </TeamStandingGridContainer>                   
                         </TeamGrid>
                     </Grid>
-                    <Grid container>
-                        <Grid item xs={12}>
-                            <Typography variant='h4'>Recent activities</Typography>
+                    {isShowLatestActivities && (
+                        <Grid container>
+                            <Grid item xs={12}>
+                                <Typography variant='h4'>Recent activities</Typography>
 
-                            {latestActivities && latestActivities.map((a:IBanquetSummaryActivity) => {
-                                return (<StravaSummaryActivity key={`latestact_${a._id}`} {...a} />)
-                            })}
+                                {latestActivities && latestActivities.map((a:IBanquetSummaryActivity) => {
+                                    return (<StravaSummaryActivity key={`latestact_${a._id}`} {...a} />)
+                                })}
+                            </Grid>
                         </Grid>
-                    </Grid>
+                    )}
                 </Grid>
             </Grid>
 
