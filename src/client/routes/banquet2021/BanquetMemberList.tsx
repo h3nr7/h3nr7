@@ -38,11 +38,11 @@ export const BanquetMemberList:React.FC<{}> = ({}) => {
 
     return (
         <Container>
-            <BanquetHeader> {'>'} Athletes</BanquetHeader>
+            <BanquetHeader> {'>'} Athletes {standingType} standings</BanquetHeader>
             <Grid container>
                 <Grid item xs={12} sm={12} md={3} lg={2}>
                     <TeamGrid item xs={12} sm={12} md={12}>
-                        <Typography variant='h3'>Individual {standingType} standings</Typography>
+                        <Typography variant='h3'>Athletes {standingType} standings</Typography>
                         <Typography variant='h4'>{weekDisplayTxt}</Typography>
                     </TeamGrid>
                 </Grid>
