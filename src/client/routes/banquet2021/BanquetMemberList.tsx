@@ -44,6 +44,18 @@ export const BanquetMemberList:React.FC<{}> = ({}) => {
                     <TeamGrid item xs={12} sm={12} md={12}>
                         <Typography variant='h3'>Athletes {standingType} standings</Typography>
                         <Typography variant='h4'>{weekDisplayTxt}</Typography>
+                        <Typography variant='body1' style={{ paddingTop: '1rem', paddingRight: '1rem' }}>
+                            {standingType !== 'elevation' ?
+                                <SimpleLink to={`/lftc/bankuet2021/athletes?type=elevation`}>Elevation standings</SimpleLink> :
+                                <SimpleLink to={`/lftc/bankuet2021/athletes`}>Distance standings</SimpleLink>
+                            }
+                        </Typography>
+                        {standingType !== 'elevation' && (
+                            <Typography variant='body2' style={{ paddingTop: '1rem', paddingRight: '1rem' }}>
+                                Request by <SimpleLink to={`/lftc/bankuet2021/athletes/11222747`}>Peter Kun</SimpleLink>. 
+                                We can all thank him for this. 😂 
+                            </Typography>
+                        )}
                     </TeamGrid>
                 </Grid>
                 <Grid item xs={12} sm={12} md={9} lg={10}>
