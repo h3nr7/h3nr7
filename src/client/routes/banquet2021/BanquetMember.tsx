@@ -7,12 +7,12 @@ import {
     Unit, 
     MiniImg} from './Banquet2021.styles';
 import { useBanquetTeamStats, useBanquetOneTeam, useBanquetTeamStandings, useBanquetTeams } from '../../helper/banquetHooks';
-import { useParams } from 'react-router-dom';
+import { useLocation, useParams } from 'react-router-dom';
 import { calHrMinSecFromSecs, calKmFromMeters } from '../../helper/dateTimeFormat';
 import { StravaActivity } from '../../components/stravaActivity';
 import { IActivity } from 'strava-service';
 import { RestrictedRoute } from '../restricted.routes';
-import { IBanquetActivity } from '../../../shared/interfaces/banquet.interface';
+import { IBanquetActivity, IBanquetMember } from '../../../shared/interfaces/banquet.interface';
 import { dayCountdown } from './Bankquet.helper';
 
 import { BanquetHeader } from './BanquetHeader';
@@ -20,27 +20,34 @@ import { BanquetHeader } from './BanquetHeader';
 export const BanquetMember:React.FC<{}> = ({}) => {
     const { id } = useParams<{id:string}>();
     const teams = useBanquetTeams();
+    const location = useLocation();
     
     const [daysSofar, totDays, weeksSofar, totWeeks] = dayCountdown();
     const { leaderboard, teamsLeaderboard } = useBanquetTeamStandings(weeksSofar as number)
 
-    const { firstname, lastname, stravaId, profile, weekTotDistance, weekTotElevation, weekTotMovingTime } = leaderboard && leaderboard.find(m => m.stravaId === Number(id)) || {};
+    const { stravaId, profile, weekTotDistance, weekTotElevation, weekTotMovingTime } = leaderboard && leaderboard.find(m => m.stravaId === Number(id)) || {};
+    
+    
+    const athleteTeam = teams && teams.find(t => t.members.find(m => m.stravaId === Number(id)));
+    const { firstname, lastname } = (athleteTeam && athleteTeam.members) ? athleteTeam.members.find(m => m.stravaId === Number(id)) : {} as IBanquetMember;
     const fullname = firstname && lastname ? `${firstname} ${lastname}` : '';
 
-    const athleteTeam = teams && teams.find(t => t.members.find(m => m.stravaId === stravaId));
     const { name, members, _id } = athleteTeam || {};
-    const otherMembers = members && members.filter(m => m.stravaId !== stravaId);
+    const otherMembers = members && members.filter(m => m.stravaId !== Number(id));
 
     const [hours, minutes, secs] = calHrMinSecFromSecs(weekTotMovingTime);
     const showTotDistance = calKmFromMeters(weekTotDistance);
     // fix zero elevation which is possible
     const showTotElevation = weekTotElevation !== undefined ? Math.round(weekTotElevation) : undefined;
 
-    console.log(weekTotDistance, showTotDistance)
-
+    const isFromAthlete = location.pathname.includes('/athletes');
+    const teamLink = `/lftc/bankuet2021/teams/${_id}`
+    const athleteListLink = '/lftc/bankuet2021/athletes';
+    const breadcrumbLink = isFromAthlete ? athleteListLink : teamLink;
+    const breakcrumbLinkName = isFromAthlete ? 'Athletes' : name;
     return (
         <Container>
-            <BanquetHeader> {'>'} <SimpleLink to={`/lftc/bankuet2021/teams/${_id}`}>{name}</SimpleLink> {'>'} {fullname}</BanquetHeader>
+            <BanquetHeader> {'>'} <SimpleLink to={breadcrumbLink}>{breakcrumbLinkName}</SimpleLink> {'>'} {fullname}</BanquetHeader>
             <Grid container>
                 <Grid item sm={12} md={3} lg={5}>
                     <Grid container>
@@ -49,15 +56,22 @@ export const BanquetMember:React.FC<{}> = ({}) => {
                             <Typography variant='body1'>{fullname}</Typography>
                         </TeamGrid>
                         <TeamGrid item xs={12} sm={6} md={12}>
-                            <Typography variant='h4'>Team</Typography>
-                            <Typography variant='body1'>{name}</Typography>
+                            <Typography variant='h4'>
+                                Team
+                            </Typography>
+                            <Typography variant='body1'>
+                                <SimpleLink to={teamLink}>{name}</SimpleLink>
+                            </Typography>
                         </TeamGrid>
                         <MemberGrid item xs={12} sm={6} md={12}>
                             <Typography variant='h4'>Teammates</Typography>
                             { otherMembers && otherMembers.map(m => (
                                 <Typography key={`mem_${m.stravaId}`} variant='body1'>
-                                    <SimpleLink to={`/lftc/bankuet2021/members/${m.stravaId}`}>{m.firstname} {m.lastname}</SimpleLink>
-                                    </Typography>
+                                    {isFromAthlete ? 
+                                        <>{m.firstname} {m.lastname}</> : 
+                                        <SimpleLink to={`/lftc/bankuet2021/members/${m.stravaId}`}>{m.firstname} {m.lastname}</SimpleLink>
+                                    }
+                                </Typography>
                             )) }
                         </MemberGrid>
                     </Grid>

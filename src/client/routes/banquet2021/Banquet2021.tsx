@@ -77,7 +77,7 @@ export const Banquet:React.FC<{}> = () => {
                                             </Grid>
                                             <Grid item xs={8} sm={8} md={8}>
                                                 <Typography variant='body1' style={{paddingRight: '2rem'}}>
-                                                    <SimpleLink to={`/lftc/bankuet2021/members/${m.stravaId}`}>{m.firstname} {m.lastname}</SimpleLink>
+                                                    <SimpleLink to={`/lftc/bankuet2021/athletes/${m.stravaId}`}>{m.firstname} {m.lastname}</SimpleLink>
                                                 </Typography>
                                             </Grid>
                                         </Grid>
@@ -98,7 +98,7 @@ export const Banquet:React.FC<{}> = () => {
                                         <Grid item xs={1} sm={1} md={1} />
                                         <Grid item xs={8} sm={8} md={8}>
                                             <Typography variant='body1' style={{paddingRight: '2rem'}}>
-                                                <SimpleLink to={'/lftc/bankuet2021/members'}>full list of athletes</SimpleLink>
+                                                <SimpleLink to={'/lftc/bankuet2021/athletes'}>full list of athletes</SimpleLink>
                                             </Typography>
                                         </Grid>
                                     </Grid>

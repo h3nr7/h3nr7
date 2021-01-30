@@ -18,7 +18,7 @@ import { Strava } from "./strava";
 // side projects
 import { 
     Banquet2021, BanquetTeam, 
-    BanquetAdmin, BanquetMember
+    BanquetAdmin, BanquetMember, BanquetMemberList
 } from "./banquet2021";
 
 
@@ -52,7 +52,9 @@ const AppRouterComponent: React.FC<{}> = () => {
                     <Route exact path="/strava/profile" component={Strava} />
                     <Route exact path="/lftc/bankuet2021" component={Banquet2021} />
                     <Route exact path="lftc/bankuet2021/admin" component={BanquetAdmin} />
+                    <Route exact path="/lftc/bankuet2021/athletes" component={BanquetMemberList} />
                     <Route exact path="/lftc/bankuet2021/members/:id" component={BanquetMember} />
+                    <Route exact path="/lftc/bankuet2021/athletes/:id" component={BanquetMember} />
                     <Route exact path="/lftc/bankuet2021/teams/:id" component={BanquetTeam} />
                     <Route component={NotFound} />
                 </StyledAnimatedSwitch>

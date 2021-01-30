@@ -68,7 +68,7 @@ export const BanquetTeam:React.FC<{}> = () => {
 
     return (
         <Container>
-            <BanquetHeader> {'>'} Teams {'>'} {name}</BanquetHeader>
+            <BanquetHeader> {'>'} {name}</BanquetHeader>
             <Grid container>
                 <Grid item sm={12} md={3} lg={5}>
                     <Grid container>
