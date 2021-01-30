@@ -20,14 +20,21 @@ import { getQueryByName } from '../../helper/routerHooks';
 
 export const BanquetMemberList:React.FC<{}> = ({}) => {
 
-    const week = getQueryByName('week');
+    const [week, type] = getQueryByName(['week', 'type']);
+
+    const standingType = type || 'distance';
 
     const [daysSofar, totDays, weeksSofar, totWeeks] = dayCountdown();
     const curWeek = week || weeksSofar;
-    const { leaderboard, teamsLeaderboard } = useBanquetTeamStandings(curWeek as number);
+    let { leaderboard, teamsLeaderboard } = useBanquetTeamStandings(curWeek as number);
 
     const weekDisplayTxt = curWeek === weeksSofar ? 'Current week' : `Week ${curWeek}/${totWeeks}`;
 
+    switch(standingType) {
+        case 'elevation':
+            leaderboard = leaderboard && leaderboard.sort((a, b) => b.weekTotElevation - a.weekTotElevation);
+            break;
+    } 
 
     return (
         <Container>
@@ -35,7 +42,7 @@ export const BanquetMemberList:React.FC<{}> = ({}) => {
             <Grid container>
                 <Grid item xs={12} sm={12} md={3} lg={2}>
                     <TeamGrid item xs={12} sm={12} md={12}>
-                        <Typography variant='h3'>Individual standings</Typography>
+                        <Typography variant='h3'>Individual {standingType} standings</Typography>
                         <Typography variant='h4'>{weekDisplayTxt}</Typography>
                     </TeamGrid>
                 </Grid>
@@ -43,7 +50,10 @@ export const BanquetMemberList:React.FC<{}> = ({}) => {
                     <Grid container>
                     {leaderboard && leaderboard.map((m, index) => {
                         const totDistance = m.weekTotDistance ? calKmFromMeters(m.weekTotDistance) : 0;
-                        
+                        const totElevation = m.weekTotElevation ? Math.round(m.weekTotElevation) : 0;
+
+                        const displayMetric = standingType === 'elevation' ? totElevation : totDistance;
+                        const displayMetricUnit = standingType === 'elevation' ? 'm' : 'km';
                         return (
                             <Grid item key={`mem_${m.stravaId}`} xs={12} sm={11}>
                                 <Grid container>
@@ -59,9 +69,9 @@ export const BanquetMemberList:React.FC<{}> = ({}) => {
                                             </Grid>
                                             <Grid container>
                                                 <TopInfoGrid item xs={6} sm={6}>
-                                                    <Typography variant='h4'>Total distance</Typography>
+                                                    <Typography variant='h4'>Total {standingType}</Typography>
                                                     <Typography variant='h3'>
-                                                        {totDistance}<Unit>km</Unit>
+                                                        {displayMetric}<Unit>{displayMetricUnit}</Unit>
                                                     </Typography>
                                                 </TopInfoGrid>
                                                 <Grid item xs={6} sm={3} md={2} style={{ textAlign: 'right' }}>
